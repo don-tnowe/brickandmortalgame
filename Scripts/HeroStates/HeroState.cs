@@ -5,25 +5,25 @@ namespace BrickAndMortal.Scripts.HeroStates
 {
     public abstract class HeroState
     {
-        public Hero HeroRef;
+        public Hero Hero;
 
         public HeroState(Hero hero)
         {
-            HeroRef = hero;
+            Hero = hero;
         }
 
         public virtual void MoveBody(float delta)
         {
-            HeroRef.LastVelocity = new Vector2(HeroRef.VelocityX, HeroRef.VelocityY);
-            HeroRef.VelocityY += delta * (
-                            HeroRef.VelocityY < 0 ?
+            Hero.LastVelocity = new Vector2(Hero.VelocityX, Hero.VelocityY);
+            Hero.VelocityY += delta * (
+                            Hero.VelocityY < 0 ?
                             HeroParameters.GravityJump : HeroParameters.GravityFall
                         );
             
-            var NewVelocity = HeroRef.MoveAndSlide(new Vector2(HeroRef.VelocityX, HeroRef.VelocityY), Vector2.Up);
-            HeroRef.VelocityY = NewVelocity.y;
-            if (HeroRef.VelocityX != 0)
-                HeroRef.VelocityXSign = Math.Sign(HeroRef.VelocityX);
+            var NewVelocity = Hero.MoveAndSlide(new Vector2(Hero.VelocityX, Hero.VelocityY), Vector2.Up);
+            Hero.VelocityY = NewVelocity.y;
+            if (Hero.VelocityX != 0)
+                Hero.VelocityXSign = Math.Sign(Hero.LastVelocity.x);
         }
 
         public virtual void ExitState() { }

@@ -10,21 +10,21 @@ namespace BrickAndMortal.Scripts.HeroStates
         {
             base.MoveBody(delta);
 
-            if (HeroRef.IsOnFloor())
-                HeroRef.SwitchState(Hero.States.Ground);
-            if (HeroRef.IsOnWall())
-                HeroRef.SwitchState(Hero.States.Wall);
-            if (HeroRef.InputMoveDirection != 0)
-                if (HeroRef.VelocityX * HeroRef.InputMoveDirection < HeroParameters.MaxSpeed)
-                    HeroRef.VelocityX += HeroParameters.AccelAir * HeroRef.InputMoveDirection * delta;
-            if (HeroRef.VelocityY > HeroParameters.MaxFall)
-                HeroRef.VelocityY = HeroParameters.MaxFall;
+            if (Hero.IsOnFloor())
+                Hero.SwitchState(Hero.States.Ground);
+            if (Hero.IsOnWall())
+                Hero.SwitchState(Hero.States.Wall);
+            if (Hero.InputMoveDirection != 0)
+                if (Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
+                    Hero.VelocityX += HeroParameters.AccelAir * Hero.InputMoveDirection * delta;
+            if (Hero.VelocityY > HeroParameters.MaxFall)
+                Hero.VelocityY = HeroParameters.MaxFall;
         }
 
         public override void InputJump(bool pressed)
         {
-            if (!pressed && HeroRef.VelocityY < HeroParameters.JumpInterrupted)
-                HeroRef.VelocityY = HeroParameters.JumpInterrupted;
+            if (!pressed && Hero.VelocityY < HeroParameters.JumpInterrupted)
+                Hero.VelocityY = HeroParameters.JumpInterrupted;
         }
     }
 }
