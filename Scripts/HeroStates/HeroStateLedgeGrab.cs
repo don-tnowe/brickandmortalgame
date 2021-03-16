@@ -13,6 +13,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			_wallDirection = Hero.VelocityXSign;
 			Hero.NodeRayLedgeGrabV.Enabled = true;
+			Hero.NodeAnim.Play("LedgeGrabPre");
 		}
 
 		public override void MoveBody(float delta)
@@ -27,6 +28,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 			{
 				Hero.GlobalPosition = new Vector2(Hero.Position.x, Hero.NodeRayLedgeGrabV.GetCollisionPoint().y + 9);
 				_grabbed = true;
+				Hero.NodeAnim.Play("LedgeGrab");
 			}
 		}
 
@@ -34,9 +36,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			if (_wallDirection == -Math.Sign(direction))
             {
-				Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
-				Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
-				Hero.NodeTimerCoyote.Start();
+				base.InputMove(direction);
 				Hero.SwitchState(Hero.States.Wall);
 			}
 		}

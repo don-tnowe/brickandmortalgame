@@ -17,8 +17,13 @@ namespace BrickAndMortal.Scripts.HeroStates
             if (Hero.InputMoveDirection != 0)
                 if (Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
                     Hero.VelocityX += HeroParameters.AccelAir * Hero.InputMoveDirection * delta;
-            if (Hero.VelocityY > HeroParameters.MaxFall)
-                Hero.VelocityY = HeroParameters.MaxFall;
+            if (Hero.VelocityY > 0)
+            {
+                if (Hero.VelocityY > HeroParameters.MaxFall)
+                    Hero.VelocityY = HeroParameters.MaxFall;
+                if (Hero.LastVelocity.y <= 0)
+                    Hero.NodeAnim.Play("Fall");
+            }
         }
 
         public override void InputJump(bool pressed)

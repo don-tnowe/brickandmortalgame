@@ -21,8 +21,9 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (
 					OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < Hero.InputJumpStart
 					&& Hero.VelocityY >= HeroParameters.JumpInterrupted
-				)
+                )
 				_jumpBuffered = true;
+			Hero.NodeAnim.Play("Wall");
 		}
 
 
@@ -42,9 +43,12 @@ namespace BrickAndMortal.Scripts.HeroStates
 				if (!Hero.IsOnWall())
 				{
 					Hero.MoveAndSlide(new Vector2(-Hero.VelocityX, Hero.VelocityY), Vector2.Up);
-					if (Hero.InputMoveDirection == 0)
-						Hero.VelocityX = _wallDirection;
+					Hero.VelocityX = _wallDirection;
 					Hero.SwitchState(Hero.States.Air);
+					if (Hero.VelocityY < 0)
+						Hero.NodeAnim.Play("Jump");
+					else
+						Hero.NodeAnim.Play("Fall");
 					return;
 				}
 				CheckGrabRaycast();
@@ -78,6 +82,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 				Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
 				Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
 				Hero.NodeTimerCoyote.Start();
+				Hero.NodeAnim.Play("Fall");
 			}
 		}
 
@@ -91,6 +96,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 				Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
 				Hero.VelocityY = HeroParameters.JumpWall;
 				Hero.SwitchState(Hero.States.Air);
+				Hero.NodeAnim.Play("Jump");
 			}
 			else if (Hero.VelocityY < HeroParameters.JumpInterrupted)
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
