@@ -17,11 +17,11 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (Hero.VelocityY > 0)
 				Hero.VelocityY *= HeroParameters.WallFrictionInstantMult;
 			if (_wallDirection == -Math.Sign(Hero.InputMoveDirection))
-				InputMove(-_wallDirection);
+				Hero.CallDeferred("InputMove", -_wallDirection);
 			if (
 					OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < Hero.InputJumpStart
 					&& Hero.VelocityY >= HeroParameters.JumpInterrupted
-                )
+				)
 				_jumpBuffered = true;
 			Hero.NodeAnim.Play("Wall");
 		}
@@ -39,7 +39,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (Hero.NodeTimerCoyote.TimeLeft == 0)
 			{
 				if (Hero.VelocityY > HeroParameters.MaxFallWall)
-                                    Hero.VelocityY = HeroParameters.MaxFallWall;
+					Hero.VelocityY = HeroParameters.MaxFallWall;
 				if (!Hero.IsOnWall())
 				{
 					Hero.MoveAndSlide(new Vector2(-Hero.VelocityX, Hero.VelocityY), Vector2.Up);
