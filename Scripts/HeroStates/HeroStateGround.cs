@@ -80,5 +80,10 @@ namespace BrickAndMortal.Scripts.HeroStates
                 Hero.NodeAnim.Play("Jump");
             }
         }
+
+        public override void InputAttack()
+        {
+            Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;
+        }
     }
 }

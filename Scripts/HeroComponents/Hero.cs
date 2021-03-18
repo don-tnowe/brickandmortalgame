@@ -37,6 +37,7 @@ public class Hero : KinematicBody2D
 	public RayCast2D NodeRayGround;
 	public RayCast2D NodeRayLedgeGrab;
 	public RayCast2D NodeRayLedgeGrabV;
+	public RayCast2D NodeRayEnemyDetector;
 	public Camera2D NodeCam;
 	public Area2D NodeWeapon;
 	public AnimationPlayer NodeAnim;
@@ -52,6 +53,7 @@ public class Hero : KinematicBody2D
 		NodeRayGround = GetNode<RayCast2D>("FlipH/RayGround");
 		NodeRayLedgeGrab = GetNode<RayCast2D>("FlipH/RayLedgeGrab");
 		NodeRayLedgeGrabV = GetNode<RayCast2D>("FlipH/RayLedgeGrabV");
+		NodeRayEnemyDetector = GetNode<RayCast2D>("FlipH/RayEnemyDetector");
 		NodeCam = GetNode<Camera2D>("Cam");
 		NodeWeapon = GetNode<Area2D>("Weapon");
 		NodeAnim = GetNode<AnimationPlayer>("Anim");
@@ -137,12 +139,14 @@ public class Hero : KinematicBody2D
 		InputAttackStart = pressed ? OS.GetTicksMsec() : 0;
 		if (pressed && NodeTimerAttack.TimeLeft == 0)
 		{
-			_state.InputAttack();
 			NodeTimerAttack.Start();
-			if (InputMoveDirection == 0)
+			if (NodeRayEnemyDetector.IsColliding())
+				NodeWeapon.Scale = new Vector2(Math.Sign(NodeRayEnemyDetector.GetCollisionPoint().x - GlobalPosition.x), 1);
+			else if (InputMoveDirection == 0)
 				NodeWeapon.Scale = new Vector2(NodeFlipH.Scale.x, 1);
 			else
 				NodeWeapon.Scale = new Vector2(InputMoveDirection, 1);
+			_state.InputAttack();
 			NodeAnimWeapon.Stop();
 			NodeAnimWeapon.Play("Swing");
 		}
@@ -160,7 +164,7 @@ public class Hero : KinematicBody2D
 	
 	private void AttackReady()
 	{
-		if (InputAttackStart > OS.GetTicksMsec() - (NodeTimerAttack.WaitTime * 1000))
+		if (InputAttackStart > OS.GetTicksMsec() - (NodeTimerAttack.WaitTime * 800))
 			InputAttack(true);
 	}
 }

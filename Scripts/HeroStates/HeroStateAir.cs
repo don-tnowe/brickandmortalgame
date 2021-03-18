@@ -31,5 +31,9 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (!pressed && Hero.VelocityY < HeroParameters.JumpInterrupted)
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
+		public override void InputAttack()
+		{
+			Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;
+		}
 	}
 }
