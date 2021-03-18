@@ -25,10 +25,9 @@ namespace BrickAndMortal.Scripts.HeroStates
                 Hero.NodeTimerCoyote.Start();
                 Hero.NodeAnim.Play("Fall");
             }
-            if (Hero.InputMoveDirection != 0)
+            if (Hero.InputMoveDirection != 0 && Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
             {
-                if (Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
-                    Hero.VelocityX += HeroParameters.AccelGround * Hero.InputMoveDirection * delta;
+                Hero.VelocityX += HeroParameters.AccelGround * Hero.InputMoveDirection * delta;
             }
             else if (Hero.NodeTimerCoyote.TimeLeft == 0)
             {

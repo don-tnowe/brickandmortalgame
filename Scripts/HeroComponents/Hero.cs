@@ -14,7 +14,10 @@ public class Hero : KinematicBody2D
 		AttackGround,
 		Hurt
 	}
-
+	
+	[Export] 
+	public bool IsInDungeon = true;
+	
 	public float VelocityX = 0;
 	public float VelocityY = 0;
 	public Vector2 LastVelocity = new Vector2();
@@ -25,6 +28,7 @@ public class Hero : KinematicBody2D
 	public uint InputJumpStart = 0;
 	public uint InputAttackStart = 0;
 
+	private BrickAndMortal.Scripts.Combat.CombatActor _combat;
 	private HeroState _state;
 
 	public CollisionShape2D NodeShape;
@@ -34,8 +38,11 @@ public class Hero : KinematicBody2D
 	public RayCast2D NodeRayLedgeGrab;
 	public RayCast2D NodeRayLedgeGrabV;
 	public Camera2D NodeCam;
+	public Area2D NodeWeapon;
 	public AnimationPlayer NodeAnim;
+	public AnimationPlayer NodeAnimWeapon;
 	public Timer NodeTimerCoyote;
+	public Timer NodeTimerAttack;
 
 	private void InitializeNodeReferences()
 	{
@@ -46,8 +53,11 @@ public class Hero : KinematicBody2D
 		NodeRayLedgeGrab = GetNode<RayCast2D>("FlipH/RayLedgeGrab");
 		NodeRayLedgeGrabV = GetNode<RayCast2D>("FlipH/RayLedgeGrabV");
 		NodeCam = GetNode<Camera2D>("Cam");
+		NodeWeapon = GetNode<Area2D>("Weapon");
 		NodeAnim = GetNode<AnimationPlayer>("Anim");
+		NodeAnimWeapon = GetNode<AnimationPlayer>("Weapon/AnimWeapon");
 		NodeTimerCoyote = GetNode<Timer>("TimerCoyote");
+		NodeTimerAttack = GetNode<Timer>("TimerAttack");
 	}
 	public override void _Ready()
 	{
@@ -60,6 +70,27 @@ public class Hero : KinematicBody2D
 		_state.MoveBody(delta);
 	}
 
+	public override void _Input(InputEvent @event) 
+	{
+		if (@event is InputEventMouse)
+			return;
+		if (@event is InputEventKey && @event.IsEcho())
+			return;
+		if (@event.IsAction("ui_left") || @event.IsAction("ui_right"))
+		{
+			var direction = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+			InputMove(direction);
+		}
+		if (@event.IsAction("jump"))
+		{
+			InputJump(@event.IsPressed());
+		}
+		if (@event.IsAction("attack"))
+		{
+			InputAttack(@event.IsPressed());
+		}
+	}
+	
 	public HeroState SwitchState(States state)
 	{
 		_state?.ExitState();
@@ -90,21 +121,31 @@ public class Hero : KinematicBody2D
 
 	public void InputMove(float direction)
 	{
-		_state.InputMove(direction);
+		if (!(direction == 0 && InputMoveDirection == 0))
+			_state.InputMove(direction);
 		InputMoveDirection = direction;
 	}
 
 	public void InputJump(bool pressed)
 	{
-		_state.InputJump(pressed);
 		InputJumpStart = pressed ? OS.GetTicksMsec() : 0;
+		_state.InputJump(pressed);
 	}
 
 	public void InputAttack(bool pressed)
 	{
-		if (pressed)
-			_state.InputAttack();
 		InputAttackStart = pressed ? OS.GetTicksMsec() : 0;
+		if (pressed && NodeTimerAttack.TimeLeft == 0)
+		{
+			_state.InputAttack();
+			NodeTimerAttack.Start();
+			if (InputMoveDirection == 0)
+				NodeWeapon.Scale = new Vector2(NodeFlipH.Scale.x, 1);
+			else
+				NodeWeapon.Scale = new Vector2(InputMoveDirection, 1);
+			NodeAnimWeapon.Stop();
+			NodeAnimWeapon.Play("Swing");
+		}
 	}
 
 	public void Hurt()
@@ -116,7 +157,15 @@ public class Hero : KinematicBody2D
 	{
 		SwitchState(States.Air);
 	}
+	
+	private void AttackReady()
+	{
+		if (InputAttackStart > OS.GetTicksMsec() - (NodeTimerAttack.WaitTime * 1000))
+			InputAttack(true);
+	}
 }
+
+
 
 
 
