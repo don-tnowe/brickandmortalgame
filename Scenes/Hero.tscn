@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
@@ -75,7 +75,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 16 ]
+"values": [ 18 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:scale")
@@ -88,6 +88,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 1.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 5.0 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -112,10 +124,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 4, 4.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1, 0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -156,6 +168,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0, 9.5 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="Animation" id=7]
 length = 0.3
@@ -169,7 +193,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 26 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:scale")
@@ -184,28 +208,42 @@ tracks/1/keys = {
 "values": [ Vector2( 1.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Anim:current_animation")
+tracks/2/path = NodePath("FlipH/Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 2,
-"values": [ "Idle" ]
+"update": 0,
+"values": [ Vector2( 0, 9.5 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("FlipH/Sprite:position")
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "AnimationAction"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 9.5 ) ]
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -219,7 +257,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 18.5 ), Vector2( 0, 9.5 ) ]
+"values": [ Vector2( -1.5, 18.5 ), Vector2( -5, 9.5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:scale")
@@ -233,6 +271,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0.5, 1.5 ), Vector2( 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 34 ]
+}
 
 [sub_resource type="Animation" id=9]
 tracks/0/type = "value"
@@ -245,7 +295,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 9.5 ) ]
+"values": [ Vector2( -5, 9.5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:scale")
@@ -259,10 +309,23 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 34 ]
+}
 
 [sub_resource type="Animation" id=10]
 length = 0.8
 loop = true
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -270,10 +333,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 8 ]
+"values": [ 11, 8, 9, 10 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:scale")
@@ -282,10 +345,34 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 9.5 ), Vector2( 0, 8.5 ), Vector2( 0, 9.5 ), Vector2( 0, 8.5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 0.5 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -299,7 +386,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 8 ]
+"values": [ 10 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:scale")
@@ -321,9 +408,21 @@ tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 3.03143 ),
 "update": 2,
 "values": [ "Run" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -339,9 +438,85 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0.9, 1.1 ), Vector2( 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("FlipH/Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 24 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 9.5 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "RunTurn"
+tracks/0/type = "value"
+tracks/0/path = NodePath("FlipH/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 25 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FlipH/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.258816, 1 ),
+"update": 0,
+"values": [ Vector2( -1.2, 0.8 ), Vector2( -1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Anim:current_animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "Run" ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
 tracks/0/interp = 1
@@ -373,10 +548,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8 ]
+"values": [ 32, 33 ]
 }
 
 [node name="Hero" type="KinematicBody2D"]
@@ -392,11 +567,12 @@ position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
 position = Vector2( 0, 9.5 )
+scale = Vector2( -1.2, 0.8 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 vframes = 8
 hframes = 8
-frame = 16
+frame = 25
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
 position = Vector2( 1, 8.5 )
@@ -415,7 +591,7 @@ cast_to = Vector2( 0, 12 )
 collision_mask = 2
 
 [node name="RayEnemyDetector" type="RayCast2D" parent="FlipH"]
-position = Vector2( 22, -1.5 )
+position = Vector2( 22, 2.5 )
 enabled = true
 cast_to = Vector2( -44, 0 )
 collision_mask = 8
@@ -457,6 +633,7 @@ anims/LedgeGrabPre = SubResource( 9 )
 anims/Run = SubResource( 10 )
 anims/RunStart = SubResource( 11 )
 anims/RunStop = SubResource( 12 )
+anims/RunTurn = SubResource( 14 )
 anims/Wall = SubResource( 13 )
 
 [node name="TimerCoyote" type="Timer" parent="."]

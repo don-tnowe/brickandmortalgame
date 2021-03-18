@@ -151,7 +151,12 @@ public class Hero : KinematicBody2D
 			NodeAnimWeapon.Play("Swing");
 		}
 	}
-
+	
+	public void AnimationAction(int action)
+	{
+		_state.AnimationAction(action);
+	}
+	
 	public void Hurt()
 	{
 		_state = new HeroStateHurt(this);

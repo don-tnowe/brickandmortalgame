@@ -22,7 +22,10 @@ namespace BrickAndMortal.Scripts.HeroStates
 				if (Hero.VelocityY > HeroParameters.MaxFall)
 					Hero.VelocityY = HeroParameters.MaxFall;
 				if (Hero.LastVelocity.y <= 0)
+				{
+					Hero.NodeAnim.Stop();
 					Hero.NodeAnim.Play("Fall");
+				}
 			}
 		}
 

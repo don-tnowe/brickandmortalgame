@@ -82,7 +82,10 @@ namespace BrickAndMortal.Scripts.HeroStates
 				Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
 				Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
 				Hero.NodeTimerCoyote.Start();
-				Hero.NodeAnim.Play("Fall");
+				if (Hero.VelocityY < 0)
+					Hero.NodeAnim.Play("Jump");
+				else
+					Hero.NodeAnim.Play("Fall");
 			}
 		}
 
