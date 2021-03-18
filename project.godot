@@ -28,6 +28,10 @@ window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
+[editor]
+
+script_templates_search_path="res://Scripts"
+
 [importer_defaults]
 
 texture={
@@ -116,4 +120,5 @@ pause={
 [rendering]
 
 quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.184314, 0.192157, 0.258824, 1 )
 environment/default_environment="res://default_env.tres"

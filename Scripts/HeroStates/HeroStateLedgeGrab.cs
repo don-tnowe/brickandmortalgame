@@ -35,9 +35,9 @@ namespace BrickAndMortal.Scripts.HeroStates
 		public override void InputMove(float direction)
 		{
 			if (_wallDirection == -Math.Sign(direction))
-            {
+			{
+				_grabbed = false;
 				base.InputMove(direction);
-				Hero.SwitchState(Hero.States.Wall);
 			}
 		}
 
@@ -50,7 +50,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 				else
 				{
 					Hero.VelocityY = HeroParameters.JumpWall;
-					Hero.SwitchState(Hero.States.Air);
+					_grabbed = false;
+					Hero.NodeAnim.Play("LedgeGrabPre");
 				}
 			else if (Hero.VelocityY < HeroParameters.JumpInterrupted)
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
