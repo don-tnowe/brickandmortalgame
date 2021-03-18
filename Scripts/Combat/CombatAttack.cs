@@ -2,7 +2,7 @@
 
 namespace BrickAndMortal.Scripts.Combat
 {
-    public struct CombatAttack
+    public class CombatAttack
     {
         public enum Elements 
         {

@@ -31,12 +31,10 @@ position = Vector2( 452, -38 )
 position = Vector2( 85.4225, 81.4567 )
 
 [node name="Preload" type="Node2D" parent="."]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 
 [node name="Particles2D" parent="Preload" instance=ExtResource( 4 )]
-position = Vector2( -536, -394 )
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-autoplay = true
 bus = "BGM"

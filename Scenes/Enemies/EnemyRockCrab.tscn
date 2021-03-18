@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 6 )
+extents = Vector2( 11, 8 )
 
 [node name="EnemyRockCrab" type="KinematicBody2D"]
 collision_layer = 8
@@ -16,6 +16,7 @@ _hitpoints = 20
 ScenePtclHit = ExtResource( 4 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2( -1, -2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
