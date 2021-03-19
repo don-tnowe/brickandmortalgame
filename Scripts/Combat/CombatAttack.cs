@@ -13,11 +13,8 @@ namespace BrickAndMortal.Scripts.Combat
             Ghost
         }
 
-        public CombatAttack(int[] damage)
-        {
-            Damage = damage;
-        }
+        public CombatAttack() { }
 
-        public int[] Damage;
+        public int[] Damage = new int[5] { 4, 0, 0, 0, 0 };
     }
 }

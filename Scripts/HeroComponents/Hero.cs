@@ -23,6 +23,7 @@ public class Hero : KinematicBody2D
 	public Vector2 LastVelocity = new Vector2();
 	public int VelocityXSign = 1;
 	public States CurState;
+	public bool CanAttack = true;
 
 	public float InputMoveDirection = 0;
 	public uint InputJumpStart = 0;
@@ -65,6 +66,12 @@ public class Hero : KinematicBody2D
 	{
 		InitializeNodeReferences();
 		SwitchState(States.Air);
+		
+		_combat = new BrickAndMortal.Scripts.Combat.CombatActor(140, new float[] { 4, 0, 0, 0, 0 }, new float[] { 1, 1, 1, 1, 1});
+		var heartHUD = GetNode("/root/Node/UI/HUDHearts");
+		_combat.Connect("HealthSetMax", heartHUD, "ResetHearts");
+		_combat.Connect("HealthSet", heartHUD, "UpdateHearts");
+		_combat.UpdateMaxHp();
 	}
 
 	public override void _Process(float delta)
@@ -97,6 +104,7 @@ public class Hero : KinematicBody2D
 	{
 		_state?.ExitState();
 		CurState = state;
+		//GD.Print(state);
 		switch (state)
 		{
 			case States.Immobile:
@@ -137,8 +145,9 @@ public class Hero : KinematicBody2D
 	public void InputAttack(bool pressed)
 	{
 		InputAttackStart = pressed ? OS.GetTicksMsec() : 0;
-		if (pressed && NodeTimerAttack.TimeLeft == 0)
+		if (pressed && CanAttack)
 		{
+			CanAttack = false;
 			NodeTimerAttack.Start();
 			if (NodeRayEnemyDetector.IsColliding())
 				NodeWeapon.Scale = new Vector2(Math.Sign(NodeRayEnemyDetector.GetCollisionPoint().x - GlobalPosition.x), 1);
@@ -157,9 +166,10 @@ public class Hero : KinematicBody2D
 		_state.AnimationAction(action);
 	}
 	
-	public void Hurt()
+	private void HitByHazard(HazardBase hazard)
 	{
 		_state = new HeroStateHurt(this);
+		_combat.Hurt(hazard.attack);
 	}
 	
 	private void CoyoteFall()
@@ -169,10 +179,13 @@ public class Hero : KinematicBody2D
 	
 	private void AttackReady()
 	{
+		CanAttack = true;
 		if (InputAttackStart > OS.GetTicksMsec() - (NodeTimerAttack.WaitTime * 800))
 			InputAttack(true);
 	}
 }
+
+
 
 
 

@@ -43,7 +43,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 					if (Hero.VelocityX > 0)
 						BrakeStop();
 				}
-				if (!Hero.NodeRayGround.IsColliding())
+				if (Hero.InputMoveDirection == 0 && !Hero.NodeRayGround.IsColliding())
 					BrakeStop();
 			}
 		}

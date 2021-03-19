@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Combat/HeroAttack.cs" type="Script" id=3]
 [ext_resource path="res://Graphics/Characters/HeroSlash.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/HeroComponents/HazardSensor.cs" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 9.5 )
@@ -76,7 +77,11 @@ tracks/4/keys = {
 "values": [ 26.0, 30.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -114,7 +119,74 @@ tracks/2/keys = {
 "values": [ 0.0, 5.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
+resource_name = "Hurt"
+length = 0.5
+step = 0.04
+tracks/0/type = "value"
+tracks/0/path = NodePath("FlipH/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 1.8 ), Vector2( 1.3, 0.75 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FlipH/Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.16 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 56, 57 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 21.5 ), Vector2( 0, 8.5 ), Vector2( 0, 9.5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FlipH/Sprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.12, 0.24, 0.36, 0.48 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 10.0, -8.0, 6.0, -4.0, 0.0 ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.48 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "AnimationAction"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
 length = 6.0
 loop = true
 tracks/0/type = "value"
@@ -142,7 +214,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
@@ -193,7 +265,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
@@ -258,7 +330,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:position")
 tracks/0/interp = 1
@@ -296,8 +368,7 @@ tracks/2/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "LedgeGrabPre"
+[sub_resource type="Animation" id=11]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -337,7 +408,7 @@ tracks/2/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 length = 0.8
 loop = true
 step = 0.05
@@ -390,7 +461,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -440,7 +511,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=14]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
 tracks/0/interp = 1
@@ -478,8 +549,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 9.5 ) ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "RunTurn"
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -529,7 +599,7 @@ tracks/3/keys = {
 "values": [ "Run" ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=16]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -581,12 +651,13 @@ shape = SubResource( 1 )
 position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
-position = Vector2( -5, 9.5 )
+position = Vector2( 0, 9.5 )
+rotation = 0.0465421
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 vframes = 8
 hframes = 8
-frame = 34
+frame = 57
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
 position = Vector2( 1, 8.5 )
@@ -632,31 +703,48 @@ frame = 3
 [node name="AnimWeapon" type="AnimationPlayer" parent="Weapon"]
 anims/Swing = SubResource( 3 )
 
+[node name="HazardSensor" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 5 )
+
+[node name="Shape" type="CollisionShape2D" parent="HazardSensor"]
+position = Vector2( 0, 2 )
+shape = SubResource( 4 )
+
+[node name="TimerInvuln" type="Timer" parent="HazardSensor"]
+wait_time = 1.5
+one_shot = true
+
 [node name="Cam" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
 smoothing_speed = 10.0
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/Fall = SubResource( 4 )
-anims/Idle = SubResource( 5 )
-anims/Jump = SubResource( 6 )
-anims/Land = SubResource( 7 )
-anims/LedgeGrab = SubResource( 8 )
-anims/LedgeGrabPre = SubResource( 15 )
-anims/Run = SubResource( 10 )
-anims/RunStart = SubResource( 11 )
-anims/RunStop = SubResource( 12 )
-anims/RunTurn = SubResource( 13 )
-anims/Wall = SubResource( 14 )
+anims/Fall = SubResource( 5 )
+anims/Hurt = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+anims/Jump = SubResource( 8 )
+anims/Land = SubResource( 9 )
+anims/LedgeGrab = SubResource( 10 )
+anims/LedgeGrabPre = SubResource( 11 )
+anims/Run = SubResource( 12 )
+anims/RunStart = SubResource( 13 )
+anims/RunStop = SubResource( 14 )
+anims/RunTurn = SubResource( 15 )
+anims/Wall = SubResource( 16 )
 
 [node name="TimerCoyote" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.2
 one_shot = true
 
 [node name="TimerAttack" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 [connection signal="body_entered" from="Weapon" to="Weapon" method="HitEnemy"]
+[connection signal="area_entered" from="HazardSensor" to="HazardSensor" method="HitByHazard"]
+[connection signal="area_entered" from="HazardSensor" to="." method="HitByHazard"]
+[connection signal="timeout" from="HazardSensor/TimerInvuln" to="HazardSensor" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]
 [connection signal="timeout" from="TimerAttack" to="." method="AttackReady"]

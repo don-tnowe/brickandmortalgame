@@ -6,7 +6,7 @@ public class EnemyBase : KinematicBody2D
 	[Export]
 	private readonly int _hitpoints = 12;
 	[Export]
-	private readonly float[] _attack = new float[5] { 3, 0, 0, 0, 0 };
+	private readonly float[] _attack = new float[5] { 0, 0, 0, 0, 0 };
 	[Export]
 	private readonly float[] _defense = new float[5] { 1, 1, 1, 1, 1 };
 	[Export]

@@ -11,7 +11,10 @@ namespace BrickAndMortal.Scripts.Combat
 
 		public HeroAttack()
 		{
-			Attack = new CombatAttack(Damage);
+			Attack = new CombatAttack()
+			{
+				Damage = Damage
+			};
 		}
 
 		public virtual void HitEnemy(EnemyBase enemy)
@@ -21,7 +24,4 @@ namespace BrickAndMortal.Scripts.Combat
 
 	}
 }
-
-
-
 
