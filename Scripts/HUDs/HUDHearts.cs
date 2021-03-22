@@ -46,8 +46,13 @@ public class HUDHearts : Control
 				_heartRows[_displayedMax / _heartsPerRow].AddChild(newHeart);
 				_displayedMax++;
 			}
-		UpdateHearts(maxhealth);
+		CallDeferred("AlignBigHeart");
 	}
+
+	public void UpdateHearts()
+    {
+		UpdateHearts(_displayedFilled * _heartsPerRow + _displayedFraction);
+    }
 
 	public void UpdateHearts(int health)
 	{
@@ -62,19 +67,17 @@ public class HUDHearts : Control
 		for (int i = 0; i < _displayedMax; ++i)
 			_heartsSmall[i].GetChild<CanvasItem>(0).Visible = hearts > i;
 
-		if (_displayedFilled > 1)
-			_heartsSmall[_displayedFilled].RectMinSize = new Vector2(0, 0);
+		_heartsSmall[_displayedFilled].RectMinSize = new Vector2(0, 0);
 
 		TextureRect lastHeart = _heartsSmall[hearts];
 		lastHeart.RectMinSize = _heartBig.RectSize;
-		CallDeferred("AlignBigHeart", lastHeart);
+		_heartBig.RectGlobalPosition = lastHeart.RectGlobalPosition;
 
 		_displayedFilled = hearts;
 	}
 
-	private void AlignBigHeart(Control to)
+	public void AlignBigHeart()
 	{
-		_heartBig.RectGlobalPosition = to.RectGlobalPosition;
-
+		_heartBig.RectGlobalPosition = _heartsSmall[_displayedFilled].RectGlobalPosition;
 	}
 }

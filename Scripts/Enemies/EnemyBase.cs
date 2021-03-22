@@ -4,19 +4,14 @@ using BrickAndMortal.Scripts.Combat;
 public class EnemyBase : KinematicBody2D
 {
 	[Export]
-	private readonly int _hitpoints = 12;
-	[Export]
-	private readonly float[] _attack = new float[5] { 0, 0, 0, 0, 0 };
-	[Export]
-	private readonly float[] _defense = new float[5] { 1, 1, 1, 1, 1 };
-	[Export]
 	private readonly PackedScene ScenePtclHit;
 
+	[Signal]
+	private delegate void Defeated();
+	
 	private Tween _nodeTween;
 	private Sprite _nodeSprite;
 	private CollisionShape2D _nodeShape;
-
-	private CombatActor _combat;
 
 	public int CurState = 0;
 	public bool AttackInvuln = false;
@@ -25,14 +20,13 @@ public class EnemyBase : KinematicBody2D
 	public float PhysVelocityX = 0;
 	public float PhysVelocityY = 0;
 	public float PhysGravity = BrickAndMortal.Scripts.HeroParameters.GravityJump; 
+	private int _lastHitDir = 1;
 
 	public override void _Ready()
 	{
-		_combat = new CombatActor(_hitpoints, _attack, _defense);
 		_nodeTween = GetNode<Tween>("Tween");
 		_nodeSprite = GetNode<Sprite>("Sprite");
 		_nodeShape = GetNode<CollisionShape2D>("Shape");
-		_combat.Connect("Defeated", this, "Defeated");
 	}
 
 	public override void _Process(float delta)
@@ -49,12 +43,11 @@ public class EnemyBase : KinematicBody2D
 		PhysVelocityY = newVec.y;
 	}
 
-	public void Hurt(HeroAttack byHeroAttack)
+	private void Hurt(CombatAttack byAttack)
 	{
+		_lastHitDir = (GlobalPosition.x > byAttack.GlobalPosition.x) ? -1 : 1;
 		if (!AttackInvuln)
 		{
-			_combat.Hurt(byHeroAttack.Attack);
-
 			var ptcl = (Particles2D)ScenePtclHit.Instance();
 			GetParent().AddChild(ptcl);
 			_nodeTween.InterpolateProperty(
@@ -64,17 +57,19 @@ public class EnemyBase : KinematicBody2D
 				);
 			_nodeTween.Start();
 			ptcl.GlobalPosition = GlobalPosition;
-			if (GlobalPosition.x < byHeroAttack.GlobalPosition.x)
-				ptcl.Scale = new Vector2(-1, 1);
+			ptcl.Scale = new Vector2(_lastHitDir, 1);
 		}
 	}
 
-	public void Defeated()
+	public void Vanquished()
 	{
 		CurState = -1;
+		EmitSignal("Defeated");
+
 		PhysicsEnabled = true;
 		PhysVelocityY = -PhysGravity * 0.25f;
-		Modulate = new Color(0, 0, 0, 0.8f);
+		PhysVelocityX = -_lastHitDir * PhysGravity * 0.15f;
+		Modulate = new Color(0.2f, 0.2f, 0.2f, 0.8f);
 		_nodeShape.SetDeferred("disabled", true);
 		_nodeTween.StopAll();
 		_nodeTween.InterpolateCallback(
@@ -82,9 +77,7 @@ public class EnemyBase : KinematicBody2D
 			);
 		_nodeTween.Start();
 	}
-/*
-	new private void QueueFree()
-	{
-		base.QueueFree();
-	}*/
 }
+
+
+

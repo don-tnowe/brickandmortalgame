@@ -1,7 +1,8 @@
 using Godot;
+using BrickAndMortal.Scripts.Combat;
 using System;
 
-public class HazardSensor : Area2D
+class HeroHazardSensor : CombatActor
 {
 	private CollisionShape2D _nodeShape;
 	private Timer _nodeTimerInvuln;
@@ -12,8 +13,9 @@ public class HazardSensor : Area2D
 		_nodeTimerInvuln = GetNode<Timer>("TimerInvuln");
 	}
 	
-	private void HitByHazard(Area2D hazard)
+	public override void Hurt(CombatAttack attack)
 	{
+		base.Hurt(attack);
 		_nodeShape.SetDeferred("disabled", true);
 		_nodeTimerInvuln.Start();
 	}
@@ -23,6 +25,8 @@ public class HazardSensor : Area2D
 		_nodeShape.Disabled = false;
 	}
 }
+
+
 
 
 

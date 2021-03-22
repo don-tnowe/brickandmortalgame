@@ -1,4 +1,5 @@
 using BrickAndMortal.Scripts.HeroStates;
+using BrickAndMortal.Scripts.Combat;
 using Godot;
 using System;
 
@@ -29,7 +30,6 @@ public class Hero : KinematicBody2D
 	public uint InputJumpStart = 0;
 	public uint InputAttackStart = 0;
 
-	private BrickAndMortal.Scripts.Combat.CombatActor _combat;
 	private HeroState _state;
 
 	public CollisionShape2D NodeShape;
@@ -40,7 +40,8 @@ public class Hero : KinematicBody2D
 	public RayCast2D NodeRayLedgeGrabV;
 	public RayCast2D NodeRayEnemyDetector;
 	public Camera2D NodeCam;
-	public Area2D NodeWeapon;
+	public CombatAttack NodeWeapon;
+	public CombatActor NodeHitDetector;
 	public AnimationPlayer NodeAnim;
 	public AnimationPlayer NodeAnimWeapon;
 	public Timer NodeTimerCoyote;
@@ -56,22 +57,24 @@ public class Hero : KinematicBody2D
 		NodeRayLedgeGrabV = GetNode<RayCast2D>("FlipH/RayLedgeGrabV");
 		NodeRayEnemyDetector = GetNode<RayCast2D>("FlipH/RayEnemyDetector");
 		NodeCam = GetNode<Camera2D>("Cam");
-		NodeWeapon = GetNode<Area2D>("Weapon");
+		NodeWeapon = GetNode<CombatAttack>("Weapon");
+		NodeHitDetector = GetNode<CombatActor>("CombatCollision");
 		NodeAnim = GetNode<AnimationPlayer>("Anim");
 		NodeAnimWeapon = GetNode<AnimationPlayer>("Weapon/AnimWeapon");
 		NodeTimerCoyote = GetNode<Timer>("TimerCoyote");
 		NodeTimerAttack = GetNode<Timer>("TimerAttack");
 	}
+	
 	public override void _Ready()
 	{
 		InitializeNodeReferences();
 		SwitchState(States.Air);
 		
-		_combat = new BrickAndMortal.Scripts.Combat.CombatActor(140, new float[] { 4, 0, 0, 0, 0 }, new float[] { 1, 1, 1, 1, 1});
+		NodeWeapon.Attacker = NodeHitDetector;
 		var heartHUD = GetNode("/root/Node/UI/HUDHearts");
-		_combat.Connect("HealthSetMax", heartHUD, "ResetHearts");
-		_combat.Connect("HealthSet", heartHUD, "UpdateHearts");
-		_combat.UpdateMaxHp();
+		NodeHitDetector.Connect("HealthSetMax", heartHUD, "ResetHearts");
+		NodeHitDetector.Connect("HealthSet", heartHUD, "UpdateHearts");
+		NodeHitDetector.CallDeferred("UpdateMaxHp");
 	}
 
 	public override void _Process(float delta)
@@ -144,7 +147,8 @@ public class Hero : KinematicBody2D
 
 	public void InputAttack(bool pressed)
 	{
-		InputAttackStart = pressed ? OS.GetTicksMsec() : 0;
+		if (pressed)
+			InputAttackStart = OS.GetTicksMsec();
 		if (pressed && CanAttack)
 		{
 			CanAttack = false;
@@ -166,10 +170,9 @@ public class Hero : KinematicBody2D
 		_state.AnimationAction(action);
 	}
 	
-	private void HitByHazard(HazardBase hazard)
+	private void Hurt(CombatAttack attack)
 	{
 		_state = new HeroStateHurt(this);
-		_combat.Hurt(hazard.attack);
 	}
 	
 	private void CoyoteFall()
@@ -184,6 +187,8 @@ public class Hero : KinematicBody2D
 			InputAttack(true);
 	}
 }
+
+
 
 
 

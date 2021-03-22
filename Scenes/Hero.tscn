@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Combat/HeroAttack.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=3]
 [ext_resource path="res://Graphics/Characters/HeroSlash.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/HeroComponents/HazardSensor.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/HeroComponents/HeroHazardSensor.cs" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 9.5 )
@@ -484,7 +484,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 0.258816, 1 ),
 "update": 0,
-"values": [ Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 2, 0.5 ), Vector2( 1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Anim:current_animation")
@@ -522,7 +522,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.9, 1.1 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.66, 1.25 ), Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("FlipH/Sprite:frame")
@@ -572,7 +572,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 0.258816, 1 ),
 "update": 0,
-"values": [ Vector2( -1.2, 0.8 ), Vector2( -1, 1 ) ]
+"values": [ Vector2( -2, 0.5 ), Vector2( -1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("FlipH/Sprite:rotation_degrees")
@@ -652,12 +652,12 @@ position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
 position = Vector2( 0, 9.5 )
-rotation = 0.0465421
+scale = Vector2( -1, 1 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 vframes = 8
 hframes = 8
-frame = 57
+frame = 25
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
 position = Vector2( 1, 8.5 )
@@ -676,9 +676,9 @@ cast_to = Vector2( 0, 12 )
 collision_mask = 2
 
 [node name="RayEnemyDetector" type="RayCast2D" parent="FlipH"]
-position = Vector2( 30, 2.5 )
+position = Vector2( 32, 2.5 )
 enabled = true
-cast_to = Vector2( -52, 0 )
+cast_to = Vector2( -64, 0 )
 collision_mask = 8
 
 [node name="Weapon" type="Area2D" parent="."]
@@ -686,6 +686,7 @@ position = Vector2( 0, 2 )
 collision_layer = 0
 collision_mask = 8
 script = ExtResource( 3 )
+Damage = PoolIntArray( 2, 0, 0, 0, 0 )
 
 [node name="Shape" type="CollisionShape2D" parent="Weapon"]
 position = Vector2( 16, -1 )
@@ -703,16 +704,19 @@ frame = 3
 [node name="AnimWeapon" type="AnimationPlayer" parent="Weapon"]
 anims/Swing = SubResource( 3 )
 
-[node name="HazardSensor" type="Area2D" parent="."]
+[node name="CombatCollision" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 5 )
+HealthMax = 30
+Health = 30
+Defense = PoolRealArray( 1, 1, 1, 1, 1 )
 
-[node name="Shape" type="CollisionShape2D" parent="HazardSensor"]
+[node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
 position = Vector2( 0, 2 )
 shape = SubResource( 4 )
 
-[node name="TimerInvuln" type="Timer" parent="HazardSensor"]
+[node name="TimerInvuln" type="Timer" parent="CombatCollision"]
 wait_time = 1.5
 one_shot = true
 
@@ -742,9 +746,8 @@ one_shot = true
 [node name="TimerAttack" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
-[connection signal="body_entered" from="Weapon" to="Weapon" method="HitEnemy"]
-[connection signal="area_entered" from="HazardSensor" to="HazardSensor" method="HitByHazard"]
-[connection signal="area_entered" from="HazardSensor" to="." method="HitByHazard"]
-[connection signal="timeout" from="HazardSensor/TimerInvuln" to="HazardSensor" method="InvulnEnd"]
+[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]
 [connection signal="timeout" from="TimerAttack" to="." method="AttackReady"]

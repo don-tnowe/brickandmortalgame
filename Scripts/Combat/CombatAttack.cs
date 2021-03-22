@@ -1,20 +1,22 @@
-﻿
+using Godot;
 
 namespace BrickAndMortal.Scripts.Combat
 {
-    public class CombatAttack
-    {
-        public enum Elements 
-        {
-            Phys,
-            Fire,
-            Ice,
-            Magic,
-            Ghost
-        }
+	public class CombatAttack : Area2D
+	{
+		[Export]
+		public int[] Damage = new int[ElementCount];
+		public CombatActor Attacker;
 
-        public CombatAttack() { }
+		public enum Elements 
+		{
+			Phys,
+			Fire,
+			Ice,
+			Magic,
+			Ghost
+		}
 
-        public int[] Damage = new int[5] { 4, 0, 0, 0, 0 };
-    }
+		public const int ElementCount = 5;
+	}
 }
