@@ -69,7 +69,7 @@ public class EnemyBase : KinematicBody2D
 		PhysicsEnabled = true;
 		PhysVelocityY = -PhysGravity * 0.25f;
 		PhysVelocityX = -_lastHitDir * PhysGravity * 0.15f;
-		Modulate = new Color(0.2f, 0.2f, 0.2f, 0.8f);
+		Modulate = new Color(0.2f, 0.2f, 0.2f, 1);
 		_nodeShape.SetDeferred("disabled", true);
 		_nodeTween.StopAll();
 		_nodeTween.InterpolateCallback(

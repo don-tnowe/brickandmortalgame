@@ -54,16 +54,16 @@ tile_data = PoolIntArray( 131083, 0, 65536, 131084, 0, 65536, 131085, 0, 65536, 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="EnemyRockCrab" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 642, 280 )
+position = Vector2( 642, 282 )
 
 [node name="EnemyRockCrab2" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 610, 280 )
+position = Vector2( 610, 282 )
 
 [node name="EnemyRockCrab3" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 682, 280 )
+position = Vector2( 682, 282 )
 
 [node name="EnemyRockCrab4" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 797, 152 )
+position = Vector2( 797, 154 )
 
 [node name="EnemyRockCrab5" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 837, 152 )
+position = Vector2( 837, 154 )
