@@ -4,6 +4,9 @@
     <RootNamespace>BrickAndMortal</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Scripts\Combat\Enemy\" />
+    <Folder Include="Scripts\Combat\Hero\" />
+    <Folder Include="Scripts\Combat\Trap\" />
     <Folder Include="Scripts\HUDs\" />
   </ItemGroup>
 </Project>

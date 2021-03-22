@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Graphics/Environment/Backgrounds/Area1.png" type="Texture" id=1]
+
+[node name="BG" type="ParallaxBackground"]
+scale = Vector2( 0.75, 0.75 )
+transform = Transform2D( 0.75, 0, 0, 0.75, 0, 0 )
+
+[node name="Layer10" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.1, 0.1 )
+
+[node name="Area1" type="Sprite" parent="Layer10"]
+position = Vector2( 117.333, 112 )
+texture = ExtResource( 1 )

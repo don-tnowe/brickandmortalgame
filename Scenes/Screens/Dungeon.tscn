@@ -1,35 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Hero.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Resources/Tilesets/Tiles1.tres" type="TileSet" id=2]
-[ext_resource path="res://Scenes/Enemies/EnemyRockCrab.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Rooms/TestRoom.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Audio/BGM/Dungeon1.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Scenes/HUDs/HUDHearts.tscn" type="PackedScene" id=6]
 
 [node name="Node" type="Node"]
 
-[node name="Room" type="Node2D" parent="."]
-
-[node name="TileMap" type="TileMap" parent="Room"]
-tile_set = ExtResource( 2 )
-cell_size = Vector2( 32, 32 )
-collision_layer = 2
-collision_mask = 0
-format = 1
-tile_data = PoolIntArray( -458746, 0, 0, -458745, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -458738, 0, 0, -458737, 0, 0, -458736, 0, 0, -458735, 0, 0, -458734, 0, 0, -458733, 0, 0, -393210, 0, 0, -393197, 0, 0, -327674, 0, 0, -327661, 0, 0, -262138, 0, 0, -262125, 0, 0, -196602, 0, 0, -196589, 0, 0, -131066, 0, 0, -131053, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65517, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 9, 0, 0, 15, 0, 0, 19, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65545, 0, 0, 65551, 0, 0, 65555, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131087, 0, 0, 131091, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196623, 0, 0, 196627, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262159, 0, 0, 262163, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0 )
-
-[node name="EnemyRockCrab" parent="." instance=ExtResource( 3 )]
-position = Vector2( 412, -38 )
-
-[node name="EnemyRockCrab2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 380, -38 )
-
-[node name="EnemyRockCrab3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 452, -38 )
+[node name="Room" parent="." instance=ExtResource( 2 )]
 
 [node name="Hero" parent="." instance=ExtResource( 1 )]
-position = Vector2( 330, -104 )
+position = Vector2( 438, 223 )
 
 [node name="Preload" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0 )
