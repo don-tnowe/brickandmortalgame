@@ -1,4 +1,4 @@
-using System;
+using Godot;
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
@@ -29,11 +29,12 @@ namespace BrickAndMortal.Scripts.HeroStates
 			}
 		}
 
-		public override void InputJump(bool pressed)
+        public override void InputJump(bool pressed)
 		{
 			if (!pressed && Hero.VelocityY < HeroParameters.JumpInterrupted)
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
+
 		public override void InputAttack()
 		{
 			Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;

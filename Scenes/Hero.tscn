@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
@@ -9,10 +9,75 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 9.5 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 14, 6 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=17]
+resource_name = "Init"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeroSlash:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeroSlash:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HeroSlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Shape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HeroSlash:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 30.0 ]
+}
+
+[sub_resource type="Animation" id=16]
 resource_name = "Swing"
 length = 0.5
 step = 0.05
@@ -77,11 +142,11 @@ tracks/4/keys = {
 "values": [ 26.0, 30.0 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 3.0
 height = 10.0
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -119,7 +184,7 @@ tracks/2/keys = {
 "values": [ 0.0, 5.0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "Hurt"
 length = 0.5
 step = 0.04
@@ -186,7 +251,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 length = 6.0
 loop = true
 tracks/0/type = "value"
@@ -214,7 +279,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
@@ -265,7 +330,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
@@ -330,7 +395,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:position")
 tracks/0/interp = 1
@@ -368,7 +433,7 @@ tracks/2/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=9]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -408,7 +473,7 @@ tracks/2/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=10]
 length = 0.8
 loop = true
 step = 0.05
@@ -461,7 +526,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -511,7 +576,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
 tracks/0/interp = 1
@@ -549,7 +614,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 9.5 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -599,7 +664,7 @@ tracks/3/keys = {
 "values": [ "Run" ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=14]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -640,6 +705,7 @@ tracks/2/keys = {
 }
 
 [node name="Hero" type="KinematicBody2D"]
+z_index = 40
 collision_mask = 2147483650
 script = ExtResource( 2 )
 
@@ -671,8 +737,8 @@ cast_to = Vector2( 12, 0 )
 collision_mask = 2
 
 [node name="RayLedgeGrabV" type="RayCast2D" parent="FlipH"]
-position = Vector2( 6, -16.5 )
-cast_to = Vector2( 0, 12 )
+position = Vector2( 6, -24.5 )
+cast_to = Vector2( 0, 24 )
 collision_mask = 2
 
 [node name="RayEnemyDetector" type="RayCast2D" parent="FlipH"]
@@ -690,7 +756,7 @@ Damage = PoolIntArray( 2, 0, 0, 0, 0 )
 
 [node name="Shape" type="CollisionShape2D" parent="Weapon"]
 position = Vector2( 16, -1 )
-shape = SubResource( 2 )
+shape = SubResource( 15 )
 disabled = true
 
 [node name="HeroSlash" type="Sprite" parent="Weapon"]
@@ -699,10 +765,12 @@ position = Vector2( 30, 0 )
 texture = ExtResource( 4 )
 offset = Vector2( -11.2382, -1.01826 )
 vframes = 4
-frame = 3
+frame = 2
 
 [node name="AnimWeapon" type="AnimationPlayer" parent="Weapon"]
-anims/Swing = SubResource( 3 )
+autoplay = "Init"
+anims/Init = SubResource( 17 )
+anims/Swing = SubResource( 16 )
 
 [node name="CombatCollision" type="Area2D" parent="."]
 collision_layer = 0
@@ -714,7 +782,7 @@ Defense = PoolRealArray( 1, 1, 1, 1, 1 )
 
 [node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
 position = Vector2( 0, 2 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="TimerInvuln" type="Timer" parent="CombatCollision"]
 wait_time = 1.5
@@ -726,18 +794,18 @@ smoothing_enabled = true
 smoothing_speed = 10.0
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/Fall = SubResource( 5 )
-anims/Hurt = SubResource( 6 )
-anims/Idle = SubResource( 7 )
-anims/Jump = SubResource( 8 )
-anims/Land = SubResource( 9 )
-anims/LedgeGrab = SubResource( 10 )
-anims/LedgeGrabPre = SubResource( 11 )
-anims/Run = SubResource( 12 )
-anims/RunStart = SubResource( 13 )
-anims/RunStop = SubResource( 14 )
-anims/RunTurn = SubResource( 15 )
-anims/Wall = SubResource( 16 )
+anims/Fall = SubResource( 3 )
+anims/Hurt = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 6 )
+anims/Land = SubResource( 7 )
+anims/LedgeGrab = SubResource( 8 )
+anims/LedgeGrabPre = SubResource( 9 )
+anims/Run = SubResource( 10 )
+anims/RunStart = SubResource( 11 )
+anims/RunStop = SubResource( 12 )
+anims/RunTurn = SubResource( 13 )
+anims/Wall = SubResource( 14 )
 
 [node name="TimerCoyote" type="Timer" parent="."]
 wait_time = 0.2
@@ -746,8 +814,8 @@ one_shot = true
 [node name="TimerAttack" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
-[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]
 [connection signal="timeout" from="TimerAttack" to="." method="AttackReady"]

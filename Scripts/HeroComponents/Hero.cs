@@ -16,14 +16,12 @@ public class Hero : KinematicBody2D
 		Hurt
 	}
 	
-	[Export] 
-	public bool IsInDungeon = true;
-	
 	public float VelocityX = 0;
 	public float VelocityY = 0;
 	public Vector2 LastVelocity = new Vector2();
 	public int VelocityXSign = 1;
 	public States CurState;
+	public uint InstaTurnStart = 0;
 	public bool CanAttack = true;
 
 	public float InputMoveDirection = 0;
@@ -88,6 +86,7 @@ public class Hero : KinematicBody2D
 			return;
 		if (@event is InputEventKey && @event.IsEcho())
 			return;
+			
 		if (@event.IsAction("ui_left") || @event.IsAction("ui_right"))
 		{
 			var direction = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
@@ -95,11 +94,11 @@ public class Hero : KinematicBody2D
 		}
 		if (@event.IsAction("jump"))
 		{
-			InputJump(@event.IsPressed());
+			InputJump(@event.GetActionStrength("jump") > 0);
 		}
 		if (@event.IsAction("attack"))
 		{
-			InputAttack(@event.IsPressed());
+			InputAttack(@event.GetActionStrength("attack") > 0);
 		}
 	}
 	

@@ -23,6 +23,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (!Hero.IsOnFloor() && Hero.NodeTimerCoyote.TimeLeft == 0)
 			{
 				Hero.NodeTimerCoyote.Start();
+				Hero.InstaTurnStart = OS.GetTicksMsec();
 				Hero.NodeAnim.Play("Fall");
 			}
 			if (Hero.InputMoveDirection != 0 && Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
@@ -57,12 +58,18 @@ namespace BrickAndMortal.Scripts.HeroStates
 
 		public override void InputMove(float direction)
 		{
+			var directionSign = Math.Sign(direction);
 			if (direction != 0)
 			{
-				Hero.NodeFlipH.Scale = new Vector2(Math.Sign(direction), 1);
+				Hero.NodeFlipH.Scale = new Vector2(directionSign, 1);
 				if (Hero.InputMoveDirection == 0 && Hero.NodeAnim.CurrentAnimation != "Land")
-					if (Hero.VelocityXSign != Math.Sign(direction))
+					if (Hero.VelocityXSign != directionSign)
+					{
 						Hero.NodeAnim.Play("RunTurn");
+						if (Hero.InstaTurnStart != 0 && Hero.InstaTurnStart > OS.GetTicksMsec() - HeroParameters.MsecInstaTurn)
+							Hero.VelocityX = directionSign * HeroParameters.InstaTurnSpeed;
+						Hero.InstaTurnStart = 0;
+					}
 					else
 						Hero.NodeAnim.Play("RunStart");
 			}

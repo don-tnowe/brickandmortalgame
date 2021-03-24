@@ -18,10 +18,12 @@ namespace BrickAndMortal.Scripts
 		public const float MaxFallWall = GravityJump * 0.25f;
 		public const float JumpWallHorizontal = AccelGround * 0.25f;
 		public const float HurtBounce = GravityJump * 0.33f;
+		public const float InstaTurnSpeed = AccelGround * 0.25f;
 
 		public const float BrakeInstantMult = 0.33f;
 		public const float WallFrictionInstantMult = 0.2f;
 
 		public const uint MsecJumpBuffer = 300;
+		public const uint MsecInstaTurn = 200;
 	}
 }
