@@ -57,5 +57,10 @@ namespace BrickAndMortal.Scripts.HeroStates
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
 
-	}
+        public override void InputAttack()
+        {
+			if (_grabbed)
+				Hero.NodeWeapon.Scale = new Vector2(-Hero.NodeFlipH.Scale.x, 1);
+		}
+    }
 }

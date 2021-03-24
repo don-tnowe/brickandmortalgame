@@ -11,14 +11,12 @@
 extents = Vector2( 10, 8 )
 
 [node name="EnemyRockCrab" type="KinematicBody2D"]
-position = Vector2( -1, 1 )
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 2 )
-ScenePtclHit = ExtResource( 4 )
+_scenePtclHit = ExtResource( 4 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2( -1, -2 )
 shape = SubResource( 1 )
 
 [node name="CombatCollision" type="Area2D" parent="."]
@@ -28,23 +26,22 @@ script = ExtResource( 6 )
 Defense = PoolRealArray( 1, 1, 1, 1, 1 )
 
 [node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
-position = Vector2( -1, -2 )
 shape = SubResource( 1 )
 
 [node name="HazardInvisible" parent="CombatCollision" instance=ExtResource( 5 )]
-position = Vector2( -1, 0 )
 scale = Vector2( 0.6, 0.5 )
 Damage = PoolIntArray( 7, 0, 0, 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 3 )
+position = Vector2( 1, 2 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -6 )
 vframes = 4
 hframes = 4
 
 [node name="Tween" type="Tween" parent="."]
-[connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
 [connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
-[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]

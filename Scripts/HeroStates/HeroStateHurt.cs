@@ -34,16 +34,5 @@ namespace BrickAndMortal.Scripts.HeroStates
 						Hero.VelocityX = 0;
 				}
 		}
-
-        public override void AnimationAction(int action)
-		{
-			Hero.CanAttack = true;
-			if (Hero.IsOnFloor())
-				Hero.SwitchState(Hero.States.Ground);
-			else if (Hero.IsOnWall())
-				Hero.SwitchState(Hero.States.Wall);
-			else
-				Hero.SwitchState(Hero.States.Air);
-		}
 	}
 }

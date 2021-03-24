@@ -101,7 +101,7 @@ public class Hero : KinematicBody2D
 			InputAttack(@event.GetActionStrength("attack") > 0);
 		}
 	}
-	
+
 	public HeroState SwitchState(States state)
 	{
 		_state?.ExitState();
@@ -129,6 +129,17 @@ public class Hero : KinematicBody2D
 				break;
 		}
 		return _state;
+	}
+
+	public void SwitchStateAuto()
+	{
+		CanAttack = true;
+		if (IsOnFloor())
+			SwitchState(States.Ground);
+		else if (IsOnWall())
+			SwitchState(States.Wall);
+		else
+			SwitchState(States.Air);
 	}
 
 	public void InputMove(float direction)

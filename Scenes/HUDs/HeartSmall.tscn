@@ -4,11 +4,11 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 63, 0, 16, 16 )
+region = Rect2( 39, 8, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 63, 17, 16, 16 )
+region = Rect2( 73, 10, 14, 14 )
 
 [node name="HeartSmall0" type="TextureRect"]
 margin_right = 16.0
@@ -20,5 +20,5 @@ __meta__ = {
 }
 
 [node name="Fill" type="Sprite" parent="."]
-position = Vector2( 8, 16 )
+position = Vector2( 9, 16 )
 texture = SubResource( 2 )

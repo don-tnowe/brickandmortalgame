@@ -4,10 +4,12 @@ using BrickAndMortal.Scripts.Combat;
 public class EnemyBase : KinematicBody2D
 {
 	[Export]
-	private readonly PackedScene ScenePtclHit;
+	private readonly NodePath _nodePathRoom = "../..";
+	[Export]
+	private readonly PackedScene _scenePtclHit;
 
 	[Signal]
-	private delegate void Defeated();
+	private delegate void Defeated(int idx);
 	
 	private Tween _nodeTween;
 	private Sprite _nodeSprite;
@@ -27,6 +29,9 @@ public class EnemyBase : KinematicBody2D
 		_nodeTween = GetNode<Tween>("Tween");
 		_nodeSprite = GetNode<Sprite>("Sprite");
 		_nodeShape = GetNode<CollisionShape2D>("Shape");
+		Connect("Defeated", GetNode(_nodePathRoom), "EnemyDefeated",
+				new Godot.Collections.Array(new object[] { GetPositionInParent() })
+			);
 	}
 
 	public override void _Process(float delta)
@@ -48,7 +53,7 @@ public class EnemyBase : KinematicBody2D
 		_lastHitDir = (GlobalPosition.x > byAttack.GlobalPosition.x) ? -1 : 1;
 		if (!AttackInvuln)
 		{
-			var ptcl = (Particles2D)ScenePtclHit.Instance();
+			var ptcl = (Particles2D)_scenePtclHit.Instance();
 			GetParent().AddChild(ptcl);
 			_nodeTween.InterpolateProperty(
 					_nodeSprite.Material, "shader_param/blend",

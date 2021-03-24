@@ -50,9 +50,9 @@ public class HUDHearts : Control
 	}
 
 	public void UpdateHearts()
-    {
+	{
 		UpdateHearts(_displayedFilled * _heartsPerRow + _displayedFraction);
-    }
+	}
 
 	public void UpdateHearts(int health)
 	{
