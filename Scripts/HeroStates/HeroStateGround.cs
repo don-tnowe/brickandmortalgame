@@ -1,10 +1,10 @@
-using System;
 using Godot;
+using System;
 
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
-	class HeroStateGround : HeroState
+    class HeroStateGround : HeroState
 	{
 		public HeroStateGround(Hero hero) : base(hero)
 		{

@@ -9,6 +9,7 @@ class HeroHazardSensor : CombatActor
 	
 	public override void _Ready()
 	{
+		IsPlayer = true;
 		_nodeShape = GetNode<CollisionShape2D>("Shape");
 		_nodeTimerInvuln = GetNode<Timer>("TimerInvuln");
 	}

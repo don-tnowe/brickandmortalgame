@@ -1,0 +1,11 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+font_path = "res://Resources/Themes/alphbeta.ttf"
+
+[resource]
+size = 13
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.752941 )
+font_data = SubResource( 1 )

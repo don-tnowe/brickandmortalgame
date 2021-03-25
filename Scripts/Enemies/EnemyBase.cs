@@ -62,7 +62,7 @@ public class EnemyBase : KinematicBody2D
 				);
 			_nodeTween.Start();
 			ptcl.GlobalPosition = GlobalPosition;
-			ptcl.Scale = new Vector2(_lastHitDir, 1);
+			ptcl.Scale = new Vector2(-_lastHitDir, 1);
 		}
 	}
 

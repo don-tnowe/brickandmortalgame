@@ -1,4 +1,13 @@
-[gd_resource type="AudioBusLayout" format=2]
+[gd_resource type="AudioBusLayout" load_steps=2 format=2]
+
+[sub_resource type="AudioEffectDelay" id=1]
+resource_name = "Delay"
+tap1/active = false
+tap1/delay_ms = 200.0
+tap2/active = false
+tap2/delay_ms = 400.0
+feedback/active = true
+feedback/delay_ms = 200.0
 
 [resource]
 bus/1/name = "BGM"
@@ -7,6 +16,8 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = "Master"
+bus/1/effect/0/effect = SubResource( 1 )
+bus/1/effect/0/enabled = true
 bus/2/name = "SFX"
 bus/2/solo = false
 bus/2/mute = false

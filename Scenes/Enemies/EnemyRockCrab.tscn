@@ -30,7 +30,7 @@ shape = SubResource( 1 )
 
 [node name="HazardInvisible" parent="CombatCollision" instance=ExtResource( 5 )]
 scale = Vector2( 0.6, 0.5 )
-Damage = PoolIntArray( 7, 0, 0, 0, 0 )
+Damage = PoolIntArray( 6, 0, 0, 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 3 )
@@ -41,7 +41,7 @@ vframes = 4
 hframes = 4
 
 [node name="Tween" type="Tween" parent="."]
-[connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
 [connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
-[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
 [connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
