@@ -101,10 +101,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.0930611, 0.122324 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 5 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("HeroSlash:visible")
@@ -113,7 +113,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -198,6 +198,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:AnimationAllowed")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "AttackGround"
@@ -263,6 +275,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:AnimationAllowed")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -391,7 +415,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 2 ),
-"update": 0,
+"update": 2,
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/2/type = "value"
@@ -562,6 +586,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:AnimationAllowed")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=14]
 length = 0.3
@@ -626,6 +662,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:AnimationAllowed")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=15]
@@ -745,6 +793,18 @@ tracks/2/keys = {
 "args": [  ],
 "method": "SwitchStateAuto"
 } ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TransitionBlackout:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -982,6 +1042,7 @@ tracks/2/keys = {
 z_index = 40
 collision_mask = 2147483650
 script = ExtResource( 2 )
+AnimationAllowed = false
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2.5 )
@@ -996,7 +1057,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 vframes = 8
 hframes = 8
-frame = 48
+frame = 50
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
 position = Vector2( 1, 8.5 )
@@ -1035,11 +1096,11 @@ disabled = true
 
 [node name="HeroSlash" type="Sprite" parent="Weapon"]
 visible = false
-position = Vector2( 30, 0 )
+position = Vector2( 34, 0 )
 texture = ExtResource( 4 )
 offset = Vector2( -11.2382, -1.01826 )
-vframes = 4
-frame = 2
+vframes = 6
+frame = 5
 
 [node name="AnimWeapon" type="AnimationPlayer" parent="Weapon"]
 autoplay = "Init"
@@ -1102,6 +1163,7 @@ one_shot = true
 [node name="TimerAttack" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+[connection signal="area_entered" from="Weapon" to="." method="HitEnemy"]
 [connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]

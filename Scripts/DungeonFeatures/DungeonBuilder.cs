@@ -35,7 +35,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			else
 			{
 				rooms.Add(new Vector2(_onMapX + toMapX, _onMapY + toMapY), new RoomData());
-				newRoom = (Room)ResourceLoader.Load<PackedScene>("res://Scenes/Rooms/TestRoom2.tscn").Instance();
+				newRoom = (Room)ResourceLoader.Load<PackedScene>("res://Scenes/Rooms/TestRoom.tscn").Instance();
 			}
 
 			AddChild(newRoom);

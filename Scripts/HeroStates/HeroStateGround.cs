@@ -4,7 +4,7 @@ using System;
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
-    class HeroStateGround : HeroState
+	class HeroStateGround : HeroState
 	{
 		public HeroStateGround(Hero hero) : base(hero)
 		{
@@ -52,7 +52,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		private void BrakeStop()
 		{
 			Hero.VelocityX = 0;
-			if (Hero.NodeAnim.CurrentAnimation != "Land")
+			if (Hero.AnimationAllowed)
 				Hero.NodeAnim.Play("Idle");
 		}
 
@@ -65,18 +65,19 @@ namespace BrickAndMortal.Scripts.HeroStates
 				if (Hero.InputMoveDirection == 0 && Hero.NodeAnim.CurrentAnimation != "Land")
 					if (Hero.VelocityXSign != directionSign)
 					{
-						Hero.NodeAnim.Play("RunTurn");
 						if (Hero.InstaTurnStart != 0 && Hero.InstaTurnStart > OS.GetTicksMsec() - HeroParameters.MsecInstaTurn)
 							Hero.VelocityX = directionSign * HeroParameters.InstaTurnSpeed;
 						Hero.InstaTurnStart = 0;
+						if (Hero.AnimationAllowed)
+							Hero.NodeAnim.Play("RunTurn");
 					}
-					else
+					else if (Hero.AnimationAllowed)
 						Hero.NodeAnim.Play("RunStart");
 			}
 			else
 			{
 				Hero.VelocityX *= HeroParameters.BrakeInstantMult;
-				if (Hero.NodeAnim.CurrentAnimation != "Land")
+				if (Hero.AnimationAllowed)
 					Hero.NodeAnim.Play("RunStop");
 			}
 		}
@@ -88,6 +89,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 				Hero.VelocityX += Hero.VelocityXSign;
 				Hero.VelocityY = HeroParameters.Jump;
 				Hero.SwitchState(Hero.States.Air);
+
+				Hero.AnimationAllowed = true;
 				Hero.NodeAnim.Play("Jump");
 			}
 		}

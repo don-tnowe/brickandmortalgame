@@ -19,21 +19,19 @@ namespace BrickAndMortal.Scripts.HeroStates
 					Hero.VelocityX += HeroParameters.AccelAir * Hero.InputMoveDirection * delta;
 			if (Hero.VelocityY > 0)
 			{
+				if (Hero.AnimationAllowed)
+				{
+					if (Hero.LastVelocity.y <= 0)
+						Hero.NodeAnim.Play("Fall");
+					var mod = Hero.VelocityY / HeroParameters.MaxFall * 0.5f;
+					Hero.NodeSprite.Scale = new Vector2(1 - mod, 1 + mod);
+				}
 				if (Hero.VelocityY > HeroParameters.MaxFall)
 					Hero.VelocityY = HeroParameters.MaxFall;
-				if (Hero.LastVelocity.y <= 0 && Hero.NodeAnim.CurrentAnimation != "AttackAir")
-				{
-					Hero.NodeAnim.Play("Fall");
-				}
-				if (Hero.NodeAnim.CurrentAnimation == "Fall")
-				{
-					var fract = Hero.VelocityY / HeroParameters.MaxFall * 0.5f;
-					Hero.NodeSprite.Scale = new Vector2(1 - fract, 1 + fract);
-				}
 			}
 		}
 
-        public override void InputJump(bool pressed)
+		public override void InputJump(bool pressed)
 		{
 			if (!pressed && Hero.VelocityY < HeroParameters.JumpInterrupted)
 				Hero.VelocityY = HeroParameters.JumpInterrupted;

@@ -24,6 +24,11 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 		private Vector2 _heroGlobalPosition;
 
+		private void EnableCollision()
+		{
+			GetNode<CollisionShape2D>("Shape").Disabled = false;
+		}
+		
 		private void TouchedHero(Hero hero)
 		{
 			_heroGlobalPosition = hero.GlobalPosition;
@@ -38,6 +43,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		}
 	}
 }
+
+
 
 
 

@@ -12,9 +12,10 @@ public class Hero : KinematicBody2D
 		Air,
 		Wall,
 		LedgeGrab,
-		AttackGround,
 		Hurt
 	}
+	[Export]
+	public bool AnimationAllowed = true;
 	
 	public float VelocityX = 0;
 	public float VelocityY = 0;
@@ -123,9 +124,6 @@ public class Hero : KinematicBody2D
 			case States.LedgeGrab:
 				_state = new HeroStateLedgeGrab(this);
 				break;
-			case States.AttackGround:
-				_state = new HeroStateAttackGround(this);
-				break;
 		}
 		return _state;
 	}
@@ -201,7 +199,14 @@ public class Hero : KinematicBody2D
 		if (InputAttackStart > OS.GetTicksMsec() - (NodeTimerAttack.WaitTime * 800))
 			InputAttack(true);
 	}
+	
+	private void HitEnemy(object area)
+	{
+		VelocityX *= 0.5f;
+	}
 }
+
+
 
 
 

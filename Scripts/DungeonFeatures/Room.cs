@@ -11,6 +11,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		private readonly NodePath _nodePathHero = "../Hero";
 		[Signal]
 		private delegate void AllEnemiesDefeated();
+		[Signal]
+		private delegate void UnblockBottomExits();
 
 		private DungeonBuilder _nodeDungeonBuilder;
 		private Hero _nodeHero;
@@ -70,28 +72,28 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 				var i = (RoomDoor)ii;
 				if (i.ToMapX == toMapX && i.ToMapY == toMapY)
 				{
-					_nodeHero.GlobalPosition = i.GlobalPosition + positionOffset;
+					_nodeHero.GlobalPosition = i.GlobalPosition;
 					switch (i.ExitDir)
 					{
 						case RoomDoor.Direction.Right:
-							_nodeHero.Translate(new Vector2(40, 0));
+							_nodeHero.Translate(new Vector2(12, positionOffset.y));
 							break;
 						case RoomDoor.Direction.Left:
-							_nodeHero.Translate(new Vector2(-40, 0));
+							_nodeHero.Translate(new Vector2(-12, positionOffset.y));
 							break;
 						case RoomDoor.Direction.Up:
-							_nodeHero.Translate(new Vector2(0, -56));
+							_nodeHero.Translate(new Vector2(positionOffset.x, -24));
 							_nodeHero.VelocityY = HeroParameters.Jump;
 							break;
 						case RoomDoor.Direction.Down:
-							_nodeHero.Translate(new Vector2(0, 56));
+							_nodeHero.Translate(new Vector2(positionOffset.x, 24));
 							_nodeHero.VelocityY = 0;
 							break;
 					}
 					_nodeHero.NodeCam.ForceUpdateScroll();
 					_nodeHero.NodeCam.ResetSmoothing();
-					/*
-					_nodeHero.NodeCam.CallDeferred("reset_smoothing");*/
+					if (i.ExitDir != RoomDoor.Direction.Up)
+						EmitSignal("UnblockBottomExits");
 					return;
 				}
 			}
