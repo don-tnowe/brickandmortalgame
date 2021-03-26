@@ -4,7 +4,7 @@ namespace BrickAndMortal.Scripts
 	static class HeroParameters
 	{
 		public const float AccelGround = 384;
-		public const float AccelAir = AccelGround * 0.5f;
+		public const float AccelAir = AccelGround * 0.52f;
 		public const float Brake = AccelGround * 0.16f;
 		public const float MaxSpeed = AccelGround * 0.33f;
 
@@ -17,7 +17,6 @@ namespace BrickAndMortal.Scripts
 		public const float JumpWall = -GravityJump * 0.6f;
 		public const float MaxFallWall = GravityJump * 0.25f;
 		public const float JumpWallHorizontal = AccelGround * 0.25f;
-		public const float HurtBounce = GravityJump * 0.33f;
 		public const float InstaTurnSpeed = AccelGround * 0.25f;
 
 		public const float BrakeInstantMult = 0.33f;

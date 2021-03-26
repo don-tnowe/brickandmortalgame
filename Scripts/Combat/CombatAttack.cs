@@ -4,10 +4,6 @@ namespace BrickAndMortal.Scripts.Combat
 {
 	public class CombatAttack : Area2D
 	{
-		[Export]
-		public int[] Damage = new int[ElementCount];
-		public CombatActor Attacker;
-
 		public enum Elements 
 		{
 			Phys,
@@ -16,7 +12,11 @@ namespace BrickAndMortal.Scripts.Combat
 			Magic,
 			Ghost
 		}
-
 		public const int ElementCount = 5;
+		
+		[Export]
+		public int[] Damage = new int[ElementCount];
+		[Export]
+		public NodePath Attacker;
 	}
 }

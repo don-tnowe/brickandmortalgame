@@ -9,6 +9,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		private readonly NodePath _nodePathDungeonBuilder = "..";
 		[Export]
 		private readonly NodePath _nodePathHero = "../Hero";
+		[Signal]
+		private delegate void AllEnemiesDefeated();
 
 		private DungeonBuilder _nodeDungeonBuilder;
 		private Hero _nodeHero;
@@ -37,6 +39,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			_slainEnemies[id] = true;
 			_remainingEnemies--;
+			if (_remainingEnemies <= 0)
+				EmitSignal("AllEnemiesDefeated");
 		}
 
 		public void LoadRoom(RoomData from)

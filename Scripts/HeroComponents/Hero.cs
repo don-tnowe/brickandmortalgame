@@ -68,14 +68,13 @@ public class Hero : KinematicBody2D
 		InitializeNodeReferences();
 		SwitchState(States.Air);
 		
-		NodeWeapon.Attacker = NodeHitDetector;
 		var heartHUD = GetNode("/root/Node/UI/HUDHearts");
 		NodeHitDetector.Connect("HealthSetMax", heartHUD, "ResetHearts");
 		NodeHitDetector.Connect("HealthSet", heartHUD, "UpdateHearts");
 		NodeHitDetector.CallDeferred("UpdateMaxHp");
 	}
 
-	public override void _Process(float delta)
+	public override void _PhysicsProcess(float delta)
 	{
 		_state.MoveBody(delta);
 	}
@@ -182,6 +181,12 @@ public class Hero : KinematicBody2D
 	
 	private void Hurt(CombatAttack attack)
 	{
+		var newVelocity = new Vector2(64, -96);
+		if (attack.GlobalPosition < GlobalPosition)
+			VelocityX = newVelocity.x;
+		else
+			VelocityX = -newVelocity.x;
+		VelocityY = newVelocity.y;
 		_state = new HeroStateHurt(this);
 	}
 	

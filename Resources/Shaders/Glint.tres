@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec4 color = texture(TEXTURE, vec2(UV.x, UV.y + 0.25));
+	float time_mod = mod(TIME, 3.0) * 2.5;
+	if (UV.y > 0.25 || color.a == 0.0)
+		discard;
+	else
+		if (
+				color.r != 0.0
+			&&  color.r > time_mod - 0.1 
+			&&  color.r < time_mod + 0.1
+			||  color.g != 0.0
+			&&  color.g > time_mod - 1.2
+			&&  color.g < time_mod - 0.8
+		)
+			COLOR = vec4(1.0, 1.0, 1.0, 1.0);
+		else
+			COLOR = texture(TEXTURE, UV);
+}"
+
+[resource]
+shader = SubResource( 1 )

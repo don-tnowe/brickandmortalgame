@@ -95,6 +95,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 		public override void InputAttack()
 		{
 			Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;
+			Hero.NodeAnim.Seek(0);
+			Hero.NodeAnim.Play("AttackGround");
 		}
 		
 		public override void AnimationAction(int action)

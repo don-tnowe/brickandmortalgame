@@ -7,10 +7,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 	{
 		public HeroStateHurt(Hero hero) : base(hero) 
 		{
-			var newVelocity = -new Vector2(Hero.VelocityX, Hero.VelocityY).Normalized() * HeroParameters.HurtBounce;
-			Hero.VelocityX = newVelocity.x;
-			Hero.VelocityY = newVelocity.y;
-
 			Hero.CanAttack = false;
 			Hero.NodeTimerAttack.Stop();
 			Hero.NodeFlipH.Scale = new Vector2(-Math.Sign(Hero.VelocityX), 1);

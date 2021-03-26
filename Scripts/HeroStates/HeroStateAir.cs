@@ -21,10 +21,14 @@ namespace BrickAndMortal.Scripts.HeroStates
 			{
 				if (Hero.VelocityY > HeroParameters.MaxFall)
 					Hero.VelocityY = HeroParameters.MaxFall;
-				if (Hero.LastVelocity.y <= 0)
+				if (Hero.LastVelocity.y <= 0 && Hero.NodeAnim.CurrentAnimation != "AttackAir")
 				{
-					Hero.NodeAnim.Stop();
 					Hero.NodeAnim.Play("Fall");
+				}
+				if (Hero.NodeAnim.CurrentAnimation == "Fall")
+				{
+					var fract = Hero.VelocityY / HeroParameters.MaxFall * 0.5f;
+					Hero.NodeSprite.Scale = new Vector2(1 - fract, 1 + fract);
 				}
 			}
 		}
@@ -38,6 +42,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 		public override void InputAttack()
 		{
 			Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;
+			Hero.NodeAnim.Seek(0);
+			Hero.NodeAnim.Play("AttackAir");
 		}
 	}
 }

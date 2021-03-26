@@ -59,8 +59,14 @@ namespace BrickAndMortal.Scripts.HeroStates
 
         public override void InputAttack()
         {
+			Hero.NodeAnim.Seek(0);
 			if (_grabbed)
+			{
 				Hero.NodeWeapon.Scale = new Vector2(-Hero.NodeFlipH.Scale.x, 1);
+				Hero.NodeAnim.Play("AttackLedge");
+			}
+			else 
+				Hero.NodeAnim.Play("AttackAir");
 		}
     }
 }

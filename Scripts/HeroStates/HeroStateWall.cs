@@ -107,6 +107,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 		public override void InputAttack()
 		{
 			Hero.NodeWeapon.Scale = new Vector2(-Hero.NodeFlipH.Scale.x, 1);
+			Hero.NodeAnim.Seek(0);
+			Hero.NodeAnim.Play("AttackWall");
 		}
 	}
 }
