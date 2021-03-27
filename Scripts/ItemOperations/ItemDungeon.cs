@@ -10,8 +10,8 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 		public override void _Ready()
 		{
-			GetNode<Sprite>("CaseFront").Frame = Frame;
-			GetNode<Sprite>("CaseFront/CaseBack").Frame = Frame;
+			GetNode<Sprite>("Viewport/CaseFront").Frame = Frame;
+			GetNode<Sprite>("CaseBack").Frame = Frame;
 		}
 
 		public void UnlockItem()

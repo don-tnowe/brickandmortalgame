@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.2, 0.8, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 128
+
+[node name="Sunlight0" type="Light2D"]
+rotation = -0.261799
+scale = Vector2( 1, 512 )
+texture = SubResource( 2 )
+offset = Vector2( 0, 0.5 )
+energy = 0.75
+range_layer_min = -1

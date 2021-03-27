@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Graphics/Characters/HeroSlash.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/HeroComponents/HeroHazardSensor.cs" type="Script" id=5]
 [ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/VFX/LightHero.png" type="Texture" id=7]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 9.5 )
@@ -1052,6 +1054,7 @@ shape = SubResource( 1 )
 position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
+material = ExtResource( 8 )
 position = Vector2( 0, 9.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
@@ -1123,6 +1126,19 @@ shape = SubResource( 5 )
 wait_time = 1.5
 one_shot = true
 
+[node name="Light" type="Light2D" parent="."]
+z_index = -1
+texture = ExtResource( 7 )
+texture_scale = 1.5
+mode = 2
+range_layer_min = -1
+
+[node name="Light2" type="Light2D" parent="."]
+z_index = -1
+texture = ExtResource( 7 )
+energy = 0.5
+range_layer_min = -1
+
 [node name="TransitionBlackout" type="Sprite" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 1e-05, 1e-05 )
@@ -1164,8 +1180,8 @@ one_shot = true
 wait_time = 0.25
 one_shot = true
 [connection signal="area_entered" from="Weapon" to="." method="HitEnemy"]
-[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
 [connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]
 [connection signal="timeout" from="TimerAttack" to="." method="AttackReady"]

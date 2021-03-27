@@ -18,6 +18,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_curRoom = GetNode<Room>("Room");
 			_curRoom.LoadRoom();
 			rooms.Add(new Vector2(_onMapX, _onMapY), new RoomData());
+			GetNode<CanvasModulate>("LightColor").Color = GetNode<Room>("Room").LightColor;
 		}
 
 		public void SwitchRoom(int toMapX, int toMapY, Vector2 positionOffset)
@@ -50,6 +51,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_curRoom = newRoom;
 			_onMapX += toMapX;
 			_onMapY += toMapY;
+			GetNode<CanvasModulate>("LightColor").Color = newRoom.LightColor;
 		}
 	}
 }

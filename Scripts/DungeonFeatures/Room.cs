@@ -6,7 +6,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 	class Room : Node2D
 	{
 		[Export]
-		private readonly NodePath _nodePathDungeonBuilder = "..";
+		public Color LightColor = new Color(1, 1, 1, 1);
 		[Export]
 		private readonly NodePath _nodePathHero = "../Hero";
 		[Signal]
@@ -26,7 +26,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 		public override void _Ready()
 		{
-			_nodeDungeonBuilder = GetNode<DungeonBuilder>(_nodePathDungeonBuilder);
+			_nodeDungeonBuilder = GetNode<DungeonBuilder>("..");
 			_nodeHero = GetNode<Hero>(_nodePathHero);
 			_nodeEnemies = GetNode("Enemies");
 			_nodeDoors = GetNode("Doors");

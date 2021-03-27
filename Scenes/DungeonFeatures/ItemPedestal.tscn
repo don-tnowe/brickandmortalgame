@@ -1,24 +1,28 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Graphics/Environment/Pedestal.png" type="Texture" id=1]
-[ext_resource path="res://Resources/Shaders/Glint.tres" type="Material" id=2]
+[ext_resource path="res://Resources/Shaders/ShaderGlint.tres" type="Material" id=2]
 [ext_resource path="res://Graphics/Environment/PedestalCase.png" type="Texture" id=3]
 [ext_resource path="res://Graphics/Items/Items.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/VFX/ItemGlitter.png" type="Texture" id=5]
 [ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/ItemOperations/ItemDungeon.cs" type="Script" id=7]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=8]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 16 )
 
-[sub_resource type="CanvasItemMaterial" id=1]
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="CanvasItemMaterial" id=3]
 light_mode = 1
 particles_animation = true
 particles_anim_h_frames = 2
 particles_anim_v_frames = 2
 particles_anim_loop = false
 
-[sub_resource type="ParticlesMaterial" id=2]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
 emission_box_extents = Vector3( 8, 8, 8 )
 flag_disable_z = true
@@ -27,8 +31,7 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 anim_speed = 1.0
 
-[sub_resource type="Animation" id=3]
-resource_name = "Closed"
+[sub_resource type="Animation" id=5]
 length = 4.8
 loop = true
 tracks/0/type = "value"
@@ -68,7 +71,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("CaseFront:visible")
+tracks/3/path = NodePath("Viewport/CaseFront:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -80,8 +83,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Open"
+[sub_resource type="Animation" id=6]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Item:position")
@@ -120,7 +122,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 2, 2 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("CaseFront:visible")
+tracks/3/path = NodePath("Viewport/CaseFront:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -156,8 +158,7 @@ tracks/5/keys = {
 "values": [ "Opened" ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Opened"
+[sub_resource type="Animation" id=7]
 length = 3.6
 loop = true
 tracks/0/type = "value"
@@ -186,7 +187,7 @@ collision_layer = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Area"]
 position = Vector2( 0, -8 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="Circle" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
@@ -196,20 +197,7 @@ scale = Vector2( 1e-05, 1e-05 )
 z_index = -15
 texture = ExtResource( 6 )
 
-[node name="Item" type="Sprite" parent="."]
-position = Vector2( 0, -12.2222 )
-texture = ExtResource( 4 )
-vframes = 16
-hframes = 16
-
-[node name="CaseFront" type="Sprite" parent="."]
-material = ExtResource( 2 )
-texture = ExtResource( 3 )
-offset = Vector2( 0, -2 )
-vframes = 2
-hframes = 4
-
-[node name="CaseBack" type="Sprite" parent="CaseFront"]
+[node name="CaseBack" type="Sprite" parent="."]
 show_behind_parent = true
 position = Vector2( 0, -12 )
 z_index = -1
@@ -219,17 +207,45 @@ vframes = 4
 hframes = 4
 frame = 8
 
+[node name="Item" type="Sprite" parent="."]
+material = ExtResource( 8 )
+position = Vector2( 0, -14.6111 )
+texture = ExtResource( 4 )
+vframes = 16
+hframes = 16
+
+[node name="ViewportTex" type="Sprite" parent="."]
+material = ExtResource( 8 )
+position = Vector2( 0, -12.2222 )
+texture = SubResource( 8 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 32, 32 )
+transparent_bg = true
+handle_input_locally = false
+usage = 0
+render_target_v_flip = true
+gui_disable_input = true
+
+[node name="CaseFront" type="Sprite" parent="Viewport"]
+material = ExtResource( 2 )
+position = Vector2( 16, 28 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -2 )
+vframes = 2
+hframes = 4
+
 [node name="PtclGlitter" type="Particles2D" parent="."]
-material = SubResource( 1 )
+material = SubResource( 3 )
 position = Vector2( 0, -16 )
 emitting = false
 amount = 1
 lifetime = 0.3
-process_material = SubResource( 2 )
+process_material = SubResource( 4 )
 texture = ExtResource( 5 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Closed"
-anims/Closed = SubResource( 3 )
-anims/Open = SubResource( 4 )
-anims/Opened = SubResource( 5 )
+anims/Closed = SubResource( 5 )
+anims/Open = SubResource( 6 )
+anims/Opened = SubResource( 7 )

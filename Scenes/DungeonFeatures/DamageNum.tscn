@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/DungeonFeatures/DamageNumbers.cs" type="Script" id=2]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=3]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=1]
 resource_name = "Eff-1"
 length = 4.0
 tracks/0/type = "value"
@@ -69,7 +70,7 @@ tracks/4/keys = {
 "values": [ 0.0, 0.0, -20.0, 10.0, 0.0, 0.0, 45.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=2]
 resource_name = "Eff-2"
 length = 2.0
 tracks/0/type = "value"
@@ -123,7 +124,7 @@ tracks/3/keys = {
 "values": [ Color( 0, 0.976471, 1, 1 ), Color( 0, 0.552941, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "Eff0"
 length = 2.0
 tracks/0/type = "value"
@@ -177,8 +178,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.294118, 0.345098, 0.611765, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "Eff1"
+[sub_resource type="Animation" id=4]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Node:position:y")
@@ -231,7 +231,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.752941, 0.752941, 0.752941, 1 ), Color( 1, 1, 1, 1 ), Color( 0.752941, 0.752941, 0.752941, 1 ), Color( 1, 1, 1, 1 ), Color( 0.752941, 0.752941, 0.752941, 1 ), Color( 1, 1, 1, 1 ), Color( 0.752941, 0.752941, 0.752941, 1 ), Color( 1, 1, 1, 1 ), Color( 0.752941, 0.752941, 0.752941, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "Eff2"
 length = 2.0
 tracks/0/type = "value"
@@ -285,7 +285,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.945098, 0.364706, 1 ), Color( 1, 0.631373, 0, 1 ), Color( 1, 0.945098, 0.364706, 1 ), Color( 1, 0.631373, 0, 1 ), Color( 1, 0.945098, 0.364706, 1 ), Color( 1, 0.631373, 0, 1 ), Color( 1, 0.945098, 0.364706, 1 ), Color( 1, 0.631373, 0, 1 ), Color( 1, 0.945098, 0.364706, 1 ), Color( 1, 0.631373, 0, 1 ), Color( 1, 0.945098, 0.364706, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=6]
 resource_name = "Eff3"
 length = 2.0
 tracks/0/type = "value"
@@ -361,6 +361,7 @@ scale = Vector2( 2, 1e-05 )
 
 [node name="Label" type="Label" parent="Node"]
 self_modulate = Color( 1, 0.380392, 0.192157, 1 )
+material = ExtResource( 3 )
 margin_left = -38.0
 margin_top = -6.0
 margin_right = 38.0
@@ -374,9 +375,9 @@ __meta__ = {
 }
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/Eff-1 = SubResource( 8 )
-anims/Eff-2 = SubResource( 10 )
-anims/Eff0 = SubResource( 7 )
-anims/Eff1 = SubResource( 1 )
-anims/Eff2 = SubResource( 6 )
-anims/Eff3 = SubResource( 9 )
+anims/Eff-1 = SubResource( 1 )
+anims/Eff-2 = SubResource( 2 )
+anims/Eff0 = SubResource( 3 )
+anims/Eff1 = SubResource( 4 )
+anims/Eff2 = SubResource( 5 )
+anims/Eff3 = SubResource( 6 )
