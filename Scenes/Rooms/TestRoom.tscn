@@ -8,7 +8,7 @@
 [ext_resource path="res://Scripts/DungeonFeatures/Room.cs" type="Script" id=6]
 [ext_resource path="res://Scenes/DungeonFeatures/ItemPedestal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/DungeonFeatures/UpwardsExit.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Graphics/VFX/Sunlight.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/VFX/Sunlight.tscn" type="PackedScene" id=9]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Area1.png 0"
@@ -119,17 +119,10 @@ z_index = -5
 [node name="Sunlight1" parent="Decoration" instance=ExtResource( 9 )]
 position = Vector2( 699.959, -17.0607 )
 scale = Vector2( 0.69613, 365.382 )
-mode = 0
 
 [node name="Sunlight2" parent="Decoration" instance=ExtResource( 9 )]
 position = Vector2( 434.633, 13.4465 )
 scale = Vector2( 1.43417, 345.132 )
-mode = 0
-
-[node name="Sunlight3" parent="Decoration" instance=ExtResource( 9 )]
-position = Vector2( 496, 16 )
-scale = Vector2( 1.43417, 345.132 )
-mode = 0
 
 [node name="ScrollBottomRight" type="Position2D" parent="."]
 position = Vector2( 1056, 864 )

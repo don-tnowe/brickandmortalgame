@@ -13,5 +13,6 @@ rotation = -0.261799
 scale = Vector2( 1, 512 )
 texture = SubResource( 2 )
 offset = Vector2( 0, 0.5 )
-energy = 0.75
+energy = 1.2
+mode = 2
 range_layer_min = -1

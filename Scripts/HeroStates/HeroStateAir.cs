@@ -20,12 +20,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (Hero.VelocityY > 0)
 			{
 				if (Hero.AnimationAllowed)
-				{
 					if (Hero.LastVelocity.y <= 0)
 						Hero.NodeAnim.Play("Fall");
-					var mod = Hero.VelocityY / HeroParameters.MaxFall * 0.5f;
-					Hero.NodeSprite.Scale = new Vector2(1 - mod, 1 + mod);
-				}
 				if (Hero.VelocityY > HeroParameters.MaxFall)
 					Hero.VelocityY = HeroParameters.MaxFall;
 			}
