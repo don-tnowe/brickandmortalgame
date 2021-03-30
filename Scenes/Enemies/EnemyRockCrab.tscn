@@ -95,7 +95,7 @@ tracks/5/keys = {
 "values": [ 0.0, 0.0, 256.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "Defeated"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -134,7 +134,7 @@ tracks/2/keys = {
 "values": [ Vector2( 4, -6 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -186,6 +186,8 @@ shape = SubResource( 1 )
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 6 )
+HealthMax = 10
+Health = 10
 Defense = PoolRealArray( 1, 1, 1, 1, 1 )
 
 [node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
@@ -224,8 +226,8 @@ frame = 6
 autoplay = "Move"
 playback_process_mode = 0
 anims/Attack = SubResource( 3 )
-anims/Defeated = SubResource( 5 )
-anims/Move = SubResource( 4 )
+anims/Defeated = SubResource( 4 )
+anims/Move = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="."]
 

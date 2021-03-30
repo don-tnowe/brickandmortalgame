@@ -13,6 +13,7 @@ script = ExtResource( 3 )
 
 [node name="Hero" parent="." instance=ExtResource( 1 )]
 position = Vector2( 509, 270 )
+AnimationAllowed = true
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -39,3 +40,4 @@ __meta__ = {
 
 [node name="Room" parent="." instance=ExtResource( 2 )]
 position = Vector2( 152, -2 )
+LightColor = Color( 1, 1, 1, 1 )
