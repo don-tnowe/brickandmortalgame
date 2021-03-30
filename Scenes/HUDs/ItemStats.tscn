@@ -1,0 +1,265 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Graphics/UI/ItemDisplay/ItemDisplay.png" type="Texture" id=1]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/HUDs/ItemStatsEnchantment.tscn" type="PackedScene" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 15, 15 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 15, 15 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 15, 15 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 32, 16, 16 )
+
+[node name="ItemStatDisplay" type="VBoxContainer"]
+margin_right = 68.0
+margin_bottom = 74.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_constants/separation = -2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="NinePatchRect" parent="."]
+light_mask = 0
+margin_right = 68.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+texture = SubResource( 1 )
+region_rect = Rect2( 0, 0, 16, 16 )
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Header"]
+light_mask = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 15.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 16, 0 )
+rect_scale = Vector2( 0.75, 0.75 )
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Sword"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="NinePatchRect" parent="."]
+light_mask = 0
+margin_top = 12.0
+margin_right = 68.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 1 )
+region_rect = Rect2( 0, 0, 16, 16 )
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Box" type="VBoxContainer" parent="Content"]
+light_mask = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Box" type="HBoxContainer" parent="Content/Box"]
+light_mask = 0
+margin_right = 60.0
+margin_bottom = 27.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoxP" type="VBoxContainer" parent="Content/Box/Box"]
+light_mask = 0
+margin_right = 20.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="Content/Box/Box/BoxP"]
+light_mask = 0
+margin_right = 20.0
+margin_bottom = 15.0
+texture = SubResource( 4 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Content/Box/Box/BoxP"]
+margin_top = 15.0
+margin_right = 20.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 1, 0.572549, 0.196078, 1 )
+text = "12"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoxS" type="VBoxContainer" parent="Content/Box/Box"]
+light_mask = 0
+margin_left = 20.0
+margin_right = 40.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="Content/Box/Box/BoxS"]
+light_mask = 0
+margin_right = 20.0
+margin_bottom = 15.0
+texture = SubResource( 2 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Content/Box/Box/BoxS"]
+margin_top = 15.0
+margin_right = 20.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0.898039, 0.733333, 1 )
+text = "12"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoxM" type="VBoxContainer" parent="Content/Box/Box"]
+light_mask = 0
+margin_left = 40.0
+margin_right = 60.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="Content/Box/Box/BoxM"]
+light_mask = 0
+margin_right = 20.0
+margin_bottom = 15.0
+texture = SubResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Content/Box/Box/BoxM"]
+margin_top = 15.0
+margin_right = 20.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0.67451, 0.486275, 1, 1 )
+text = "12"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="NinePatchRect" parent="Content/Box"]
+light_mask = 0
+margin_top = 28.0
+margin_right = 60.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 3 )
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Content/Box/BG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Enchants" type="HBoxContainer" parent="Content/Box/BG/MarginContainer"]
+light_mask = 0
+margin_right = 56.0
+margin_bottom = 22.0
+custom_constants/separation = 0
+
+[node name="ItemEnchantment" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+margin_bottom = 22.0
+
+[node name="ItemEnchantment2" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+margin_left = 14.0
+margin_right = 28.0
+margin_bottom = 22.0
+
+[node name="ItemEnchantment3" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+margin_left = 28.0
+margin_right = 42.0
+margin_bottom = 22.0
+
+[node name="ItemEnchantment4" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+margin_left = 42.0
+margin_right = 56.0
+margin_bottom = 22.0

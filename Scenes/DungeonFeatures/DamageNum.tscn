@@ -356,17 +356,16 @@ z_index = 60
 script = ExtResource( 2 )
 
 [node name="Node" type="Node2D" parent="."]
-position = Vector2( 0, -18 )
-scale = Vector2( 2, 1e-05 )
+scale = Vector2( 2, 2 )
 
 [node name="Label" type="Label" parent="Node"]
-self_modulate = Color( 1, 0.380392, 0.192157, 1 )
 material = ExtResource( 3 )
 margin_left = -38.0
 margin_top = -6.0
 margin_right = 38.0
 margin_bottom = 6.0
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.752941 )
 text = "3023"
 align = 1
 clip_text = true
