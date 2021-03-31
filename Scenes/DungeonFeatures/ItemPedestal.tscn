@@ -200,8 +200,9 @@ texture = ExtResource( 6 )
 material = ExtResource( 8 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 4 )
-vframes = 16
-hframes = 16
+vframes = 8
+hframes = 8
+frame = 1
 
 [node name="ViewportTex" type="Sprite" parent="."]
 material = ExtResource( 8 )

@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Graphics/Items/Enchants.png" type="Texture" id=2]
+
+[node name="ItemEnchantment" type="Control"]
+margin_right = 14.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 14, 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="."]
+position = Vector2( 7, 7 )
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 8
+
+[node name="Value" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -9.0
+margin_right = 5.0
+margin_bottom = 3.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "19"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
