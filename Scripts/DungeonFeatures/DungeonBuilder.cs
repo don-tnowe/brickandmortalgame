@@ -11,6 +11,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		private int _onMapY = 0;
 
 		private Room _curRoom;
+		public DungeonAreaPool CurPool;
 
 		public override void _Ready()
 		{
@@ -18,6 +19,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_curRoom.LoadRoom();
 			rooms.Add(new Vector2(_onMapX, _onMapY), new RoomData());
 			GetNode<CanvasModulate>("LightColor").Color = GetNode<Room>("Room").LightColor;
+
+			CurPool = ResourceLoader.Load<DungeonAreaPool>("res://Resources/DungeonAreaPools/Area0.tres");
 		}
 
 		public void SwitchRoom(int toMapX, int toMapY, Vector2 positionOffset)
@@ -35,7 +38,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			else
 			{
 				rooms.Add(new Vector2(_onMapX + toMapX, _onMapY + toMapY), new RoomData());
-				newRoom = (Room)ResourceLoader.Load<PackedScene>("res://Scenes/Rooms/TestRoom.tscn").Instance();
+				newRoom = (Room)ResourceLoader.Load<PackedScene>(CurPool.GetRandomRoomPath()).Instance();
 			}
 
 			AddChild(newRoom);

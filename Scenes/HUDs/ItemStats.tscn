@@ -1,40 +1,49 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Graphics/UI/ItemDisplay/ItemDisplay.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/ItemOperations/ItemStatDisplay.cs" type="Script" id=2]
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scenes/HUDs/ItemStatsEnchantment.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 32, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 15, 15 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
 region = Rect2( 16, 0, 15, 15 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 15, 15 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
 region = Rect2( 16, 32, 16, 16 )
 
 [node name="ItemStatDisplay" type="VBoxContainer"]
-margin_right = 68.0
-margin_bottom = 74.0
+light_mask = 0
+material = ExtResource( 5 )
+margin_left = -33.0
+margin_top = -75.0
+margin_right = 35.0
+margin_bottom = -1.0
 rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 33, 75 )
 custom_constants/separation = -2
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Header" type="NinePatchRect" parent="."]
 light_mask = 0
+use_parent_material = true
 margin_right = 68.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
@@ -52,6 +61,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Header"]
 light_mask = 0
+use_parent_material = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -73,6 +83,7 @@ __meta__ = {
 
 [node name="Content" type="NinePatchRect" parent="."]
 light_mask = 0
+use_parent_material = true
 margin_top = 12.0
 margin_right = 68.0
 margin_bottom = 74.0
@@ -92,6 +103,7 @@ __meta__ = {
 
 [node name="Box" type="VBoxContainer" parent="Content"]
 light_mask = 0
+use_parent_material = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -105,6 +117,7 @@ __meta__ = {
 
 [node name="Box" type="HBoxContainer" parent="Content/Box"]
 light_mask = 0
+use_parent_material = true
 margin_right = 60.0
 margin_bottom = 27.0
 custom_constants/separation = 0
@@ -114,6 +127,7 @@ __meta__ = {
 
 [node name="BoxP" type="VBoxContainer" parent="Content/Box/Box"]
 light_mask = 0
+use_parent_material = true
 margin_right = 20.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
@@ -122,15 +136,18 @@ custom_constants/separation = 0
 
 [node name="Icon" type="TextureRect" parent="Content/Box/Box/BoxP"]
 light_mask = 0
+use_parent_material = true
 margin_right = 20.0
 margin_bottom = 15.0
-texture = SubResource( 4 )
+texture = SubResource( 6 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Text" type="Label" parent="Content/Box/Box/BoxP"]
+light_mask = 0
+use_parent_material = true
 margin_top = 15.0
 margin_right = 20.0
 margin_bottom = 27.0
@@ -147,6 +164,7 @@ __meta__ = {
 
 [node name="BoxS" type="VBoxContainer" parent="Content/Box/Box"]
 light_mask = 0
+use_parent_material = true
 margin_left = 20.0
 margin_right = 40.0
 margin_bottom = 27.0
@@ -156,15 +174,18 @@ custom_constants/separation = 0
 
 [node name="Icon" type="TextureRect" parent="Content/Box/Box/BoxS"]
 light_mask = 0
+use_parent_material = true
 margin_right = 20.0
 margin_bottom = 15.0
-texture = SubResource( 2 )
+texture = SubResource( 7 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Text" type="Label" parent="Content/Box/Box/BoxS"]
+light_mask = 0
+use_parent_material = true
 margin_top = 15.0
 margin_right = 20.0
 margin_bottom = 27.0
@@ -181,6 +202,7 @@ __meta__ = {
 
 [node name="BoxM" type="VBoxContainer" parent="Content/Box/Box"]
 light_mask = 0
+use_parent_material = true
 margin_left = 40.0
 margin_right = 60.0
 margin_bottom = 27.0
@@ -190,15 +212,18 @@ custom_constants/separation = 0
 
 [node name="Icon" type="TextureRect" parent="Content/Box/Box/BoxM"]
 light_mask = 0
+use_parent_material = true
 margin_right = 20.0
 margin_bottom = 15.0
-texture = SubResource( 5 )
+texture = SubResource( 4 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Text" type="Label" parent="Content/Box/Box/BoxM"]
+light_mask = 0
+use_parent_material = true
 margin_top = 15.0
 margin_right = 20.0
 margin_bottom = 27.0
@@ -215,12 +240,13 @@ __meta__ = {
 
 [node name="BG" type="NinePatchRect" parent="Content/Box"]
 light_mask = 0
+use_parent_material = true
 margin_top = 28.0
 margin_right = 60.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 3 )
+texture = SubResource( 5 )
 patch_margin_left = 7
 patch_margin_top = 7
 patch_margin_right = 7
@@ -230,6 +256,8 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="Content/Box/BG"]
+light_mask = 0
+use_parent_material = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -242,24 +270,39 @@ __meta__ = {
 
 [node name="Enchants" type="HBoxContainer" parent="Content/Box/BG/MarginContainer"]
 light_mask = 0
+use_parent_material = true
 margin_right = 56.0
 margin_bottom = 22.0
 custom_constants/separation = 0
 
-[node name="ItemEnchantment" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+[node name="Ench0" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+light_mask = 0
+use_parent_material = true
 margin_bottom = 22.0
 
-[node name="ItemEnchantment2" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+[node name="Ench1" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+light_mask = 0
+use_parent_material = true
 margin_left = 14.0
 margin_right = 28.0
 margin_bottom = 22.0
 
-[node name="ItemEnchantment3" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+[node name="Ench2" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+light_mask = 0
+use_parent_material = true
 margin_left = 28.0
 margin_right = 42.0
 margin_bottom = 22.0
 
-[node name="ItemEnchantment4" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+[node name="Ench3" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
+light_mask = 0
+use_parent_material = true
 margin_left = 42.0
 margin_right = 56.0
 margin_bottom = 22.0
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 68, 74 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3

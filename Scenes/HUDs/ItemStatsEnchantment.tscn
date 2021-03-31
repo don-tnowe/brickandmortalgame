@@ -3,7 +3,7 @@
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Graphics/Items/Enchants.png" type="Texture" id=2]
 
-[node name="ItemEnchantment" type="Control"]
+[node name="Ench" type="Control"]
 margin_right = 14.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 14, 21 )
@@ -17,7 +17,7 @@ texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
 
-[node name="Value" type="Label" parent="."]
+[node name="Text" type="Label" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

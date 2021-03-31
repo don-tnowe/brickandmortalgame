@@ -7,15 +7,17 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
     {
         public string ScenePath;
         public bool[] SlainEnemies;
+        public string[] PersistentObjects;
         public bool[] BlockedExits;
 
         public RoomData() { }
 
-        public RoomData(string scenePath, bool[] slainEnemies, bool[] blockedExits)
+        public RoomData(string scenePath, bool[] slainEnemies, bool[] blockedExits, string[] persistentObjects)
         {
             ScenePath = scenePath;
             SlainEnemies = slainEnemies;
             BlockedExits = blockedExits;
+            PersistentObjects = persistentObjects;
         }
 
         public override string ToString()

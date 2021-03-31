@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Hero.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Rooms/TestRoom.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Rooms/Start.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DungeonFeatures/DungeonBuilder.cs" type="Script" id=3]
 [ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Audio/BGM/Dungeon1.ogg" type="AudioStream" id=5]
@@ -12,7 +12,7 @@
 script = ExtResource( 3 )
 
 [node name="Hero" parent="." instance=ExtResource( 1 )]
-position = Vector2( 509, 270 )
+position = Vector2( 223, 75 )
 AnimationAllowed = true
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
@@ -40,5 +40,4 @@ __meta__ = {
 [node name="LightColor" type="CanvasModulate" parent="."]
 
 [node name="Room" parent="." instance=ExtResource( 2 )]
-position = Vector2( 97, -24 )
-LightColor = Color( 1, 1, 1, 1 )
+position = Vector2( -2, 1 )

@@ -19,11 +19,13 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		private Hero _nodeHero;
 		private Node _nodeEnemies;
 		private Node _nodeDoors;
+		private Node _nodePersistentObjects;
 		private Position2D _nodeScrollBottomRight;
 
 		private bool[] _slainEnemies; 
 		private int _remainingEnemies = 0;
 		private bool[] _blockedExits;
+		private string[] _persistentObjects;
 
 		public override void _Ready()
 		{
@@ -31,6 +33,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_nodeHero = GetNode<Hero>(_nodePathHero);
 			_nodeEnemies = GetNode("Enemies");
 			_nodeDoors = GetNode("Doors");
+			_nodePersistentObjects = GetNode("PersistentObjects");
 			_nodeScrollBottomRight = GetNode<Position2D>("ScrollBottomRight");
 
 			var cam = GetNode<Hero>(_nodePathHero).NodeCam;
@@ -50,6 +53,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			_slainEnemies = from.SlainEnemies;
 			_blockedExits = from.BlockedExits;
+			_persistentObjects = from.PersistentObjects;
 			_remainingEnemies = 0;
 			for (int i = 0; i < _slainEnemies.Length; ++i)
 			{
@@ -58,12 +62,22 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 				else
 					_remainingEnemies++;
 			}
+			for (int i = 0; i < _persistentObjects.Length; ++i)
+			{
+				((DungeonPersistentBase)_nodePersistentObjects.GetChild(i)).DeserializeFrom(_persistentObjects[i]);
+			}
 		}
 
 		public void LoadRoom()
 		{
 			_slainEnemies = new bool[_nodeEnemies.GetChildCount()];
 			_remainingEnemies = _nodeEnemies.GetChildCount();
+			_persistentObjects = new string[_nodePersistentObjects.GetChildCount()];
+			for (int i = 0; i < _persistentObjects.Length; ++i)
+			{
+				var node = ((DungeonPersistentBase)_nodePersistentObjects.GetChild(i));
+				node.Initialize();
+			}
 		}
 
 		public void PlaceHeroAtDoor(int toMapX, int toMapY, Vector2 positionOffset)
@@ -85,10 +99,12 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 						case RoomDoor.Direction.Up:
 							_nodeHero.Translate(new Vector2(positionOffset.x, -24));
 							_nodeHero.VelocityY = HeroParameters.Jump;
+							_nodeHero.VelocityX = 0;
 							break;
 						case RoomDoor.Direction.Down:
 							_nodeHero.Translate(new Vector2(positionOffset.x, 24));
 							_nodeHero.VelocityY = 0;
+							_nodeHero.VelocityX = 0;
 							break;
 					}
 					_nodeHero.NodeCam.ForceUpdateScroll();
@@ -107,7 +123,11 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 		public RoomData GetSerialized()
 		{
-			return new RoomData(Filename, _slainEnemies, _blockedExits);
+			for (int i = 0; i < _persistentObjects.Length; ++i)
+			{
+				_persistentObjects[i] = ((DungeonPersistentBase)_nodePersistentObjects.GetChild(i)).GetSerialized(); 
+			}
+			return new RoomData(Filename, _slainEnemies, _blockedExits, _persistentObjects);
 		}
 	}
 }

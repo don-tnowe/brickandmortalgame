@@ -45,6 +45,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public CombatActor NodeHitDetector;
 		public AnimationPlayer NodeAnim;
 		public AnimationPlayer NodeAnimWeapon;
+		public Tween NodeTween;
 		public Timer NodeTimerCoyote;
 		public Timer NodeTimerAttack;
 
@@ -62,6 +63,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			NodeHitDetector = GetNode<CombatActor>("CombatCollision");
 			NodeAnim = GetNode<AnimationPlayer>("Anim");
 			NodeAnimWeapon = GetNode<AnimationPlayer>("Weapon/AnimWeapon");
+			NodeTween = GetNode<Tween>("Tween");
 			NodeTimerCoyote = GetNode<Timer>("TimerCoyote");
 			NodeTimerAttack = GetNode<Timer>("TimerAttack");
 		}

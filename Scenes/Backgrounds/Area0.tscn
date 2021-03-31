@@ -11,5 +11,5 @@ transform = Transform2D( 0.75, 0, 0, 0.75, 0, 0 )
 motion_scale = Vector2( 0.1, 0.1 )
 
 [node name="Area1" type="Sprite" parent="Layer10"]
-position = Vector2( 117.333, 112 )
+position = Vector2( 161.333, 68 )
 texture = ExtResource( 1 )

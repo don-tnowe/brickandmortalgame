@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/Shaders/MaterialAdditive.tres" type="Material" id=1]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.2, 0.8, 1 )
@@ -9,10 +11,12 @@ gradient = SubResource( 1 )
 width = 128
 
 [node name="Sunlight0" type="Light2D"]
+material = ExtResource( 1 )
 rotation = -0.261799
 scale = Vector2( 1, 512 )
+z_index = 50
 texture = SubResource( 2 )
 offset = Vector2( 0, 0.5 )
-energy = 1.2
+energy = 1.25
 mode = 2
 range_layer_min = -1

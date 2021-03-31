@@ -2,11 +2,12 @@
 
 namespace BrickAndMortal.Scripts.ItemOperations
 {
-    class ItemEnchantment
+    public class ItemEnchantment
     {
+        public int Id = 0;
         public string Name = "Undefined";
         public int MagicCost = 6;
         public int BaseValue = 10;
-        public EquipType ApplicableTo = EquipType.All;
+        public ItemData.EquipFlags ApplicableTo = ItemData.EquipFlags.All;
     }
 }
