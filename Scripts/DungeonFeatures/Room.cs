@@ -1,3 +1,4 @@
+using BrickAndMortal.Scripts.HeroComponents;
 using System;
 using Godot;
 

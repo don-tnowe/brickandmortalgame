@@ -1088,7 +1088,9 @@ position = Vector2( 0, 2 )
 collision_layer = 0
 collision_mask = 8
 script = ExtResource( 3 )
-Damage = PoolIntArray( 2, 0, 0, 0, 0 )
+Damage = {
+0: 2.0
+}
 Attacker = NodePath("../CombatCollision")
 
 [node name="Shape" type="CollisionShape2D" parent="Weapon"]
@@ -1110,12 +1112,15 @@ anims/Init = SubResource( 3 )
 anims/Swing = SubResource( 4 )
 
 [node name="CombatCollision" type="Area2D" parent="."]
+position = Vector2( -1, 0 )
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 5 )
 HealthMax = 30
 Health = 30
-Defense = PoolRealArray( 1, 1, 1, 1, 1 )
+Defense = {
+
+}
 
 [node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
 position = Vector2( 0, 2 )
@@ -1125,8 +1130,9 @@ shape = SubResource( 5 )
 wait_time = 1.5
 one_shot = true
 
-[node name="Light2" type="Light2D" parent="."]
-z_index = -1
+[node name="Light" type="Light2D" parent="."]
+show_behind_parent = true
+z_index = -100
 texture = ExtResource( 7 )
 texture_scale = 1.5
 mode = 2

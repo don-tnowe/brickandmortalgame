@@ -12,8 +12,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 16 )
 
-[sub_resource type="ViewportTexture" id=8]
-viewport_path = NodePath("Viewport")
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("ViewportTex/Viewport")
 
 [sub_resource type="CanvasItemMaterial" id=3]
 light_mode = 1
@@ -71,7 +71,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/CaseFront:visible")
+tracks/3/path = NodePath("ViewportTex:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -122,40 +122,40 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 2, 2 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/CaseFront:visible")
+tracks/3/path = NodePath("Circle:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Circle:self_modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0, 0.2, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Anim:current_animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 3.6 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "Opened" ]
+}
 tracks/5/type = "value"
-tracks/5/path = NodePath("Anim:current_animation")
+tracks/5/path = NodePath("ViewportTex:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 3.6 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 2,
-"values": [ "Opened" ]
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -190,16 +190,27 @@ position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
 [node name="Circle" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0 )
 show_behind_parent = true
 position = Vector2( 0, -16 )
 scale = Vector2( 1e-05, 1e-05 )
 z_index = -15
 texture = ExtResource( 6 )
 
-[node name="CaseBack" type="Sprite" parent="."]
-show_behind_parent = true
+[node name="Item" type="Sprite" parent="."]
+material = ExtResource( 8 )
+position = Vector2( 0, -16 )
+texture = ExtResource( 4 )
+vframes = 16
+hframes = 16
+
+[node name="ViewportTex" type="Sprite" parent="."]
+material = ExtResource( 8 )
 position = Vector2( 0, -12 )
+texture = SubResource( 2 )
+
+[node name="CaseBack" type="Sprite" parent="ViewportTex"]
+show_behind_parent = true
+position = Vector2( 0, 0.2222 )
 z_index = -1
 texture = ExtResource( 3 )
 offset = Vector2( 0, -2 )
@@ -207,19 +218,7 @@ vframes = 4
 hframes = 4
 frame = 8
 
-[node name="Item" type="Sprite" parent="."]
-material = ExtResource( 8 )
-position = Vector2( 0, -14.6111 )
-texture = ExtResource( 4 )
-vframes = 16
-hframes = 16
-
-[node name="ViewportTex" type="Sprite" parent="."]
-material = ExtResource( 8 )
-position = Vector2( 0, -12.2222 )
-texture = SubResource( 8 )
-
-[node name="Viewport" type="Viewport" parent="."]
+[node name="Viewport" type="Viewport" parent="ViewportTex"]
 size = Vector2( 32, 32 )
 transparent_bg = true
 handle_input_locally = false
@@ -227,7 +226,7 @@ usage = 0
 render_target_v_flip = true
 gui_disable_input = true
 
-[node name="CaseFront" type="Sprite" parent="Viewport"]
+[node name="CaseFront" type="Sprite" parent="ViewportTex/Viewport"]
 material = ExtResource( 2 )
 position = Vector2( 16, 28 )
 texture = ExtResource( 3 )

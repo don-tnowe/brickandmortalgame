@@ -1,4 +1,5 @@
-﻿
+﻿using BrickAndMortal.Scripts.HeroComponents;
+
 namespace BrickAndMortal.Scripts.HeroStates
 {
     class HeroStateImmobile : HeroState

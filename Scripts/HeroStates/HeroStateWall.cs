@@ -1,3 +1,4 @@
+using BrickAndMortal.Scripts.HeroComponents;
 using Godot;
 using System;
 
@@ -8,7 +9,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		private int _wallDirection;
 		private bool _jumpBuffered = false;
 
-		public HeroStateWall(Hero hero) : base(hero)
+		public HeroStateWall(HeroComponents.Hero hero) : base(hero)
 		{
 			_wallDirection = Hero.VelocityXSign;
 			Hero.NodeFlipH.Scale = new Vector2(_wallDirection, 1);

@@ -1,3 +1,4 @@
+using BrickAndMortal.Scripts.HeroComponents;
 using Godot;
 using System;
 
@@ -6,7 +7,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 	class HeroStateLedgeGrab : HeroStateWall
 	{
 		private int _wallDirection;
-		private bool _jumpBuffered = false;
 		private bool _grabbed = false;
 
 		public HeroStateLedgeGrab(Hero hero) : base(hero)
@@ -43,7 +43,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 
 		public override void InputJump(bool pressed)
 		{
-			_jumpBuffered = false;
 			if (pressed)
 				if (Hero.InputMoveDirection == -_wallDirection)
 					base.InputJump(true);

@@ -1,6 +1,6 @@
-using Godot;
+using System.Collections.Generic;
 using System;
-
+using Godot;
 
 namespace BrickAndMortal.Scripts.Combat
 {
@@ -11,7 +11,7 @@ namespace BrickAndMortal.Scripts.Combat
 		[Export]
 		public int Health = 20;
 		[Export]
-		public float[] Defense = new float[CombatAttack.ElementCount];
+		public Dictionary<Elements, float> Defense;
 
 		[Signal]
 		public delegate void Defeated();
@@ -24,7 +24,7 @@ namespace BrickAndMortal.Scripts.Combat
 		public bool Invincible = false;
 
 		private PackedScene _sceneDamageNum = ResourceLoader.Load<PackedScene>("res://Scenes/DungeonFeatures/DamageNum.tscn");
-		private Random random = new Random();
+		private Random _random = new Random();
 
 		public virtual void Hurt(CombatAttack byAttack)
 		{
@@ -33,8 +33,12 @@ namespace BrickAndMortal.Scripts.Combat
 			var effectivenessLevel = 0;
 			if (!Invincible)
 			{
-				for (int i = 0; i < byAttack.Damage.Length; ++i)
-					if (byAttack.Damage[i] != 0 && Defense[i] != 0)
+				foreach (Elements i in byAttack.Damage.Keys)
+					if (!Defense.ContainsKey(i))
+					{
+						damage += (int)byAttack.Damage[i];
+					}
+					else if (byAttack.Damage[i] != 0 && Defense[i] != 0)
 					{
 						damage += (int)(byAttack.Damage[i] / Defense[i]);
 						multi /= Defense[i];
@@ -69,7 +73,7 @@ namespace BrickAndMortal.Scripts.Combat
 			var nodeDamageNum = (DamageNumbers)_sceneDamageNum.Instance();
 			nodeDamageNum.DisplayNumber(damage, effectivenessLevel);
 			GetParent().GetParent().AddChild(nodeDamageNum);
-			nodeDamageNum.GlobalPosition = GlobalPosition + new Vector2(((float)random.NextDouble() - 0.5f) * 16, 0);
+			nodeDamageNum.GlobalPosition = GlobalPosition + new Vector2(((float)_random.NextDouble() - 0.5f) * 16, 0);
 		}
 
 		public void UpdateMaxHp()

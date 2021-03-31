@@ -1,4 +1,4 @@
-using System;
+using BrickAndMortal.Scripts.HeroComponents;
 using Godot;
 
 namespace BrickAndMortal.Scripts.DungeonFeatures

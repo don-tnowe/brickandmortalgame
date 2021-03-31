@@ -5,9 +5,9 @@ namespace BrickAndMortal.Scripts.HeroStates
 {
 	public abstract class HeroState
 	{
-		public Hero Hero;
+		public BrickAndMortal.Scripts.HeroComponents.Hero Hero;
 
-		public HeroState(Hero hero)
+		public HeroState(BrickAndMortal.Scripts.HeroComponents.Hero hero)
 		{
 			Hero = hero;
 		}

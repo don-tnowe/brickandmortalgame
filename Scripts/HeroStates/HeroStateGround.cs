@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using BrickAndMortal.Scripts.HeroComponents;
 
 
 namespace BrickAndMortal.Scripts.HeroStates

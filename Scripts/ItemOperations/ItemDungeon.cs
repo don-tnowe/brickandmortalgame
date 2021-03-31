@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 namespace BrickAndMortal.Scripts.ItemOperations
@@ -10,8 +9,8 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 		public override void _Ready()
 		{
-			GetNode<Sprite>("Viewport/CaseFront").Frame = Frame;
-			GetNode<Sprite>("CaseBack").Frame = Frame;
+			GetNode<Sprite>("ViewportTex/Viewport/CaseFront").Frame = Frame;
+			GetNode<Sprite>("ViewportTex/CaseBack").Frame = Frame;
 		}
 
 		public void UnlockItem()

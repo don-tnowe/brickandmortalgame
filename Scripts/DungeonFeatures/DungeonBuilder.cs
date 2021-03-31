@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
+using System.Collections.Generic;
 using Godot;
 
 namespace BrickAndMortal.Scripts.DungeonFeatures
 {
 	class DungeonBuilder : Node
 	{
-		public Hashtable rooms = new Hashtable();
+		public Dictionary<Vector2, RoomData> rooms = new Dictionary<Vector2,RoomData>();
 
 		private int _onMapX = 0;
 		private int _onMapY = 0;
@@ -30,7 +29,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 			if (rooms.ContainsKey(new Vector2(_onMapX + toMapX, _onMapY + toMapY)))
 			{
-				newRoomData = (RoomData)rooms[new Vector2(_onMapX + toMapX, _onMapY + toMapY)];
+				newRoomData = rooms[new Vector2(_onMapX + toMapX, _onMapY + toMapY)];
 				newRoom = (Room)ResourceLoader.Load<PackedScene>(newRoomData.ScenePath).Instance();
 			}
 			else

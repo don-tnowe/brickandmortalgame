@@ -1,8 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Scripts/DungeonFeatures/DamageNumbers.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Combat/DamageNumbers.cs" type="Script" id=2]
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=3]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "Eff-1"
