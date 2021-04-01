@@ -37,15 +37,20 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 			var n = 1;
 			var enchCount = Math.Max(4 - item.Magic / 20, 0);
-			var forbiddenEnchants = new SortedList<int,int>();
+			var forbiddenEnchants = new List<int>();
+			forbiddenEnchants.Add(int.MaxValue);
 
 			while (n < enchCount)
 			{
 				var idx = _random.Next(_itemEnchantments.Length - forbiddenEnchants.Count);
-				foreach (int i in forbiddenEnchants.Keys)
-					if (idx >= i)
+				for (int i = 0; i < forbiddenEnchants.Count; i++)
+					if (idx >= forbiddenEnchants[i])
 						idx++;
-				forbiddenEnchants.Add(idx, 0);
+					else
+					{
+						forbiddenEnchants.Insert(i, idx);
+						break;
+					}
 				if ((ItemData.AllEnchantments[_itemEnchantments[idx]].ApplicableTo & (ItemData.EquipFlags)(1 << item.ItemType)) != 0)
 				{
 					item.HeldEnchantments[n, 0] = _itemEnchantments[idx];

@@ -14,6 +14,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 			_wallDirection = Hero.VelocityXSign;
 			Hero.NodeFlipH.Scale = new Vector2(_wallDirection, 1);
 			Hero.NodeRayLedgeGrab.Enabled = true;
+			Hero.NodeRayLedgeGrabHigher.Enabled = true;
 
 			if (Hero.VelocityY > 0)
 				Hero.VelocityY *= HeroParameters.WallFrictionInstantMult;
@@ -74,6 +75,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			Hero.NodeRayLedgeGrab.Enabled = false;
 			Hero.NodeRayLedgeGrabV.Enabled = false;
+			Hero.NodeRayLedgeGrabHigher.Enabled = false;
 		}
 
 		public override void InputMove(float direction)
@@ -94,14 +96,20 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			_jumpBuffered = false;
 			if (pressed)
-			{
-				Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
-				Hero.NodeTimerCoyote.Stop();
-				Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
-				Hero.VelocityY = HeroParameters.JumpWall;
-				Hero.SwitchState(Hero.States.Air);
-				Hero.NodeAnim.Play("Jump");
-			}
+				if (Hero.InputMoveDirection == -_wallDirection || Hero.NodeRayLedgeGrabHigher.IsColliding())
+				{
+					Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
+					Hero.NodeTimerCoyote.Stop();
+					Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
+					Hero.VelocityY = HeroParameters.JumpWall;
+					Hero.SwitchState(Hero.States.Air);
+					Hero.NodeAnim.Play("Jump");
+				}
+				else
+				{
+					Hero.VelocityY = HeroParameters.JumpWall;
+					Hero.NodeAnim.Play("LedgeGrabPre");
+				}
 			else if (Hero.VelocityY < HeroParameters.JumpInterrupted)
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
 		}

@@ -38,6 +38,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public Sprite NodeSprite;
 		public RayCast2D NodeRayGround;
 		public RayCast2D NodeRayLedgeGrab;
+		public RayCast2D NodeRayLedgeGrabHigher;
 		public RayCast2D NodeRayLedgeGrabV;
 		public RayCast2D NodeRayEnemyDetector;
 		public Camera2D NodeCam;
@@ -56,6 +57,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			NodeSprite = GetNode<Sprite>("FlipH/Sprite");
 			NodeRayGround = GetNode<RayCast2D>("FlipH/RayGround");
 			NodeRayLedgeGrab = GetNode<RayCast2D>("FlipH/RayLedgeGrab");
+			NodeRayLedgeGrabHigher = GetNode<RayCast2D>("FlipH/RayLedgeGrabHigher");
 			NodeRayLedgeGrabV = GetNode<RayCast2D>("FlipH/RayLedgeGrabV");
 			NodeRayEnemyDetector = GetNode<RayCast2D>("FlipH/RayEnemyDetector");
 			NodeCam = GetNode<Camera2D>("Cam");
