@@ -18,7 +18,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		}
 		[Export]
 		public bool AnimationAllowed = true;
-
+		
 		public float VelocityX = 0;
 		public float VelocityY = 0;
 		public Vector2 LastVelocity = new Vector2();
@@ -158,7 +158,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			_state.InputJump(pressed);
 		}
 
-		public void InputAttack(bool pressed)
+		public virtual void InputAttack(bool pressed)
 		{
 			if (pressed)
 				InputAttackStart = OS.GetTicksMsec();

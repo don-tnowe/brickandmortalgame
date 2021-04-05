@@ -1,51 +1,38 @@
-using BrickAndMortal.Scripts.ItemOperations;
-using System.Text.Json;
+﻿using BrickAndMortal.Scripts.ItemOperations;
 using Godot;
 
-namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
+namespace BrickAndMortal.Scripts.StoreFeatures
 {
-	class ItemPedestal : DungeonPersistentBase
-	{
+    class ItemShelf : Sprite
+    {
+        public bool CanSell {
+			get { return _canSell; } 
+			set { 
+				_canSell = value;
+				if (value)
+					Modulate = new Color(1, 1, 1, 1);
+				else
+					Modulate = new Color(0.5f, 0.5f, 0.5f, 1);
+			}
+		}
+
 		public Item HeldItem = null;
-		
-		public override void Initialize()
+
+		private bool _canSell = false;
+
+		public void SetItem(Item newItem)
 		{
-			HeldItem = GetNode<DungeonBuilder>("../../..").CurPool.GetRandomItem();
+			HeldItem = newItem;
 			GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
 		}
 
-		public void UnlockItem()
-		{
-			HeldItem = null;
-			GetNode<AnimationPlayer>("Anim").Play("Open");
-		}
-
-		public override string GetSerialized()
-		{
-			if (HeldItem == null)
-				return "{}";
-			else
-				return HeldItem.ToJSON();
-		}
-
-		public override void DeserializeFrom(string from)
-		{
-			if (!from.Equals("{}"))
-			{
-				HeldItem = new Item(from);
-				GetNode<Sprite>("ViewportTex/Viewport/CaseFront").Frame = Frame;
-				GetNode<Sprite>("ViewportTex/CaseBack").Frame = Frame;
-				GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
-			}
-			else
-				GetNode<AnimationPlayer>("Anim").Play("Open");
-		}
-		
-		
 		private void HeroEntered(HeroComponents.Hero body)
 		{
+			if (!CanSell)
+				return;
 			if (HeldItem == null)
 				return;
+
 			var tween = body.NodeTween;
 			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
 			display.DisplayItemData(HeldItem);
@@ -62,7 +49,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 
 			tween.Start();
 		}
-		
+
 		private void HeroExited(HeroComponents.Hero body)
 		{
 			if (HeldItem == null)
@@ -86,7 +73,3 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		}
 	}
 }
-
-
-
-
