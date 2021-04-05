@@ -67,7 +67,7 @@ namespace BrickAndMortal.Scripts.Enemies
 			var atk = (CombatAttack)fromScene.Instance();
 			if (isGlobal)
 			{
-				GetParent().AddChild(atk);
+				GetParent().GetParent().AddChild(atk);
 				atk.GlobalPosition = GlobalPosition;
 			}
 			else

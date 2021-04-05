@@ -21,5 +21,9 @@ namespace BrickAndMortal.Scripts.Combat
 		public Dictionary<Elements, float> Damage;
 		[Export]
 		public NodePath Attacker;
+
+		public virtual void HitTarget(CombatActor target) { }
 	}
 }
+
+

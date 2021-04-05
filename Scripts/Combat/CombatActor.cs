@@ -28,6 +28,7 @@ namespace BrickAndMortal.Scripts.Combat
 
 		public virtual void Hurt(CombatAttack byAttack)
 		{
+			byAttack.HitTarget(this);
 			var damage = 0;
 			var multi = 1f;
 			var effectivenessLevel = 0;

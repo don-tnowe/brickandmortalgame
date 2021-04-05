@@ -23,7 +23,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			for (int i = 0; i < _nodesEnch.Length; ++i)
 				_nodesEnch[i] = nodeEnchs.GetChild<CanvasItem>(i);
 		}
-		
+
 		public void DisplayItemData(Item item)
 		{
 			Visible = true;
@@ -32,16 +32,14 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			_nodeStatShine.Text = item.Shine.ToString();
 			_nodeStatMagic.Text = item.Magic.ToString();
 
-			for(int i = 0; i < item.HeldEnchantments.GetLength(0); ++i)
+			for (int i = 0; i < _nodesEnch.Length; ++i)
+				_nodesEnch[i].Visible = false;
+
+			for (int i = 0; i < item.HeldEnchantments[0].Length; ++i)
 			{
-				if (item.HeldEnchantments[i, 1] > 0)
-				{
-					_nodesEnch[i].Visible = true;
-					_nodesEnch[i].GetChild<Sprite>(0).Frame = item.HeldEnchantments[i, 0];
-					_nodesEnch[i].GetChild<Label>(1).Text = item.HeldEnchantments[i, 1].ToString();
-				}
-				else
-					_nodesEnch[i].Visible = false;
+				_nodesEnch[i].Visible = true;
+				_nodesEnch[i].GetChild<Sprite>(0).Frame = item.HeldEnchantments[0][i];
+				_nodesEnch[i].GetChild<Label>(1).Text = item.HeldEnchantments[1][i].ToString();
 			}
 		}
 	}

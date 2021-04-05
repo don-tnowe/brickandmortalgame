@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 
 namespace BrickAndMortal.Scripts.ItemOperations
@@ -48,24 +49,53 @@ namespace BrickAndMortal.Scripts.ItemOperations
 				}
 		};
 
-		[Flags]
-		public enum EquipFlags
+		public static int[] GetRandomEnchants(int[] from, int count, EquipFlags equipFlags, Random random = null)
 		{
-			None = 0,
-			First = 1,
-			All = 255,
+			if (random == null)
+				random = new Random();
 
-			Weapon = 1,
-			Spell = 2,
-			Chestplate = 4,
-			Helmet = 8,
-			Boots = 16,
-			Gauntlets = 32,
-			Ring = 64,
-			Necklace = 128,
+			var appliedEnchants = new List<int>();
+			var forbiddenEnchants = new List<int> { int.MaxValue };
+			int n = 0;
 
-			AllArmor = Chestplate | Helmet | Boots | Gauntlets,
-			AllJewellery = Ring | Necklace,
+			while (n < count)
+			{
+				var idx = random.Next(from.Length - forbiddenEnchants.Count);
+				for (int i = 0; i < forbiddenEnchants.Count; i++)
+					if (idx >= forbiddenEnchants[i])
+						idx++;
+					else
+					{
+						forbiddenEnchants.Insert(i, idx);
+						break;
+					}
+				if ((AllEnchantments[from[idx]].ApplicableTo & equipFlags) != 0)
+				{
+					appliedEnchants.Add(from[idx]);
+					++n;
+				}
+			}
+			return appliedEnchants.ToArray();
 		}
+	}
+
+	[Flags]
+	public enum EquipFlags
+	{
+		None = 0,
+		First = 1,
+		All = 255,
+
+		Weapon = 1,
+		Spell = 2,
+		Chestplate = 4,
+		Helmet = 8,
+		Boots = 16,
+		Gauntlets = 32,
+		Ring = 64,
+		Necklace = 128,
+
+		AllArmor = Chestplate | Helmet | Boots | Gauntlets,
+		AllJewellery = Ring | Necklace,
 	}
 }

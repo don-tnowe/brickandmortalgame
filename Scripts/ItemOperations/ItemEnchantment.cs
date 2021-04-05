@@ -8,6 +8,6 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		public string Name = "Undefined";
 		public int MagicCost = 6;
 		public int BaseValue = 10;
-		public ItemData.EquipFlags ApplicableTo = ItemData.EquipFlags.All;
+		public EquipFlags ApplicableTo = EquipFlags.All;
 	}
 }

@@ -9,7 +9,7 @@ namespace BrickAndMortal.Scripts
 
 		public static int Money = 0;
 
-		private static readonly ItemOperations.ItemBag _itemBag = new ItemOperations.ItemBag();
+		public static readonly ItemOperations.ItemBag ItemBag = new ItemOperations.ItemBag();
 
 		private const string _fileFolder = "user://Saves/";
 		private static string _fileName = "savegame0.dat";
@@ -22,6 +22,7 @@ namespace BrickAndMortal.Scripts
 
 			var file = new File();
 			file.Open(_fileFolder + _fileName, File.ModeFlags.Write);
+			//TODO: Save/ Load
 			file.StoreLine("WRITE JSON HERE");
 			file.Close();
 		}
@@ -34,6 +35,7 @@ namespace BrickAndMortal.Scripts
 			file.Open(_fileFolder + _fileName, File.ModeFlags.Read);
 			var contents = file.GetLine();
 			// Load as JSON
+			//TODO: Save/ Load
 			file.Close();
 		}
 	}
