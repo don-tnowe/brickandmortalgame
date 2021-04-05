@@ -5,6 +5,9 @@ namespace BrickAndMortal.Scripts.ItemOperations
 {
 	public class Item
 	{
+		public int Seed;
+		public string Pool;
+
 		public int ItemType;
 		public int Power;
 		public int Shine;
@@ -12,12 +15,16 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		public int[,] HeldEnchantments = new int[4, 2];
 
 		public int Frame;
+		public int CrawlNumber;
 
 		public Item() { }
 		
 		public Item(string from)
 		{
 			var parsed = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, JsonElement>>(from);
+
+			Seed = parsed["Seed"].GetInt32();
+			Pool = parsed["Pool"].GetString();
 
 			ItemType = parsed["ItemType"].GetInt32();
 			Power = parsed["Power"].GetInt32();
@@ -27,17 +34,20 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			var enchants = parsed["Enchants"];
 			for (int i = 0; i < enchants.GetArrayLength(); ++i)
 			{
-				HeldEnchantments[i, 0] = (enchants[i][0]).GetInt32();
-				HeldEnchantments[i, 1] = (enchants[i][1]).GetInt32();
+				HeldEnchantments[i, 0] = enchants[i][0].GetInt32();
+				HeldEnchantments[i, 1] = enchants[i][1].GetInt32();
 			}
 			Frame = parsed["Frame"].GetInt32();
+			CrawlNumber = parsed["CrawlNumber"].GetInt32();
 		}
 
 		public string ToJSON()
 		{
-
+			// Seed MUST be the first value.
 			var returnValue = "{"
-				+ "\"ItemType\":" + ItemType
+				+ "\"Seed\":" + Seed
+				+ ", \"Pool\":\"" + Pool + "\""
+				+ ", \"ItemType\":" + ItemType
 				+ ", \"Power\":" + Power
 				+ ", \"Shine\":" + Shine
 				+ ", \"Magic\":" + Magic + ", \"Enchants\":["
@@ -48,28 +58,12 @@ namespace BrickAndMortal.Scripts.ItemOperations
 					returnValue += ", ";
 				returnValue += "[" + HeldEnchantments[i, 0] + ", " + HeldEnchantments[i, 1] + "]";
 			}
+
 			returnValue += "], \"Frame\":" + Frame;
+			returnValue += ", \"CrawlNumber\":" + CrawlNumber;
 
 			returnValue += "}";
 
-			/*
-			var returnValue = new Godot.Collections.Array();
-
-			returnValue.Add(ItemType);
-			returnValue.Add(Power);
-			returnValue.Add(Shine);
-			returnValue.Add(Magic);
-			var enchants = new Godot.Collections.Array();
-			for (int i = 0; i < enchants.Count; ++i)
-			{
-				enchants.Add(new Godot.Collections.Array( new int[]{
-					HeldEnchantments[i, 0],
-					HeldEnchantments[i, 1]
-					}));
-
-			}
-			returnValue.Add(Frame);
-			*/
 			return returnValue;
 		}
 	}

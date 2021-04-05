@@ -32,7 +32,6 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		{
 			if (!from.Equals("{}"))
 			{
-				GD.Print(from);
 				item = new Item(from);
 				GetNode<Sprite>("ViewportTex/Viewport/CaseFront").Frame = Frame;
 				GetNode<Sprite>("ViewportTex/CaseBack").Frame = Frame;
