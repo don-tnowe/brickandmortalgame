@@ -14,11 +14,11 @@ namespace BrickAndMortal.Scripts.Combat
 		public Dictionary<Elements, float> Defense;
 
 		[Signal]
-		public delegate void Defeated();
+		private delegate void HealthSet(int value);
 		[Signal]
-		public delegate void HealthSetMax(int value);
+		private delegate void HealthSetMax(int value);
 		[Signal]
-		public delegate void HealthSet(int value);
+		private delegate void Defeated();
 
 		public bool IsPlayer = false;
 		public bool Invincible = false;
@@ -71,9 +71,10 @@ namespace BrickAndMortal.Scripts.Combat
 			else 
 				effectivenessLevel = 3;
 
-			var nodeDamageNum = (DamageNumbers)_sceneDamageNum.Instance();
-			nodeDamageNum.DisplayNumber(damage, effectivenessLevel);
+			var nodeDamageNum = (Node2D)_sceneDamageNum.Instance();
 			GetParent().GetParent().AddChild(nodeDamageNum);
+			nodeDamageNum.GetNode<Label>("Node/Label").Text = damage.ToString();
+			nodeDamageNum.GetNode<AnimationPlayer>("Anim").Play("Eff" + effectivenessLevel);
 			nodeDamageNum.GlobalPosition = GlobalPosition + new Vector2(((float)_random.NextDouble() - 0.5f) * 16, 0);
 		}
 

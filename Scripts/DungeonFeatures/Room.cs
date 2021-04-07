@@ -8,8 +8,6 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 	{
 		[Export]
 		public Color LightColor = new Color(1, 1, 1, 1);
-		[Export]
-		private readonly NodePath _nodePathHero = "../Hero";
 		[Signal]
 		private delegate void AllEnemiesDefeated();
 		[Signal]
@@ -22,7 +20,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		private Node _nodePersistentObjects;
 		private Position2D _nodeScrollBottomRight;
 
-		private bool[] _slainEnemies; 
+		private bool[] _slainEnemies;
 		private int _remainingEnemies = 0;
 		private bool[] _blockedExits;
 		private string[] _persistentObjects;
@@ -30,13 +28,13 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		public override void _Ready()
 		{
 			_nodeDungeonBuilder = GetNode<DungeonBuilder>("..");
-			_nodeHero = GetNode<Hero>(_nodePathHero);
+			_nodeHero = GetNode<Hero>("../Hero");
 			_nodeEnemies = GetNode("Enemies");
 			_nodeDoors = GetNode("Doors");
 			_nodePersistentObjects = GetNode("PersistentObjects");
 			_nodeScrollBottomRight = GetNode<Position2D>("ScrollBottomRight");
 
-			var cam = GetNode<Hero>(_nodePathHero).NodeCam;
+			var cam = _nodeHero.NodeCam;
 			cam.LimitRight = (int)_nodeScrollBottomRight.Position.x;
 			cam.LimitBottom = (int)_nodeScrollBottomRight.Position.y;
 		}
@@ -125,9 +123,15 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			for (int i = 0; i < _persistentObjects.Length; ++i)
 			{
-				_persistentObjects[i] = ((DungeonPersistentBase)_nodePersistentObjects.GetChild(i)).GetSerialized(); 
+				_persistentObjects[i] = ((DungeonPersistentBase)_nodePersistentObjects.GetChild(i)).GetSerialized();
 			}
-			return new RoomData(Filename, _slainEnemies, _blockedExits, _persistentObjects);
+			return new RoomData()
+			{
+				ScenePath = Filename,
+				SlainEnemies = _slainEnemies,
+				BlockedExits = _blockedExits,
+				PersistentObjects = _persistentObjects
+			};
 		}
 	}
 }

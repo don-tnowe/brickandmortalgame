@@ -7,7 +7,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
     {
         public InteractableArea NodeInteractableArea;
 
-        public override void InputAttack(bool pressed)
+        public new void InputAttack(bool pressed)
         {
 
         }

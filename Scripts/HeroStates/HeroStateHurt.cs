@@ -8,7 +8,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 	{
 		public HeroStateHurt(Hero hero) : base(hero) 
 		{
-			Hero.CanAttack = false;
 			Hero.NodeTimerAttack.Stop();
 			Hero.NodeFlipH.Scale = new Vector2(-Math.Sign(Hero.VelocityX), 1);
 			Hero.NodeAnim.Play("Hurt");

@@ -1,5 +1,4 @@
 using BrickAndMortal.Scripts.ItemOperations;
-using System.Collections.Generic;
 using System;
 using Godot;
 
@@ -12,7 +11,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		[Export]
 		private string[] _roomNames = {"Start"};
 		[Export]
-		private int[] _itemPSM = new int[3];
+		private int[] _itemStats = new int[3];
 		[Export]
 		private int[] _itemEnch = { 0, 1, 2 };
 		[Export]
@@ -35,14 +34,15 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 				Pool = ResourcePath.Substring(ResourcePath.FindLast("/") + 1),
 
 				ItemType = random.Next(3),
-				Power = _itemPSM[0] / 2 + random.Next(_itemPSM[0]),
-				Shine = _itemPSM[1] / 2 + random.Next(_itemPSM[1]),
-				Magic = random.Next(_itemPSM[2]),
+				Power = _itemStats[0] / 2 + random.Next(_itemStats[0]),
+				Shine = _itemStats[1] / 2 + random.Next(_itemStats[1]),
+				Magic = random.Next(_itemStats[2]),
 
 				Frame = random.Next(4),
 			};
 
-			var enchCount = Math.Max(4 - item.Magic / 20, 0);
+			var enchCount = random.Next(5);
+			item.Magic = Math.Max(item.Magic - enchCount * 10, 0);
 
 			item.HeldEnchantments[0] = ItemData.GetRandomEnchants(_itemEnch, enchCount, (EquipFlags)(1 << item.ItemType), random);
 			for (int i = 0; i < item.HeldEnchantments[0].Length; i++)

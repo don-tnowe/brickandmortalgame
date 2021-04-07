@@ -5,6 +5,8 @@ namespace BrickAndMortal.Scripts.ItemOperations
 {
 	class ItemStatDisplay : VBoxContainer
 	{
+		private const int _maxDisplayedEnch = 4;
+
 		private Label _nodeName;
 		private Label _nodeStatPower;
 		private Label _nodeStatShine;
@@ -32,14 +34,16 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			_nodeStatShine.Text = item.Shine.ToString();
 			_nodeStatMagic.Text = item.Magic.ToString();
 
-			for (int i = 0; i < item.HeldEnchantments[0].Length; ++i)
+			for (int i = 0; i < _maxDisplayedEnch; ++i)
 			{
+				if (item.HeldEnchantments[1].Length <= i || item.HeldEnchantments[1][i] == 0)
+				{
+					_nodesEnch[i].Visible = false;
+					continue;
+				}
+				_nodesEnch[i].Visible = true;
 				_nodesEnch[i].GetChild<Sprite>(0).Frame = item.HeldEnchantments[0][i];
 				_nodesEnch[i].GetChild<Label>(1).Text = item.HeldEnchantments[1][i].ToString();
-				if (item.HeldEnchantments[1][i] != 0)
-					_nodesEnch[i].Visible = true;
-				else
-					_nodesEnch[i].Visible = false;
 			}
 		}
 	}

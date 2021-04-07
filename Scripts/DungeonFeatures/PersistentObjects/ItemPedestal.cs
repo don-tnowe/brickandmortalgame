@@ -1,5 +1,4 @@
 using BrickAndMortal.Scripts.ItemOperations;
-using System.Text.Json;
 using Godot;
 
 namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
@@ -10,12 +9,13 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		
 		public override void Initialize()
 		{
-			HeldItem = GetNode<DungeonBuilder>("../../..").CurPool.GetRandomItem();
+			HeldItem = (Item)GetNode<DungeonBuilder>("../../..").GetRandomItem();
 			GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
 		}
 
 		public void UnlockItem()
 		{
+			SaveData.ItemBag.CollectItem(HeldItem);
 			HeldItem = null;
 			GetNode<AnimationPlayer>("Anim").Play("Open");
 		}
@@ -42,12 +42,12 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		}
 		
 		
-		private void HeroEntered(HeroComponents.Hero body)
+		private void HeroEntered(HeroComponents.Hero hero)
 		{
 			if (HeldItem == null)
 				return;
-			var tween = body.NodeTween;
-			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
+			var tween = hero.NodeTween;
+			var display = hero.GetNode<ItemStatDisplay>("ItemStatDisplay");
 			display.DisplayItemData(HeldItem);
 
 			tween.Stop(display);
@@ -63,12 +63,12 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 			tween.Start();
 		}
 		
-		private void HeroExited(HeroComponents.Hero body)
+		private void HeroExited(HeroComponents.Hero hero)
 		{
 			if (HeldItem == null)
 				return;
-			var tween = body.NodeTween;
-			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
+			var tween = hero.NodeTween;
+			var display = hero.GetNode<ItemStatDisplay>("ItemStatDisplay");
 
 			tween.Stop(display);
 			tween.InterpolateProperty(display, "rect_position",
@@ -86,6 +86,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		}
 	}
 }
+
+
 
 
 

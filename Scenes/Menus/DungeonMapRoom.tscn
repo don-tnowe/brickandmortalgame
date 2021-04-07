@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/UI/MapIcons.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Menus/DungeonMapRoom.cs" type="Script" id=3]
+
+[node name="Room" type="Control"]
+margin_right = 16.0
+margin_bottom = 16.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item0" type="NinePatchRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 16, 16 )
+patch_margin_left = 4
+patch_margin_top = 7
+patch_margin_right = 4
+patch_margin_bottom = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icons" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon5" type="Sprite" parent="Icons"]
+position = Vector2( 5, -4 )
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 8
+frame = 1
+
+[node name="Icon6" type="Sprite" parent="Icons"]
+position = Vector2( -5, -4 )
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 8
+frame = 2
+
+[node name="Icon7" type="Sprite" parent="Icons"]
+position = Vector2( 10, 5 )
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 8
+frame = 1
+
+[node name="Icon8" type="Sprite" parent="Icons"]
+position = Vector2( 0, 4 )
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 8
+frame = 1

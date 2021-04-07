@@ -9,13 +9,13 @@ namespace BrickAndMortal.Scripts.Combat.Attacks
         [Export]
         public Vector2 Acceleration = new Vector2(0, 0);
         [Export]
-        public bool IsPiercing = true;
+        private bool _isPiercing = true;
         [Export]
-        public bool IsSpectral = false;
+        private bool _isSpectral = false;
         [Export]
-        public int BounceCount = 0;
+        private int _bounceCount = 0;
         [Export]
-        public PackedScene SpawnOnDestroy = null;
+        private PackedScene _spawnOnDestroy = null;
         [Export]
         private NodePath _pathRayWall = "RayWall";
 
@@ -40,27 +40,27 @@ namespace BrickAndMortal.Scripts.Combat.Attacks
             _nodeRayWall.CastTo = Velocity * delta;
             if (_nodeRayWall.IsColliding())
             {
-                if (BounceCount > 0)
+                if (_bounceCount > 0)
                 {
                     Velocity = Velocity.Bounce(_nodeRayWall.GetCollisionNormal());
-                    BounceCount--;
+                    _bounceCount--;
                 }
-                else if (!IsSpectral)
+                else if (!_isSpectral)
                     Destroy();
             }
         }
 
         public override void HitTarget(CombatActor target) 
         {
-            if (!IsPiercing)
+            if (!_isPiercing)
                 Destroy();
         }
 
         public void Destroy()
         {
-            if (SpawnOnDestroy != null)
+            if (_spawnOnDestroy != null)
             {
-                var scene = (Node2D)SpawnOnDestroy.Instance();
+                var scene = (Node2D)_spawnOnDestroy.Instance();
                 GetParent().AddChild(scene);
                 scene.GlobalPosition = GlobalPosition;
             }

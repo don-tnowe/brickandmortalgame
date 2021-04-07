@@ -5,40 +5,41 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 {
 	class DungeonBuilder : Node
 	{
-		public Dictionary<Vector2, RoomData> rooms = new Dictionary<Vector2,RoomData>();
+		public Dictionary<Vector2, RoomData> Rooms = new Dictionary<Vector2,RoomData>();
+		public Room CurRoom;
 
 		private int _onMapX = 0;
 		private int _onMapY = 0;
 
-		private Room _curRoom;
-		public DungeonAreaPool CurPool;
+		private DungeonAreaPool _curPool;
 
 		public override void _Ready()
 		{
-			_curRoom = GetNode<Room>("Room");
-			_curRoom.LoadRoom();
-			rooms.Add(new Vector2(_onMapX, _onMapY), new RoomData());
+			SaveData.LoadGame();
+			CurRoom = GetNode<Room>("Room");
+			CurRoom.LoadRoom();
+			Rooms.Add(new Vector2(_onMapX, _onMapY), new RoomData());
 			GetNode<CanvasModulate>("LightColor").Color = GetNode<Room>("Room").LightColor;
 
-			CurPool = ResourceLoader.Load<DungeonAreaPool>("res://Resources/DungeonAreaPools/Area0.tres");
+			_curPool = ResourceLoader.Load<DungeonAreaPool>("res://Resources/DungeonAreaPools/Area0.tres");
 		}
 
 		public void SwitchRoom(int toMapX, int toMapY, Vector2 positionOffset)
 		{
-			rooms[new Vector2(_onMapX, _onMapY)] = _curRoom.GetSerialized();
+			Rooms[new Vector2(_onMapX, _onMapY)] = CurRoom.GetSerialized();
 
 			Room newRoom;
 			RoomData newRoomData = null;
 
-			if (rooms.ContainsKey(new Vector2(_onMapX + toMapX, _onMapY + toMapY)))
+			if (Rooms.ContainsKey(new Vector2(_onMapX + toMapX, _onMapY + toMapY)))
 			{
-				newRoomData = rooms[new Vector2(_onMapX + toMapX, _onMapY + toMapY)];
+				newRoomData = Rooms[new Vector2(_onMapX + toMapX, _onMapY + toMapY)];
 				newRoom = (Room)ResourceLoader.Load<PackedScene>(newRoomData.ScenePath).Instance();
 			}
 			else
 			{
-				rooms.Add(new Vector2(_onMapX + toMapX, _onMapY + toMapY), new RoomData());
-				newRoom = (Room)ResourceLoader.Load<PackedScene>(CurPool.GetRandomRoomPath()).Instance();
+				Rooms.Add(new Vector2(_onMapX + toMapX, _onMapY + toMapY), new RoomData());
+				newRoom = (Room)ResourceLoader.Load<PackedScene>(_curPool.GetRandomRoomPath()).Instance();
 			}
 
 			AddChild(newRoom);
@@ -48,12 +49,22 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 				newRoom.LoadRoom(newRoomData);
 
 			newRoom.PlaceHeroAtDoor(-toMapX, -toMapY, positionOffset);
-			_curRoom.QueueFree();
+			CurRoom.QueueFree();
 
-			_curRoom = newRoom;
+			CurRoom = newRoom;
 			_onMapX += toMapX;
 			_onMapY += toMapY;
 			GetNode<CanvasModulate>("LightColor").Color = newRoom.LightColor;
+		}
+
+		public Vector2 GetPosOnMap()
+		{
+			return new Vector2(_onMapX, _onMapY);
+		}
+
+		public object GetRandomItem()
+		{
+			return _curPool.GetRandomItem();
 		}
 	}
 }

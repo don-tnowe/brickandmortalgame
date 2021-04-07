@@ -4,10 +4,6 @@
     <RootNamespace>BrickAndMortal</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Scripts\Menus\" />
-    <Folder Include="Scripts\StoreFeatures\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
   </ItemGroup>
 </Project>
