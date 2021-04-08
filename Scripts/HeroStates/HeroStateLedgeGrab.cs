@@ -56,8 +56,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 				Hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
 
-        public override void InputAttack()
-        {
+		public override void InputAttack()
+		{
 			Hero.NodeAnim.Seek(0);
 			if (_grabbed)
 			{
@@ -67,5 +67,5 @@ namespace BrickAndMortal.Scripts.HeroStates
 			else 
 				Hero.NodeAnim.Play("AttackAir");
 		}
-    }
+	}
 }

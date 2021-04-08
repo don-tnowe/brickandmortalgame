@@ -6,5 +6,6 @@
 script = ExtResource( 1 )
 _roomLoadFolder = "res://Scenes/Rooms/Area0"
 _roomNames = PoolStringArray( "Small0", "Horizontal0" )
-_itemPSM = PoolIntArray( 50, 50, 50 )
-_itemEnchantments = PoolIntArray( 0, 1, 2, 3, 4, 5 )
+_itemStats = PoolIntArray( 30, 30, 40 )
+_itemEnch = PoolIntArray( 0, 1, 2, 3, 4, 5 )
+_itemEnchValues = PoolIntArray( 30, 30, 30, 15, 15, 15 )

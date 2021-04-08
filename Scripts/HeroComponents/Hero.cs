@@ -18,31 +18,29 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		}
 		[Export]
 		public bool AnimationAllowed = true;
-
+		
 		public float VelocityX = 0;
 		public float VelocityY = 0;
 		public Vector2 LastVelocity = new Vector2();
 		public int VelocityXSign = 1;
 		public States CurState;
 		public uint InstaTurnStart = 0;
-		public bool CanAttack = true;
 
 		public float InputMoveDirection = 0;
 		public uint InputJumpStart = 0;
 		public uint InputAttackStart = 0;
 
-		private HeroState _state;
+		private HeroState _controller;
+		private bool _canAttack = true;
 
-		public CollisionShape2D NodeShape;
 		public Node2D NodeFlipH;
-		public Sprite NodeSprite;
 		public RayCast2D NodeRayGround;
 		public RayCast2D NodeRayLedgeGrab;
+		public RayCast2D NodeRayLedgeGrabHigher;
 		public RayCast2D NodeRayLedgeGrabV;
 		public RayCast2D NodeRayEnemyDetector;
 		public Camera2D NodeCam;
 		public CombatAttack NodeWeapon;
-		public CombatActor NodeHitDetector;
 		public AnimationPlayer NodeAnim;
 		public AnimationPlayer NodeAnimWeapon;
 		public Tween NodeTween;
@@ -51,37 +49,39 @@ namespace BrickAndMortal.Scripts.HeroComponents
 
 		private void InitializeNodeReferences()
 		{
-			NodeShape = GetNode<CollisionShape2D>("Shape");
 			NodeFlipH = GetNode<Node2D>("FlipH");
-			NodeSprite = GetNode<Sprite>("FlipH/Sprite");
 			NodeRayGround = GetNode<RayCast2D>("FlipH/RayGround");
 			NodeRayLedgeGrab = GetNode<RayCast2D>("FlipH/RayLedgeGrab");
+			NodeRayLedgeGrabHigher = GetNode<RayCast2D>("FlipH/RayLedgeGrabHigher");
 			NodeRayLedgeGrabV = GetNode<RayCast2D>("FlipH/RayLedgeGrabV");
 			NodeRayEnemyDetector = GetNode<RayCast2D>("FlipH/RayEnemyDetector");
 			NodeCam = GetNode<Camera2D>("Cam");
 			NodeWeapon = GetNode<CombatAttack>("Weapon");
-			NodeHitDetector = GetNode<CombatActor>("CombatCollision");
 			NodeAnim = GetNode<AnimationPlayer>("Anim");
 			NodeAnimWeapon = GetNode<AnimationPlayer>("Weapon/AnimWeapon");
 			NodeTween = GetNode<Tween>("Tween");
 			NodeTimerCoyote = GetNode<Timer>("TimerCoyote");
 			NodeTimerAttack = GetNode<Timer>("TimerAttack");
+
+			if (HasNode("CombatCollision"))
+			{
+				var heartHUD = GetNode("/root/Node/UI/HUDHearts");
+				var hitDetector = GetNode("CombatCollision");
+				hitDetector.Connect("HealthSetMax", heartHUD, "ResetHearts");
+				hitDetector.Connect("HealthSet", heartHUD, "UpdateHearts");
+				hitDetector.CallDeferred("UpdateMaxHp");
+			}
 		}
 
 		public override void _Ready()
 		{
 			InitializeNodeReferences();
 			SwitchState(States.Air);
-
-			var heartHUD = GetNode("/root/Node/UI/HUDHearts");
-			NodeHitDetector.Connect("HealthSetMax", heartHUD, "ResetHearts");
-			NodeHitDetector.Connect("HealthSet", heartHUD, "UpdateHearts");
-			NodeHitDetector.CallDeferred("UpdateMaxHp");
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
-			_state.MoveBody(delta);
+			_controller.MoveBody(delta);
 		}
 
 		public override void _Input(InputEvent @event)
@@ -104,37 +104,42 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			{
 				InputAttack(@event.GetActionStrength("attack") > 0);
 			}
+			if (@event.IsAction("menu_bag") || @event.IsAction("menu_map") || @event.IsAction("pause"))
+			{
+				InputMove(0);
+				InputJump(false);
+				InputAttack(false);
+			}
 		}
 
 		public HeroState SwitchState(States state)
 		{
-			_state?.ExitState();
+			_controller?.ExitState();
 			CurState = state;
-			//GD.Print(state);
 			switch (state)
 			{
 				case States.Immobile:
-					_state = new HeroStateImmobile(this);
+					_controller = new HeroStateImmobile(this);
 					break;
 				case States.Ground:
-					_state = new HeroStateGround(this);
+					_controller = new HeroStateGround(this);
 					break;
 				case States.Air:
-					_state = new HeroStateAir(this);
+					_controller = new HeroStateAir(this);
 					break;
 				case States.Wall:
-					_state = new HeroStateWall(this);
+					_controller = new HeroStateWall(this);
 					break;
 				case States.LedgeGrab:
-					_state = new HeroStateLedgeGrab(this);
+					_controller = new HeroStateLedgeGrab(this);
 					break;
 			}
-			return _state;
+			return _controller;
 		}
 
 		public void SwitchStateAuto()
 		{
-			CanAttack = true;
+			_canAttack = true;
 			if (IsOnFloor())
 				SwitchState(States.Ground);
 			else if (IsOnWall())
@@ -146,23 +151,23 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public void InputMove(float direction)
 		{
 			if (!(direction == 0 && InputMoveDirection == 0))
-				_state.InputMove(direction);
+				_controller.InputMove(direction);
 			InputMoveDirection = direction;
 		}
 
 		public void InputJump(bool pressed)
 		{
 			InputJumpStart = pressed ? OS.GetTicksMsec() : 0;
-			_state.InputJump(pressed);
+			_controller.InputJump(pressed);
 		}
 
 		public void InputAttack(bool pressed)
 		{
 			if (pressed)
 				InputAttackStart = OS.GetTicksMsec();
-			if (pressed && CanAttack)
+			if (pressed && _canAttack)
 			{
-				CanAttack = false;
+				_canAttack = false;
 				NodeTimerAttack.Start();
 				if (NodeRayEnemyDetector.IsColliding())
 					NodeWeapon.Scale = new Vector2(Math.Sign(NodeRayEnemyDetector.GetCollisionPoint().x - GlobalPosition.x), 1);
@@ -170,7 +175,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 					NodeWeapon.Scale = new Vector2(NodeFlipH.Scale.x, 1);
 				else
 					NodeWeapon.Scale = new Vector2(InputMoveDirection, 1);
-				_state.InputAttack();
+				_controller.InputAttack();
 				NodeAnimWeapon.Stop();
 				NodeAnimWeapon.Play("Swing");
 			}
@@ -178,18 +183,19 @@ namespace BrickAndMortal.Scripts.HeroComponents
 
 		public void AnimationAction(int action)
 		{
-			_state.AnimationAction(action);
+			_controller.AnimationAction(action);
 		}
 
 		private void Hurt(CombatAttack attack)
 		{
 			var newVelocity = new Vector2(64, -96);
+			_canAttack = false;
 			if (attack.GlobalPosition < GlobalPosition)
 				VelocityX = newVelocity.x;
 			else
 				VelocityX = -newVelocity.x;
 			VelocityY = newVelocity.y;
-			_state = new HeroStateHurt(this);
+			_controller = new HeroStateHurt(this);
 		}
 
 		private void CoyoteFall()
@@ -199,7 +205,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 
 		private void AttackReady()
 		{
-			CanAttack = true;
+			_canAttack = true;
 			if (InputAttackStart > OS.GetTicksMsec() - (NodeTimerAttack.WaitTime * 800))
 				InputAttack(true);
 		}

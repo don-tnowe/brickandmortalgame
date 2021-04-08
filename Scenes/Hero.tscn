@@ -4,9 +4,9 @@
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=3]
 [ext_resource path="res://Graphics/Characters/HeroSlash.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/HeroComponents/HeroHazardSensor.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/HeroComponents/HeroCombatCollision.cs" type="Script" id=5]
 [ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=6]
-[ext_resource path="res://Graphics/VFX/LightHero.png" type="Texture" id=7]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=7]
 [ext_resource path="res://Scenes/HUDs/ItemStats.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -1041,50 +1041,62 @@ tracks/2/keys = {
 }
 
 [node name="Hero" type="KinematicBody2D"]
+light_mask = 0
 z_index = 40
 collision_mask = 2147483650
 script = ExtResource( 2 )
-AnimationAllowed = false
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+light_mask = 0
 position = Vector2( 0, 2.5 )
 shape = SubResource( 1 )
 
 [node name="FlipH" type="Node2D" parent="."]
+light_mask = 0
 position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
-position = Vector2( 0, 3.5 )
-scale = Vector2( 2.5, 0.5 )
+position = Vector2( 0, 9.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 vframes = 8
 hframes = 8
-frame = 51
+frame = 50
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
+light_mask = 0
 position = Vector2( 1, 8.5 )
 enabled = true
 cast_to = Vector2( 0, 4 )
 collision_mask = 2
 
 [node name="RayLedgeGrab" type="RayCast2D" parent="FlipH"]
-position = Vector2( -6, -17.5 )
+light_mask = 0
+position = Vector2( -6, -13.5 )
+cast_to = Vector2( 12, 0 )
+collision_mask = 2
+
+[node name="RayLedgeGrabHigher" type="RayCast2D" parent="FlipH"]
+light_mask = 0
+position = Vector2( -6, -25.5 )
 cast_to = Vector2( 12, 0 )
 collision_mask = 2
 
 [node name="RayLedgeGrabV" type="RayCast2D" parent="FlipH"]
+light_mask = 0
 position = Vector2( 6, -24.5 )
 cast_to = Vector2( 0, 24 )
 collision_mask = 2
 
 [node name="RayEnemyDetector" type="RayCast2D" parent="FlipH"]
+light_mask = 0
 position = Vector2( 42, 2.5 )
 enabled = true
 cast_to = Vector2( -80, 0 )
 collision_mask = 8
 
 [node name="Weapon" type="Area2D" parent="."]
+light_mask = 0
 position = Vector2( 0, 2 )
 collision_layer = 0
 collision_mask = 8
@@ -1095,17 +1107,20 @@ Damage = {
 Attacker = NodePath("../CombatCollision")
 
 [node name="Shape" type="CollisionShape2D" parent="Weapon"]
+light_mask = 0
 position = Vector2( 18, -1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="HeroSlash" type="Sprite" parent="Weapon"]
 visible = false
-position = Vector2( 34, 0 )
+light_mask = 0
+material = ExtResource( 7 )
+position = Vector2( 30, 0 )
 texture = ExtResource( 4 )
 offset = Vector2( -11.2382, -1.01826 )
 vframes = 6
-frame = 5
+frame = 2
 
 [node name="AnimWeapon" type="AnimationPlayer" parent="Weapon"]
 autoplay = "Init"
@@ -1113,6 +1128,7 @@ anims/Init = SubResource( 3 )
 anims/Swing = SubResource( 4 )
 
 [node name="CombatCollision" type="Area2D" parent="."]
+light_mask = 0
 position = Vector2( -1, 0 )
 collision_layer = 0
 collision_mask = 4
@@ -1124,6 +1140,7 @@ Defense = {
 }
 
 [node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
+light_mask = -2147483648
 position = Vector2( 0, 2 )
 shape = SubResource( 5 )
 
@@ -1131,22 +1148,16 @@ shape = SubResource( 5 )
 wait_time = 1.5
 one_shot = true
 
-[node name="Light" type="Light2D" parent="."]
-show_behind_parent = true
-z_index = -100
-texture = ExtResource( 7 )
-texture_scale = 1.5
-mode = 2
-range_layer_min = -1
-
 [node name="TransitionBlackout" type="Sprite" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 show_behind_parent = true
+light_mask = 0
 scale = Vector2( 1e-05, 1e-05 )
 z_index = 100
 texture = ExtResource( 6 )
 
 [node name="Cam" type="Camera2D" parent="."]
+light_mask = 0
 current = true
 process_mode = 0
 limit_left = 0

@@ -2,3 +2,5 @@
 ItemType0;	Weapon
 ItemType1;	Spell
 ItemType2;	Body Armor
+;
+MsgBagEmpty;	Your bag's empty. Get lootin'!

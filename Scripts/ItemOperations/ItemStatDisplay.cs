@@ -5,24 +5,45 @@ namespace BrickAndMortal.Scripts.ItemOperations
 {
 	class ItemStatDisplay : VBoxContainer
 	{
+		private const int _maxDisplayedEnch = 4;
+
+		private Label _nodeName;
+		private Label _nodeStatPower;
+		private Label _nodeStatShine;
+		private Label _nodeStatMagic;
+
+		private CanvasItem[] _nodesEnch;
+
+		public override void _Ready()
+		{
+			_nodeName = GetNode<Label>("Header/Label");
+			_nodeStatPower = GetNode<Label>("Content/Box/Box/BoxP/Text");
+			_nodeStatShine = GetNode<Label>("Content/Box/Box/BoxS/Text");
+			_nodeStatMagic = GetNode<Label>("Content/Box/Box/BoxM/Text");
+			var nodeEnchs = GetNode("Content/Box/BG/MarginContainer/Enchants");
+			_nodesEnch = new CanvasItem[nodeEnchs.GetChildCount()];
+			for (int i = 0; i < _nodesEnch.Length; ++i)
+				_nodesEnch[i] = nodeEnchs.GetChild<CanvasItem>(i);
+		}
+
 		public void DisplayItemData(Item item)
 		{
 			Visible = true;
-			GetNode<Label>("Header/Label").Text = "ItemType" + item.ItemType;
-			GetNode<Label>("Content/Box/Box/BoxP/Text").Text = item.Power.ToString();
-			GetNode<Label>("Content/Box/Box/BoxS/Text").Text = item.Shine.ToString();
-			GetNode<Label>("Content/Box/Box/BoxM/Text").Text = item.Magic.ToString();
+			_nodeName.Text = "ItemType" + item.ItemType;
+			_nodeStatPower.Text = item.Power.ToString();
+			_nodeStatShine.Text = item.Shine.ToString();
+			_nodeStatMagic.Text = item.Magic.ToString();
 
-			for(int i = 0; i < item.HeldEnchantments.GetLength(0); ++i)
+			for (int i = 0; i < _maxDisplayedEnch; ++i)
 			{
-				if (item.HeldEnchantments[i, 1] > 0)
+				if (item.HeldEnchantments[1].Length <= i || item.HeldEnchantments[1][i] == 0)
 				{
-					GetNode<CanvasItem>("Content/Box/BG/MarginContainer/Enchants/Ench" + i).Visible = true;
-					GetNode<Sprite>("Content/Box/BG/MarginContainer/Enchants/Ench" + i + "/Icon").Frame = item.HeldEnchantments[i, 0];
-					GetNode<Label>("Content/Box/BG/MarginContainer/Enchants/Ench" + i + "/Text").Text = item.HeldEnchantments[i, 1].ToString();
+					_nodesEnch[i].Visible = false;
+					continue;
 				}
-				else
-					GetNode<CanvasItem>("Content/Box/BG/MarginContainer/Enchants/Ench" + i).Visible = false;
+				_nodesEnch[i].Visible = true;
+				_nodesEnch[i].GetChild<Sprite>(0).Frame = item.HeldEnchantments[0][i];
+				_nodesEnch[i].GetChild<Label>(1).Text = item.HeldEnchantments[1][i].ToString();
 			}
 		}
 	}

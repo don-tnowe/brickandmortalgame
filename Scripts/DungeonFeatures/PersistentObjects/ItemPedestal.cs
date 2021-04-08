@@ -1,55 +1,54 @@
 using BrickAndMortal.Scripts.ItemOperations;
-using System.Text.Json;
 using Godot;
 
 namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 {
 	class ItemPedestal : DungeonPersistentBase
 	{
-		public Item item = null;
+		public Item HeldItem = null;
 		
 		public override void Initialize()
 		{
-			item = GetNode<DungeonBuilder>("../../..").CurPool.GetRandomItem();
-			GetNode<Sprite>("Item").Frame = item.ItemType * 8 + item.Frame;
+			HeldItem = (Item)GetNode<DungeonBuilder>("../../..").GetRandomItem();
+			GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
 		}
 
 		public void UnlockItem()
 		{
-			item = null;
+			SaveData.ItemBag.CollectItem(HeldItem);
+			HeldItem = null;
 			GetNode<AnimationPlayer>("Anim").Play("Open");
 		}
 
 		public override string GetSerialized()
 		{
-			if (item == null)
+			if (HeldItem == null)
 				return "{}";
 			else
-				return item.ToJSON();
+				return HeldItem.ToJSON();
 		}
 
 		public override void DeserializeFrom(string from)
 		{
 			if (!from.Equals("{}"))
 			{
-				GD.Print(from);
-				item = new Item(from);
+				HeldItem = new Item(from);
 				GetNode<Sprite>("ViewportTex/Viewport/CaseFront").Frame = Frame;
 				GetNode<Sprite>("ViewportTex/CaseBack").Frame = Frame;
-				GetNode<Sprite>("Item").Frame = item.ItemType * 8 + item.Frame;
+				GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
 			}
 			else
 				GetNode<AnimationPlayer>("Anim").Play("Open");
 		}
 		
 		
-		private void HeroEntered(HeroComponents.Hero body)
+		private void HeroEntered(HeroComponents.Hero hero)
 		{
-			if (item == null)
+			if (HeldItem == null)
 				return;
-			var tween = body.NodeTween;
-			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
-			display.DisplayItemData(item);
+			var tween = hero.NodeTween;
+			var display = hero.GetNode<ItemStatDisplay>("ItemStatDisplay");
+			display.DisplayItemData(HeldItem);
 
 			tween.Stop(display);
 			tween.InterpolateProperty(display, "rect_position",
@@ -64,12 +63,12 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 			tween.Start();
 		}
 		
-		private void HeroExited(HeroComponents.Hero body)
+		private void HeroExited(HeroComponents.Hero hero)
 		{
-			if (item == null)
+			if (HeldItem == null)
 				return;
-			var tween = body.NodeTween;
-			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
+			var tween = hero.NodeTween;
+			var display = hero.GetNode<ItemStatDisplay>("ItemStatDisplay");
 
 			tween.Stop(display);
 			tween.InterpolateProperty(display, "rect_position",
@@ -87,6 +86,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		}
 	}
 }
+
+
 
 
 

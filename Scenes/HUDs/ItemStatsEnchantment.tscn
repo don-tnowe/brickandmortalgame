@@ -4,6 +4,7 @@
 [ext_resource path="res://Graphics/Items/Enchants.png" type="Texture" id=2]
 
 [node name="Ench" type="Control"]
+use_parent_material = true
 margin_right = 14.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 14, 21 )
@@ -12,12 +13,14 @@ __meta__ = {
 }
 
 [node name="Icon" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 7, 7 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
 
 [node name="Text" type="Label" parent="."]
+use_parent_material = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -8,7 +8,7 @@ namespace HUDs
 		private const int _heartsPerRow = 10;
 		private const int _pointsPerHeart = 10;
 
-		private readonly PackedScene _sceneHeartSmall = GD.Load<PackedScene>("res://Scenes/HUDs/HeartSmall.tscn");
+		private PackedScene _sceneHeartSmall = GD.Load<PackedScene>("res://Scenes/HUDs/HeartSmall.tscn");
 
 		private TextureProgress _heartBig;
 		private List<TextureRect> _heartsSmall;

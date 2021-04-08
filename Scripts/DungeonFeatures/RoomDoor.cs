@@ -13,14 +13,14 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			Up
 		}
 
-		[Signal]
-		public delegate void TransitionActivated(int toMapX, int toMapY, Vector2 positionOffset);
 		[Export]
 		public int ToMapX = 1;
 		[Export]
 		public int ToMapY = 0;
 		[Export]
 		public Direction ExitDir;
+		[Signal]
+		public delegate void TransitionActivated(int toMapX, int toMapY, Vector2 positionOffset);
 
 		private Vector2 _heroGlobalPosition;
 

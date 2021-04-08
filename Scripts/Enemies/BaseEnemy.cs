@@ -6,7 +6,7 @@ namespace BrickAndMortal.Scripts.Enemies
 	public class BaseEnemy : KinematicBody2D
 	{
 		[Export]
-		private readonly NodePath _nodePathRoom = "../..";
+		private NodePath _nodePathRoom = "../..";
 		[Export]
 		public float PhysVelocityX = 0;
 		[Export]
@@ -20,8 +20,7 @@ namespace BrickAndMortal.Scripts.Enemies
 		private delegate void Defeated(int idx);
 
 		public readonly PackedScene ScenePtclHit = ResourceLoader.Load<PackedScene>("res://Scenes/VFX/PtclHit.tscn");
-
-		private Tween _nodeTween;
+        private Tween _nodeTween;
 		private Sprite _nodeSprite;
 		private CollisionShape2D _nodeShape;
 		private AnimationPlayer _nodeAnim;
@@ -67,7 +66,7 @@ namespace BrickAndMortal.Scripts.Enemies
 			var atk = (CombatAttack)fromScene.Instance();
 			if (isGlobal)
 			{
-				GetParent().AddChild(atk);
+				GetParent().GetParent().AddChild(atk);
 				atk.GlobalPosition = GlobalPosition;
 			}
 			else

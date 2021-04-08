@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/StoreFeatures/CustomerData.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+_needsTypes = PoolIntArray( 1, 2, 60 )
+_needsEnchants = PoolIntArray( 0, 1, 2 )
+_needCount = 1
+_minPriceMultiplier = -0.4
+_denyPriceMultiplier = 2.0
+_priceIncrementMultiplier = 0.25
+_denyChanceInit = -1.0
+_denyChanceIncrement = 0.2
+_multiplierPower = 1.0
+_multiplierShine = 4.0
+_multiplierMagic = 0.0
+_multipliersEnchants = {
+0: 1.0,
+1: 1.0,
+2: 1.0,
+3: 1.0,
+4: 1.0
+}

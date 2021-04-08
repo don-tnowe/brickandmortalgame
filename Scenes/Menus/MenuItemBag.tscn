@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/HUDs/ItemStats.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Menus/ItemBagItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Menus/MenuItemBag.cs" type="Script" id=3]
+[ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=4]
+[ext_resource path="res://Resources/Shaders/ShaderGreyscale.tres" type="Material" id=5]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=6]
+
+[node name="ItemBag" type="ColorRect"]
+self_modulate = Color( 0.572549, 0.403922, 0.223529, 1 )
+material = ExtResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+_shortcutAction = "menu_bag"
+_sceneItem = ExtResource( 2 )
+
+[node name="Box" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -88.0
+margin_top = -37.0
+margin_right = 88.0
+margin_bottom = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemStatDisplay" parent="Box" instance=ExtResource( 1 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 68.0
+margin_bottom = 74.0
+rect_scale = Vector2( 1, 1 )
+
+[node name="Scroll" type="ScrollContainer" parent="Box"]
+margin_left = 72.0
+margin_right = 76.0
+margin_bottom = 74.0
+theme = ExtResource( 4 )
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="Box" type="HBoxContainer" parent="Box/Scroll"]
+margin_right = 4.0
+
+[node name="ItemGrid" type="GridContainer" parent="Box/Scroll/Box"]
+columns = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Box/Scroll/Box"]
+margin_left = 4.0
+margin_right = 4.0
+
+[node name="MsgBagEmpty" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -6.0
+margin_bottom = 6.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MsgBagEmpty"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

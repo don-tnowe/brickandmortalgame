@@ -10,11 +10,11 @@
 atlas = ExtResource( 1 )
 region = Rect2( 0, 32, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 15, 15 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
 region = Rect2( 16, 0, 15, 15 )
 
@@ -33,6 +33,7 @@ margin_left = -33.0
 margin_top = -75.0
 margin_right = 35.0
 margin_bottom = -1.0
+rect_min_size = Vector2( 68, 74 )
 rect_scale = Vector2( 0.75, 0.75 )
 rect_pivot_offset = Vector2( 33, 75 )
 custom_constants/separation = -2
@@ -139,7 +140,7 @@ light_mask = 0
 use_parent_material = true
 margin_right = 20.0
 margin_bottom = 15.0
-texture = SubResource( 6 )
+texture = SubResource( 2 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
@@ -177,7 +178,7 @@ light_mask = 0
 use_parent_material = true
 margin_right = 20.0
 margin_bottom = 15.0
-texture = SubResource( 7 )
+texture = SubResource( 3 )
 stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
@@ -277,26 +278,22 @@ custom_constants/separation = 0
 
 [node name="Ench0" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
-use_parent_material = true
 margin_bottom = 22.0
 
 [node name="Ench1" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
-use_parent_material = true
 margin_left = 14.0
 margin_right = 28.0
 margin_bottom = 22.0
 
 [node name="Ench2" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
-use_parent_material = true
 margin_left = 28.0
 margin_right = 42.0
 margin_bottom = 22.0
 
 [node name="Ench3" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
-use_parent_material = true
 margin_left = 42.0
 margin_right = 56.0
 margin_bottom = 22.0
