@@ -104,7 +104,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			{
 				InputAttack(@event.GetActionStrength("attack") > 0);
 			}
-			if (@event.IsAction("menu_bag") || @event.IsAction("menu_map") || @event.IsAction("pause"))
+			if (@event.IsAction("pause"))
 			{
 				InputMove(0);
 				InputJump(false);

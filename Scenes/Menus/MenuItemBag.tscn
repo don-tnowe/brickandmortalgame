@@ -1,22 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/HUDs/ItemStats.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Menus/ItemBagItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Menus/MenuItemBag.cs" type="Script" id=3]
 [ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=4]
-[ext_resource path="res://Resources/Shaders/ShaderGreyscale.tres" type="Material" id=5]
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=6]
 
-[node name="ItemBag" type="ColorRect"]
+[node name="ItemBag" type="Control"]
 self_modulate = Color( 0.572549, 0.403922, 0.223529, 1 )
-material = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
-_shortcutAction = "menu_bag"
+Title = "MenuBag"
 _sceneItem = ExtResource( 2 )
 
 [node name="Box" type="HBoxContainer" parent="."]
@@ -51,6 +49,12 @@ scroll_horizontal_enabled = false
 margin_right = 4.0
 
 [node name="ItemGrid" type="GridContainer" parent="Box/Scroll/Box"]
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 columns = 5
 __meta__ = {
 "_edit_use_anchors_": false

@@ -2,5 +2,10 @@
 ItemType0;	Weapon
 ItemType1;	Spell
 ItemType2;	Body Armor
-;
+ ;
+ ;
+MenuBag;	Item Bag
+MenuMap;	Map
+ ;
+ ;
 MsgBagEmpty;	Your bag's empty. Get lootin'!

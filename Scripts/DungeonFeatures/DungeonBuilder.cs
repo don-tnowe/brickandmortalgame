@@ -18,7 +18,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			SaveData.LoadGame();
 			CurRoom = GetNode<Room>("Room");
 			CurRoom.LoadRoom();
-			Rooms.Add(new Vector2(_onMapX, _onMapY), new RoomData());
+			Rooms.Add(new Vector2(_onMapX, _onMapY), CurRoom.GetSerialized());
 			GetNode<CanvasModulate>("LightColor").Color = GetNode<Room>("Room").LightColor;
 
 			_curPool = ResourceLoader.Load<DungeonAreaPool>("res://Resources/DungeonAreaPools/Area0.tres");
@@ -68,3 +68,5 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		}
 	}
 }
+
+

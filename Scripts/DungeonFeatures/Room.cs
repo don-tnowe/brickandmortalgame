@@ -8,6 +8,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 	{
 		[Export]
 		public Color LightColor = new Color(1, 1, 1, 1);
+		[Export]
+		private int[] _mapMods = new int[4];
 		[Signal]
 		private delegate void AllEnemiesDefeated();
 		[Signal]
@@ -44,7 +46,15 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_slainEnemies[id] = true;
 			_remainingEnemies--;
 			if (_remainingEnemies <= 0)
+			{
 				EmitSignal("AllEnemiesDefeated");
+				for (int i = 0; i < _mapMods.Length; i++)
+					if (_mapMods[i] == 0 || _mapMods[i] >= 8 && _mapMods[i] < 16)
+					{
+						_mapMods[i] = 2;
+						break;
+					}
+			}
 		}
 
 		public void LoadRoom(RoomData from)
@@ -130,7 +140,8 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 				ScenePath = Filename,
 				SlainEnemies = _slainEnemies,
 				BlockedExits = _blockedExits,
-				PersistentObjects = _persistentObjects
+				PersistentObjects = _persistentObjects,
+				MapMods = _mapMods
 			};
 		}
 	}

@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace HUDs
+namespace BrickAndMortal.Scripts.HUDs
 {
 	public class HUDHearts : Control
 	{

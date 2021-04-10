@@ -18,7 +18,24 @@ namespace BrickAndMortal.Scripts.Menus
 
 		public void DisplayRoom(RoomData room, bool isCurrent)
 		{
+			DisplayMods(room, isCurrent);
 			ArrangeIcons();
+		}
+
+		private void DisplayMods(RoomData room, bool isCurrent)
+		{
+			_displayedMods = new int[_iconMaxCount];
+
+			if (isCurrent)
+				_displayedMods[0] = 1;
+			var iOffset = _displayedMods[0];
+			for (int i = iOffset; i < _iconMaxCount; i++)
+			{
+				if (room.MapMods.Length <= i)
+					_displayedMods[i] = 0;
+				else
+					_displayedMods[i] = room.MapMods[i - iOffset];
+			}
 		}
 
 		private void ArrangeIcons()
@@ -28,7 +45,7 @@ namespace BrickAndMortal.Scripts.Menus
 				if (_displayedMods[i] != 0)
 				{
 					_nodesIcons[i].Frame = _displayedMods[i];
-					_nodesIcons[i].Visible = true;
+					_nodesIcons[i].Visible = true;  
 					count++;
 				}
 				else
@@ -60,3 +77,5 @@ namespace BrickAndMortal.Scripts.Menus
 		}
 	}
 }
+
+

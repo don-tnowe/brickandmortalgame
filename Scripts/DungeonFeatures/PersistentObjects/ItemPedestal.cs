@@ -6,7 +6,12 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 	class ItemPedestal : DungeonPersistentBase
 	{
 		public Item HeldItem = null;
-		
+
+		public override string SerializedPrefix
+		{
+			get => Prefixes[1];
+		}
+
 		public override void Initialize()
 		{
 			HeldItem = (Item)GetNode<DungeonBuilder>("../../..").GetRandomItem();
@@ -19,29 +24,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 			HeldItem = null;
 			GetNode<AnimationPlayer>("Anim").Play("Open");
 		}
-
-		public override string GetSerialized()
-		{
-			if (HeldItem == null)
-				return "{}";
-			else
-				return HeldItem.ToJSON();
-		}
-
-		public override void DeserializeFrom(string from)
-		{
-			if (!from.Equals("{}"))
-			{
-				HeldItem = new Item(from);
-				GetNode<Sprite>("ViewportTex/Viewport/CaseFront").Frame = Frame;
-				GetNode<Sprite>("ViewportTex/CaseBack").Frame = Frame;
-				GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
-			}
-			else
-				GetNode<AnimationPlayer>("Anim").Play("Open");
-		}
-		
-		
+				
 		private void HeroEntered(HeroComponents.Hero hero)
 		{
 			if (HeldItem == null)
@@ -84,6 +67,28 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 
 			tween.Start();
 		}
+
+		public override string GetSerialized()
+		{
+			if (HeldItem == null)
+				return SerializedPrefix;
+			else
+				return SerializedPrefix + HeldItem.ToJSON();
+		}
+
+		public override void DeserializeFrom(string from)
+		{
+			if (!from.Equals(SerializedPrefix))
+			{
+				HeldItem = new Item(from.Substring(SerializedPrefix.Length));
+				GetNode<Sprite>("ViewportTex/Viewport/CaseFront").Frame = Frame;
+				GetNode<Sprite>("ViewportTex/CaseBack").Frame = Frame;
+				GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
+			}
+			else
+				GetNode<AnimationPlayer>("Anim").Play("Open");
+		}
+
 	}
 }
 

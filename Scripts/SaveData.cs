@@ -13,8 +13,8 @@ namespace BrickAndMortal.Scripts
 
 		public static ItemOperations.ItemBag ItemBag = new ItemOperations.ItemBag();
 
-		private const string _fileFolder = "user://Saves/";
-		private static string _fileName = "savegame0.dat";
+		private const string _fileFolder = "user://";
+		private static string _fileName = "Savegame0.dat";
 
 		public static void SaveGame()
 		{
@@ -36,7 +36,6 @@ namespace BrickAndMortal.Scripts
 				return;
 			file.Open(_fileFolder + _fileName, File.ModeFlags.Read);
 			var contents = file.GetLine();
-			GD.Print(contents);
 
 			var parsed = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, JsonElement>>(contents);
 

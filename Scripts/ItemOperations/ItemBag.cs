@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using Godot;
 
 namespace BrickAndMortal.Scripts.ItemOperations
 {
-	class ItemBag
+	class ItemBag : Reference
 	{
+		public delegate void AddedItem(Item item);
+		public event AddedItem EventAddedItem;
+
 		private List<string> _items = new List<string>();
 
 		public void CollectItem(Item item)
 		{
 			AddItem(item.ToJSON());
+			EventAddedItem(item);
 			SaveData.SaveGame();
 		}
 
@@ -37,6 +42,11 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			return returnValue;
 		}
 
+		public int GetItemCount()
+        {
+			return _items.Count;
+        }
+
 		public string GetSaveJSON()
 		{
 			var returnValue = "\"Items\":[";
@@ -44,7 +54,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			{
 				if (i > 0)
 					returnValue += ", ";
-				returnValue += "\"" + _items[i] + "\"";
+				returnValue += "\"" + _items[i].Replace("\"", "\\\"") + "\"";
 			}
 			returnValue += "]";
 

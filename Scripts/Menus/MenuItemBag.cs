@@ -18,35 +18,35 @@ namespace BrickAndMortal.Scripts.Menus
 		{
 			_nodeItemGrid = GetNode<GridContainer>("Box/Scroll/Box/ItemGrid");
 			_nodeItemStatDisplay = GetNode<ItemStatDisplay>("Box/ItemStatDisplay");
-			_nodeTween = GetNode<Tween>("../Tween");
+			_nodeTween = GetNode<Tween>("../../../Tween");
 		}
 
 		private void ItemSelected(Control node, int idx)
 		{
 			_nodeItemStatDisplay.DisplayItemData(_itemArray[idx]);
-
+			node.GrabFocus();
 
 			_nodeTween.InterpolateProperty(_nodeItemStatDisplay, "rect_scale",
 				new Vector2(0.9f, 0.9f), Vector2.One,
 				0.25f, Tween.TransitionType.Quad, Tween.EaseType.Out
 				);
-			_nodeTween.InterpolateProperty(node, "rect_scale",
-				new Vector2(1.5f, 1.5f), Vector2.One, 
-				0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out
+			_nodeTween.InterpolateProperty(node.GetChild(0), "scale",
+				new Vector2(2f, 2f), Vector2.One, 
+				0.75f, Tween.TransitionType.Elastic, Tween.EaseType.Out
 				);
 			_nodeTween.InterpolateProperty(node, "modulate",
 				new Color(4, 4, 4, 1), new Color(1, 1, 1, 1),
-				0.25f
+				0.25f, Tween.TransitionType.Quad, Tween.EaseType.Out
 				);
 			_nodeTween.Start();
 		}
+
+		protected virtual void ItemAccepted(Control node, int idx) { }
 
 		public override void OpenMenu()
 		{
 			base.OpenMenu();
 			_nodeTween.Stop(this);
-			Modulate = new Color(1, 1, 1, 1);
-			Visible = true;
 			_itemArray = SaveData.ItemBag.GetItemArray();
 
 			if (_itemArray.Length == 0)
@@ -61,16 +61,58 @@ namespace BrickAndMortal.Scripts.Menus
 
 			for (int i = 0; i < _itemArray.Length; i++)
 			{
+				TextureButton newItem;
+
 				if (_nodeItemGrid.GetChildCount() <= i)
 				{
-					var newItem = _sceneItem.Instance();
+					newItem = (TextureButton)_sceneItem.Instance();
 					_nodeItemGrid.AddChild(newItem);
 					newItem.Connect("focus_entered", this, "ItemSelected", new Godot.Collections.Array() { newItem, i });
+					newItem.Connect("mouse_entered", this, "ItemSelected", new Godot.Collections.Array() { newItem, i });
+					newItem.Connect("pressed", this, "ItemAccepted", new Godot.Collections.Array() { newItem, i });
 				}
-				_nodeItemGrid.GetChild(i).GetChild<Sprite>(0).Frame = _itemArray[i].ItemType * 8 + _itemArray[i].Frame;
-				_nodeTween.InterpolateProperty(_nodeItemGrid.GetChild(i), "rect_scale",
-					new Vector2(1.5f, 1.5f), Vector2.One,
-					0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out, i * 0.05f
+				else
+					newItem = _nodeItemGrid.GetChild<TextureButton>(i);
+
+				newItem.GetChild<Sprite>(0).Frame = _itemArray[i].ItemType * 8 + _itemArray[i].Frame;
+
+				var columns = _nodeItemGrid.Columns;
+
+				newItem.FocusNeighbourLeft = new NodePath();
+				newItem.FocusNeighbourRight = new NodePath();
+				newItem.FocusNeighbourTop = new NodePath();
+				newItem.FocusNeighbourBottom = new NodePath();
+				newItem.FocusNext = new NodePath();
+				newItem.FocusPrevious = new NodePath();
+
+				if (i % columns == columns - 1)
+				{
+					var to = _nodeItemGrid.GetChild<Control>(i - columns + 1);
+					newItem.FocusNeighbourRight = newItem.GetPathTo(to);
+					to.FocusNeighbourLeft = to.GetPathTo(newItem);
+				}
+
+				if (i >= _itemArray.Length - columns)
+				{
+					var to = _nodeItemGrid.GetChild<Control>(i % columns);
+					newItem.FocusNeighbourBottom = newItem.GetPathTo(to);
+					to.FocusNeighbourTop = to.GetPathTo(newItem);
+				}
+
+				if (i == _itemArray.Length - 1)
+				{
+					var to = _nodeItemGrid.GetChild<Control>(i / columns * columns);
+					newItem.FocusNeighbourRight = newItem.GetPathTo(to);
+					to.FocusNeighbourLeft = to.GetPathTo(newItem);
+
+					to = _nodeItemGrid.GetChild<Control>(0);
+					newItem.FocusNext = newItem.GetPathTo(to);
+					to.FocusPrevious = to.GetPathTo(newItem);
+				}
+
+				_nodeTween.InterpolateProperty(newItem, "modulate",
+					new Color(4, 4, 4, 1), new Color(1, 1, 1, 1),
+					0.25f, Tween.TransitionType.Quad, Tween.EaseType.Out, 0.2f + i * 0.05f
 					);
 			}
 			for (int i = _itemArray.Length; i < _nodeItemGrid.GetChildCount(); i++)
@@ -78,21 +120,9 @@ namespace BrickAndMortal.Scripts.Menus
 				_nodeItemGrid.GetChild(i).QueueFree();
 			}
 
-			_nodeItemGrid.GetChild<Control>(_itemArray.Length - 1).GrabFocus();
 			ItemSelected(_nodeItemGrid.GetChild<Control>(_itemArray.Length - 1), _itemArray.Length - 1);
 
 			_nodeTween.Start();
-		}
-
-		public override void CloseMenu()
-		{
-			base.CloseMenu();
-			_nodeTween.InterpolateProperty(this, "modulate",
-				new Color(1, 1, 1, 1), new Color(1, 1, 1, 0),
-				0.25f
-				);
-			_nodeTween.Start();
-			_nodeTween.InterpolateCallback(this, 0.25f, "set_visible", false);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Resources/Tilesets/TilesSolid.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/VFX/Sunlight.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Graphics/Environment/Tilemaps/Area1.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/DungeonFeatures/Room.cs" type="Script" id=7]
 [ext_resource path="res://Scenes/Enemies/EnemyRockCrab.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/VFX/DarkGradient.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/DungeonFeatures/ItemPedestal.tscn" type="PackedScene" id=10]
 
 [sub_resource type="TileSet" id=1]
@@ -37,6 +36,7 @@
 [node name="Room" type="Node2D"]
 script = ExtResource( 7 )
 LightColor = Color( 0.247059, 0.247059, 0.247059, 1 )
+_mapMods = PoolIntArray( 8, 0, 0, 0 )
 
 [node name="BG" parent="." instance=ExtResource( 5 )]
 
@@ -113,10 +113,6 @@ position = Vector2( 176, 184 )
 [node name="Sunlight1" parent="Decoration" instance=ExtResource( 2 )]
 position = Vector2( 104, -48 )
 scale = Vector2( 1.28545, 423.072 )
-
-[node name="Dark0" parent="Decoration" instance=ExtResource( 9 )]
-position = Vector2( 224, 272 )
-scale = Vector2( 1, 63.9542 )
 
 [node name="ScrollBottomRight" type="Position2D" parent="."]
 position = Vector2( 576, 320 )
