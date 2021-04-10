@@ -6,9 +6,8 @@ namespace BrickAndMortal.Scripts
 	static class SaveData
 	{
 		public static int Screen = 0;
-		public static Vector2 HeroPos;
 		public static int CurCrawl = 0;
-
+		
 		public static int Money = 0;
 
 		public static ItemOperations.ItemBag ItemBag = new ItemOperations.ItemBag();
@@ -19,9 +18,13 @@ namespace BrickAndMortal.Scripts
 		public static void SaveGame()
 		{
 			var str = "{";
+
+			str += "\"Money:\"" + Money;
+			str += ", \"CurCrawl:\"" + CurCrawl;
+
 			str += ItemBag.GetSaveJSON();
+
 			str += "}";
-			//TODO: Save/ Load for other things
 
 			var file = new File();
 			file.Open(_fileFolder + _fileName, File.ModeFlags.Write);
@@ -39,14 +42,14 @@ namespace BrickAndMortal.Scripts
 
 			var parsed = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, JsonElement>>(contents);
 
+			Money = parsed["Money"].GetInt32();
+			CurCrawl = parsed["CurCrawl"].GetInt32();
+
+			ItemBag.ItemsCollected = parsed["ItemsCollected"].GetInt32();
 			var items = parsed["Items"];
-
 			for (int i = 0; i < items.GetArrayLength(); ++i)
-			{
 				ItemBag.AddItem(items[i].GetString());
-			}
 
-			//TODO: Save/ Load for other things
 			file.Close();
 		}
 	}

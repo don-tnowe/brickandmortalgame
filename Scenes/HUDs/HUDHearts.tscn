@@ -10,8 +10,6 @@ region = Rect2( 0, 0, 32, 32 )
 
 [node name="HUDHearts" type="Control"]
 light_mask = 0
-margin_right = 180.0
-margin_bottom = 180.0
 rect_scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 2 )
 __meta__ = {

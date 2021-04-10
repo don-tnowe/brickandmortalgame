@@ -86,7 +86,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 				GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
 			}
 			else
-				GetNode<AnimationPlayer>("Anim").Play("Open");
+				GetNode<AnimationPlayer>("Anim").Play("Opened");
 		}
 
 	}

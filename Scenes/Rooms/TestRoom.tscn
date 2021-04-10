@@ -6,9 +6,10 @@
 [ext_resource path="res://Resources/Tilesets/TilesSolid.tres" type="TileSet" id=4]
 [ext_resource path="res://Scenes/Enemies/EnemyRockCrab.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DungeonFeatures/Room.cs" type="Script" id=6]
-[ext_resource path="res://Scenes/DungeonFeatures/ItemPedestal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/DungeonFeatures/PersistentObjects/ItemPedestal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/DungeonFeatures/UpwardsExit.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/VFX/Sunlight.tscn" type="PackedScene" id=9]
+
 
 
 [sub_resource type="TileSet" id=1]

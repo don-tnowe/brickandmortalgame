@@ -176,7 +176,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.75, 0.75 ) ]
 }
 tracks/6/type = "method"
 tracks/6/path = NodePath(".")

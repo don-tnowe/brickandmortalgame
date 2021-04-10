@@ -5,15 +5,22 @@ namespace BrickAndMortal.Scripts.ItemOperations
 {
 	class ItemBag : Reference
 	{
+		public int ItemsCollected = 0;
+
 		public delegate void AddedItem(Item item);
 		public event AddedItem EventAddedItem;
 
 		private List<string> _items = new List<string>();
 
+
 		public void CollectItem(Item item)
 		{
+			item.Id = ItemsCollected;
+			ItemsCollected++;
+
 			AddItem(item.ToJSON());
 			EventAddedItem(item);
+
 			SaveData.SaveGame();
 		}
 
@@ -43,13 +50,13 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		}
 
 		public int GetItemCount()
-        {
+		{
 			return _items.Count;
-        }
+		}
 
 		public string GetSaveJSON()
 		{
-			var returnValue = "\"Items\":[";
+			var returnValue = "\"ItemsColected\":" + ItemsCollected + ", \"Items\":[";
 			for (int i = 0; i < _items.Count; i++)
 			{
 				if (i > 0)
