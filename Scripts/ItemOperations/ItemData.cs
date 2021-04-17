@@ -83,7 +83,6 @@ namespace BrickAndMortal.Scripts.ItemOperations
 	public enum EquipFlags
 	{
 		None = 0,
-		First = 1,
 		All = 255,
 
 		Weapon = 1,

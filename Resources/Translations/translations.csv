@@ -9,3 +9,18 @@ MenuMap;	Map
  ;
  ;
 MsgBagEmpty;	Your bag's empty. Get lootin'!
+MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!
+ ;
+ ;
+StorePromptOpen;	Open the store!
+StorePromptShelf;	Place an item!
+StorePromptSell;	Sell this!
+StorePromptAutoShelf;	Just fill all shelves
+ ;
+StoreBtnAccept;		Sold!
+StoreBtnHigher;		Higher.
+StoreBtnHigher2;	HIGHER!!!
+StoreBtnDeny;		Nah...
+ ; 
+StoreDialogueRequest1;	I'll buy this:
+StoreDialoguePrice1;		For the price of

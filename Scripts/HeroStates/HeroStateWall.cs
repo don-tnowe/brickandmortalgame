@@ -82,7 +82,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			if (_wallDirection == -Math.Sign(direction))
 			{
-				Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
+				Hero.VelocityX = -HeroParameters.JumpWallHorizontalWeak * _wallDirection;
 				Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
 				Hero.NodeTimerCoyote.Start();
 				if (Hero.VelocityY < 0)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/Menus/MenuDungeonMap.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Menus/MenuDungeonMapFake.cs" type="Script" id=1]
 [ext_resource path="res://Graphics/UI/MapBorder.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Menus/DungeonMapRoom.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scenes/Menus/Button.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Graphics/UI/Navigation.png" type="Texture" id=5]
 
@@ -19,8 +19,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
-Title = "MenuMap"
-_sceneRoom = ExtResource( 3 )
 
 [node name="Box" type="VBoxContainer" parent="."]
 anchor_top = 0.5
@@ -123,24 +121,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MapCenter" type="Control" parent="Box/Center/Frame/MapClip"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Rooms" type="Control" parent="Box/Center/Frame/MapClip/MapCenter"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="CenterR" type="CenterContainer" parent="Box/Center"]
 margin_left = 100.0
 margin_right = 116.0
@@ -180,7 +160,20 @@ texture = ExtResource( 5 )
 vframes = 4
 hframes = 4
 
-[node name="TimerPingHero" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
-[connection signal="timeout" from="TimerPingHero" to="." method="PingHero"]
+[node name="MsgMapEmpty" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 12.0
+margin_top = -78.0
+margin_right = -10.0
+margin_bottom = 70.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MsgMapInStore"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

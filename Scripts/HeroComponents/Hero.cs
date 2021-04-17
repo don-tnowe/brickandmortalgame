@@ -161,7 +161,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			_controller.InputJump(pressed);
 		}
 
-		public void InputAttack(bool pressed)
+		public virtual void InputAttack(bool pressed)
 		{
 			if (pressed)
 				InputAttackStart = OS.GetTicksMsec();

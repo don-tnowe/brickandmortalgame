@@ -1,59 +1,74 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://Scenes/Hero.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Rooms/Start.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/DungeonFeatures/DungeonBuilder.cs" type="Script" id=3]
-[ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Audio/BGM/Dungeon1.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Scenes/HUDs/HUDHearts.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/HUDs/HUDTopright.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/DungeonFeatures/DamageNum.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Menus/MenuItemBag.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Resources/Shaders/ShaderGreyscale.tres" type="Material" id=10]
-[ext_resource path="res://Scenes/Menus/MenuDungeonMap.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scripts/Menus/MenuSwitcher.cs" type="Script" id=12]
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=13]
-[ext_resource path="res://Scenes/Menus/Button.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Graphics/UI/Navigation.png" type="Texture" id=15]
-[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=16]
+[ext_resource path="res://Scripts/StoreFeatures/StoreManager.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Rooms/StoreInterior.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/HeroComponents/HeroStore.cs" type="Script" id=3]
+[ext_resource path="res://Scenes/Hero.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Menus/MenuSwitcher.cs" type="Script" id=5]
+[ext_resource path="res://Scenes/Menus/MenuDungeonMapFake.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Graphics/Characters/HeroStore.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/UI/Navigation.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=10]
+[ext_resource path="res://Resources/Shaders/ShaderGreyscale.tres" type="Material" id=11]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Scenes/DungeonFeatures/DamageNum.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Menus/MenuItemBag.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/Menus/Button.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=16]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 16 )
-region = Rect2( 0, 0, 16, 16 )
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 16 )
-region = Rect2( 16, 16, 16, 16 )
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 16 )
-region = Rect2( 0, 0, 16, 16 )
+[sub_resource type="ParticlesMaterial" id=3]
+lifetime_randomness = 0.41
+flag_disable_z = true
+direction = Vector3( 0.5, -0.5, 0 )
+spread = 75.94
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 64.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+scale_curve = SubResource( 2 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 16 )
-region = Rect2( 0, 16, 16, 16 )
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 16 )
+atlas = ExtResource( 10 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 10 )
 region = Rect2( 16, 0, 16, 16 )
 
 [node name="Node" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Room" parent="." instance=ExtResource( 2 )]
+
+[node name="Shelves" type="Node" parent="."]
+
+[node name="Hero" parent="." instance=ExtResource( 4 )]
+position = Vector2( 360, 302 )
 script = ExtResource( 3 )
-
-[node name="Hero" parent="." instance=ExtResource( 1 )]
-position = Vector2( 218, 37 )
-
-[node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-bus = "BGM"
+_loadTexture = ExtResource( 7 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
-
-[node name="HUDHearts" parent="UI" instance=ExtResource( 6 )]
-
-[node name="HUDTopright" parent="UI" instance=ExtResource( 7 )]
-_pathHero = NodePath("../../Hero")
 
 [node name="Preload" type="Control" parent="UI"]
 modulate = Color( 1, 1, 1, 0.0117647 )
@@ -62,19 +77,20 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Particles2D" parent="UI/Preload" instance=ExtResource( 4 )]
+[node name="Particles2D" parent="UI/Preload" instance=ExtResource( 16 )]
+process_material = SubResource( 3 )
 
-[node name="DamageNumbers" parent="UI/Preload" instance=ExtResource( 8 )]
+[node name="DamageNumbers" parent="UI/Preload" instance=ExtResource( 13 )]
 
 [node name="OverlayMenus" type="ColorRect" parent="UI"]
 pause_mode = 2
 visible = false
 self_modulate = Color( 0.572549, 0.403922, 0.223529, 1 )
 light_mask = 0
-material = ExtResource( 10 )
+material = ExtResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 12 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -86,9 +102,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DungeonMap" parent="UI/OverlayMenus/Menus" instance=ExtResource( 11 )]
+[node name="ItemBag" parent="UI/OverlayMenus/Menus" instance=ExtResource( 14 )]
 
-[node name="ItemBag" parent="UI/OverlayMenus/Menus" instance=ExtResource( 9 )]
+[node name="DungeonMap" parent="UI/OverlayMenus/Menus" instance=ExtResource( 6 )]
 
 [node name="Top" type="NinePatchRect" parent="UI/OverlayMenus"]
 anchor_left = 0.5
@@ -97,7 +113,7 @@ margin_left = -49.0
 margin_top = 16.0
 margin_right = 49.0
 margin_bottom = 31.0
-texture = ExtResource( 16 )
+texture = ExtResource( 10 )
 region_rect = Rect2( 0, 0, 16, 16 )
 patch_margin_left = 5
 patch_margin_top = 7
@@ -121,7 +137,7 @@ margin_right = 49.0
 margin_bottom = -4.0
 grow_horizontal = 0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 12 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "MenuBag"
 align = 2
@@ -138,7 +154,7 @@ margin_top = -19.0
 margin_right = 57.0
 margin_bottom = -7.0
 grow_horizontal = 2
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 12 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "MenuMap"
 align = 1
@@ -155,14 +171,14 @@ margin_top = -16.0
 margin_right = 241.0
 margin_bottom = -4.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 12 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "MenuBag"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DirL" parent="UI/OverlayMenus/Top" instance=ExtResource( 14 )]
+[node name="DirL" parent="UI/OverlayMenus/Top" instance=ExtResource( 15 )]
 margin_left = -4.0
 margin_top = 13.0
 margin_right = 12.0
@@ -170,15 +186,15 @@ margin_bottom = 29.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 enabled_focus_mode = 0
-texture_normal = SubResource( 1 )
-texture_pressed = SubResource( 2 )
-texture_hover = SubResource( 3 )
-texture_disabled = SubResource( 4 )
-texture_focused = SubResource( 5 )
+texture_normal = SubResource( 4 )
+texture_pressed = SubResource( 5 )
+texture_hover = SubResource( 6 )
+texture_disabled = SubResource( 7 )
+texture_focused = SubResource( 8 )
 
 [node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirL"]
 position = Vector2( 8, 8 )
-texture = ExtResource( 15 )
+texture = ExtResource( 9 )
 vframes = 4
 hframes = 4
 frame = 2
@@ -192,14 +208,14 @@ margin_top = -4.0
 margin_right = 52.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 12 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "[Q]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DirR" parent="UI/OverlayMenus/Top" instance=ExtResource( 14 )]
+[node name="DirR" parent="UI/OverlayMenus/Top" instance=ExtResource( 15 )]
 margin_left = 86.0
 margin_top = 13.0
 margin_right = 102.0
@@ -207,15 +223,15 @@ margin_bottom = 29.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 enabled_focus_mode = 0
-texture_normal = SubResource( 1 )
-texture_pressed = SubResource( 2 )
-texture_hover = SubResource( 3 )
-texture_disabled = SubResource( 4 )
-texture_focused = SubResource( 5 )
+texture_normal = SubResource( 4 )
+texture_pressed = SubResource( 5 )
+texture_hover = SubResource( 6 )
+texture_disabled = SubResource( 7 )
+texture_focused = SubResource( 8 )
 
 [node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirR"]
 position = Vector2( 8, 8 )
-texture = ExtResource( 15 )
+texture = ExtResource( 9 )
 vframes = 4
 hframes = 4
 frame = 3
@@ -229,7 +245,7 @@ margin_top = -4.0
 margin_right = -5.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 12 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "[E]"
 align = 2
@@ -239,10 +255,5 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="UI"]
 pause_mode = 2
-
-[node name="LightColor" type="CanvasModulate" parent="."]
-
-[node name="Room" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1, 0 )
 [connection signal="pressed" from="UI/OverlayMenus/Top/DirL" to="UI/OverlayMenus" method="SwitchMenu" binds= [ -1 ]]
 [connection signal="pressed" from="UI/OverlayMenus/Top/DirR" to="UI/OverlayMenus" method="SwitchMenu" binds= [ 1 ]]

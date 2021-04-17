@@ -17,6 +17,7 @@ namespace BrickAndMortal.Scripts
 		public const float JumpWall = -GravityJump * 0.6f;
 		public const float MaxFallWall = GravityJump * 0.25f;
 		public const float JumpWallHorizontal = AccelGround * 0.26f;
+		public const float JumpWallHorizontalWeak = AccelGround * 0.15f;
 		public const float InstaTurnSpeed = AccelGround * 0.25f;
 
 		public const float BrakeInstantMult = 0.33f;

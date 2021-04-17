@@ -3,7 +3,7 @@ using Godot;
 
 namespace BrickAndMortal.Scripts.ItemOperations
 {
-	class ItemBag : Reference
+	class ItemBag
 	{
 		public int ItemsCollected = 0;
 
