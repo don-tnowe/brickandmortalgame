@@ -95,7 +95,7 @@ namespace BrickAndMortal.Scripts.Enemies
 		public void Vanquished()
 		{
 			CurState = -1;
-			EmitSignal("Defeated");
+			EmitSignal(nameof(Defeated));
 
 			PhysicsEnabled = true;
 			PhysVelocityY = -PhysGravity * 0.25f;
@@ -107,7 +107,7 @@ namespace BrickAndMortal.Scripts.Enemies
 					this, 1, "queue_free"
 				);
 			_nodeTween.Start();
-			_nodeAnim.Play("Defeated");
+			_nodeAnim.Play(nameof(Defeated));
 		}
 	}
 }

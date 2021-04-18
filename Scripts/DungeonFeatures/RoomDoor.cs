@@ -39,7 +39,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		
 		private void StartTransition()
 		{
-			EmitSignal("TransitionActivated", ToMapX, ToMapY, _heroGlobalPosition - GlobalPosition);
+			EmitSignal(nameof(TransitionActivated), ToMapX, ToMapY, _heroGlobalPosition - GlobalPosition);
 		}
 	}
 }

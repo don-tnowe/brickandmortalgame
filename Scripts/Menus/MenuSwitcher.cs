@@ -21,6 +21,7 @@ namespace BrickAndMortal.Scripts.Menus
 			
 			for (int i = 0; i < 3; i++)
 				_nodesNavLabels[i] = GetNode("Top/Labels").GetChild<Label>(i);
+			SwitchMenu(0);
 		}
 
 		private void SwitchMenu(int direction)

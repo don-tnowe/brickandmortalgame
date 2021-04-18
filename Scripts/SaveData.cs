@@ -55,6 +55,7 @@ namespace BrickAndMortal.Scripts
 
 			ItemBag.ItemsCollected = parsed["ItemsCollected"].GetInt32();
 			var items = parsed["Items"];
+			ItemBag.Clear();
 			for (int i = 0; i < items.GetArrayLength(); ++i)
 				ItemBag.AddItem(items[i].GetString());
 			file.Close();

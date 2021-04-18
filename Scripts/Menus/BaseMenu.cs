@@ -16,13 +16,13 @@ namespace BrickAndMortal.Scripts.Menus
 
 		public virtual void OpenMenu()
 		{
-			EmitSignal("Opened");
+			EmitSignal(nameof(Opened));
 			IsOpen = true;
 		}
 
 		public virtual void CloseMenu()
 		{
-			EmitSignal("Closed");
+			EmitSignal(nameof(Closed));
 			IsOpen = false;
 		}
 

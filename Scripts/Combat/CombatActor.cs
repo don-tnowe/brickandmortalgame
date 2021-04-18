@@ -52,10 +52,10 @@ namespace BrickAndMortal.Scripts.Combat
 			}
 
 			Health -= damage;
-			EmitSignal("HealthSet", Health);
+			EmitSignal(nameof(HealthSet), Health);
 
 			if (Health <= 0)
-				EmitSignal("Defeated");
+				EmitSignal(nameof(Defeated));
 
 			if (IsPlayer)
 				if (damage <= 0)
@@ -80,8 +80,8 @@ namespace BrickAndMortal.Scripts.Combat
 
 		public void UpdateMaxHp()
 		{
-			EmitSignal("HealthSetMax", HealthMax);
-			EmitSignal("HealthSet", Health);
+			EmitSignal(nameof(HealthSetMax), HealthMax);
+			EmitSignal(nameof(HealthSet), Health);
 		}
 	}
 }

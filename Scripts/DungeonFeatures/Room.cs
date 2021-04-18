@@ -47,7 +47,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_remainingEnemies--;
 			if (_remainingEnemies <= 0)
 			{
-				EmitSignal("AllEnemiesDefeated");
+				EmitSignal(nameof(AllEnemiesDefeated));
 				for (int i = 0; i < _mapMods.Length; i++)
 					if (_mapMods[i] == 0 || _mapMods[i] >= 8 && _mapMods[i] < 16)
 					{
@@ -72,7 +72,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			}
 			for (int i = 0; i < _persistentObjects.Length; ++i)
 			{
-				((DungeonPersistentBase)_nodePersistentObjects.GetChild(i)).DeserializeFrom(_persistentObjects[i]);
+				((IDungeonPersistent)_nodePersistentObjects.GetChild(i)).DeserializeFrom(_persistentObjects[i]);
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_persistentObjects = new string[_nodePersistentObjects.GetChildCount()];
 			for (int i = 0; i < _persistentObjects.Length; ++i)
 			{
-				var node = ((DungeonPersistentBase)_nodePersistentObjects.GetChild(i));
+				var node = ((IDungeonPersistent)_nodePersistentObjects.GetChild(i));
 				node.Initialize();
 			}
 		}
@@ -118,7 +118,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 					_nodeHero.NodeCam.ForceUpdateScroll();
 					_nodeHero.NodeCam.ResetSmoothing();
 					if (i.ExitDir != RoomDoor.Direction.Up)
-						EmitSignal("UnblockBottomExits");
+						EmitSignal(nameof(UnblockBottomExits));
 					return;
 				}
 			}
@@ -133,7 +133,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			for (int i = 0; i < _persistentObjects.Length; ++i)
 			{
-				_persistentObjects[i] = ((DungeonPersistentBase)_nodePersistentObjects.GetChild(i)).GetSerialized();
+				_persistentObjects[i] = ((IDungeonPersistent)_nodePersistentObjects.GetChild(i)).GetSerialized();
 			}
 			return new RoomData()
 			{

@@ -1,75 +1,94 @@
-﻿using BrickAndMortal.Scripts.ItemOperations;
+
+using BrickAndMortal.Scripts.ItemOperations;
 using Godot;
 
 namespace BrickAndMortal.Scripts.StoreFeatures
 {
-    class ItemShelf : Sprite
-    {
-        public bool CanSell {
-			get { return _canSell; } 
-			set { 
+	class ItemShelf : InteractableProps.ItemPedestal
+	{
+		public bool CanChoose = true;
+		public AnimationPlayer NodeAnim;
+
+		public bool CanSell
+		{
+			set
+			{
 				_canSell = value;
-				if (value)
-					Modulate = new Color(1, 1, 1, 1);
+				CanChoose = false;
+				CanLook = value;
+				if (value && _heldItemIdx != -1)
+					NodeAnim.Play("CanSell");
 				else
-					Modulate = new Color(0.5f, 0.5f, 0.5f, 1);
+					NodeAnim.Play("CantSell");
+			}
+			get
+			{
+				return _canSell;
 			}
 		}
 
-		public Item HeldItem = null;
+		private int _heldItemIdx = -1;
+
+		private StoreManager _nodeStoreManager;
 
 		private bool _canSell = false;
 
-		public void SetItem(Item newItem)
+		public override void _Ready()
+		{
+			base._Ready();
+			_nodeStoreManager = GetNode<StoreManager>("../../..");
+			NodeAnim = GetNode<AnimationPlayer>("Anim");
+		}
+
+		protected override void HeroEntered(HeroComponents.Hero hero)
+		{
+			HeroLooking = true;
+			if (!CanLook)
+				return;
+
+			var message = "";
+			if (CanChoose)
+				message = "StorePromptShelf";
+			else if (_canSell)
+				message = "StorePromptSell";
+
+			var display = hero.GetNode<ItemStatDisplay>("ItemStatDisplay");
+			display.DisplayItemData(message, HeldItem);
+			display.ShowPopup();
+		}
+
+		private void Interacted(object with)
+		{
+			if (CanChoose)
+				_nodeStoreManager.ChooseShelfItem(this);
+			else if (_canSell)
+				_nodeStoreManager.SellFromShelf(this);
+		}
+		
+		public void SetItem(Item newItem, int idx)
 		{
 			HeldItem = newItem;
-			GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
-		}
 
-		private void HeroEntered(HeroComponents.Hero body)
-		{
-			if (!CanSell)
-				return;
-			if (HeldItem == null)
-				return;
+			if (_heldItemIdx != -1)
+				_nodeStoreManager.ItemsOnShelves[_heldItemIdx] = false;
+			if (idx != -1)
+				_nodeStoreManager.ItemsOnShelves[idx] = true;
 
-			var tween = body.NodeTween;
-			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
-			display.DisplayItemData(HeldItem);
+			_heldItemIdx = idx;
 
-			tween.Stop(display);
-			tween.InterpolateProperty(display, "rect_position",
-				display.RectPosition, new Vector2(-33, -87),
-				0.5f, Tween.TransitionType.Quad, Tween.EaseType.Out
-				);
-			tween.InterpolateProperty(display, "modulate",
-				new Color(0, 0, 0, 0), new Color(1, 1, 1, 1),
-				0.5f
-				);
+			if (idx != -1)
+				NodeAnim.Play("HasItem");
+			else
+				NodeAnim.Play("NoItem");
 
-			tween.Start();
-		}
-
-		private void HeroExited(HeroComponents.Hero body)
-		{
-			if (HeldItem == null)
-				return;
-			var tween = body.NodeTween;
-			var display = body.GetNode<ItemStatDisplay>("ItemStatDisplay");
-
-			tween.Stop(display);
-			tween.InterpolateProperty(display, "rect_position",
-				display.RectPosition, new Vector2(-33, -75),
-				0.5f, Tween.TransitionType.Quad, Tween.EaseType.In
-				);
-			tween.InterpolateProperty(display, "modulate",
-				display.Modulate, new Color(0, 0, 0, 0),
-				0.5f
-				);
-			tween.InterpolateCallback(display, 0.5f, "hide");
-
-
-			tween.Start();
+			if (newItem != null)
+				GetNode<Sprite>("Item").Frame = newItem.ItemType * 8 + newItem.Frame;
 		}
 	}
 }
+
+
+
+
+
+

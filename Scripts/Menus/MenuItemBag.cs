@@ -8,20 +8,23 @@ namespace BrickAndMortal.Scripts.Menus
 		[Export]
 		private PackedScene _sceneItem;
 
-		private GridContainer _nodeItemGrid;
-		private ItemStatDisplay _nodeItemStatDisplay;
-		private Tween _nodeTween;
+		public delegate void ReturnItem(Item item, int idx);
+		public event ReturnItem EventReturnItem;
 
-		private Item[] _itemArray;
+		protected GridContainer _nodeItemGrid;
+		private ItemStatDisplay _nodeItemStatDisplay;
+		protected Tween _nodeTween;
+
+		protected Item[] _itemArray;
 
 		public override void _Ready()
 		{
 			_nodeItemGrid = GetNode<GridContainer>("Box/Scroll/Box/ItemGrid");
 			_nodeItemStatDisplay = GetNode<ItemStatDisplay>("Box/ItemStatDisplay");
-			_nodeTween = GetNode<Tween>("../../../Tween");
+			_nodeTween = GetNode<Tween>("/root/Node/UI/Tween");
 		}
 
-		private void ItemSelected(Control node, int idx)
+		private void ItemFocused(Control node, int idx)
 		{
 			_nodeItemStatDisplay.DisplayItemData(_itemArray[idx]);
 			node.GrabFocus();
@@ -41,7 +44,22 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeTween.Start();
 		}
 
-		protected virtual void ItemAccepted(Control node, int idx) { }
+		protected virtual void ItemSelected(Control node, int idx)
+		{
+			Item item = null;
+			if (idx >= 0)
+				item = _itemArray[idx];
+			EventReturnItem?.Invoke(item, idx);
+		}
+
+		public void OpenMenu(bool[] restrictedItems)
+		{
+			OpenMenu();
+			GetTree().Paused = true;
+
+			for (int i = 0; i < _itemArray.Length; i++)
+				_nodeItemGrid.GetChild<TextureButton>(i).Disabled = restrictedItems[i];
+		}
 
 		public override void OpenMenu()
 		{
@@ -67,9 +85,9 @@ namespace BrickAndMortal.Scripts.Menus
 				{
 					newItem = (TextureButton)_sceneItem.Instance();
 					_nodeItemGrid.AddChild(newItem);
-					newItem.Connect("focus_entered", this, "ItemSelected", new Godot.Collections.Array() { newItem, i });
-					newItem.Connect("mouse_entered", this, "ItemSelected", new Godot.Collections.Array() { newItem, i });
-					newItem.Connect("pressed", this, "ItemAccepted", new Godot.Collections.Array() { newItem, i });
+					newItem.Connect("focus_entered", this, nameof(ItemFocused), new Godot.Collections.Array() { newItem, i });
+					newItem.Connect("mouse_entered", this, nameof(ItemFocused), new Godot.Collections.Array() { newItem, i });
+					newItem.Connect("pressed", this, nameof(ItemSelected), new Godot.Collections.Array() { newItem, i });
 				}
 				else
 					newItem = _nodeItemGrid.GetChild<TextureButton>(i);
@@ -87,7 +105,7 @@ namespace BrickAndMortal.Scripts.Menus
 
 				if (i % columns == columns - 1)
 				{
-					var to = _nodeItemGrid.GetChild<Control>(i - columns + 1);
+					var to = _nodeItemGrid.GetChild<Control>((i + 1) % _nodeItemGrid.GetChildCount());
 					newItem.FocusNeighbourRight = newItem.GetPathTo(to);
 					to.FocusNeighbourLeft = to.GetPathTo(newItem);
 				}
@@ -120,8 +138,12 @@ namespace BrickAndMortal.Scripts.Menus
 				_nodeItemGrid.GetChild(i).QueueFree();
 			}
 
-			ItemSelected(_nodeItemGrid.GetChild<Control>(_itemArray.Length - 1), _itemArray.Length - 1);
+			ItemFocused(_nodeItemGrid.GetChild<Control>(_itemArray.Length - 1), _itemArray.Length - 1);
 
+			_nodeTween.InterpolateProperty(this, "modulate",
+				new Color(1, 1, 1, 0), new Color(1, 1, 1, 1),
+				0.5f
+				);
 			_nodeTween.Start();
 		}
 	}

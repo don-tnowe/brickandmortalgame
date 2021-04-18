@@ -2,7 +2,7 @@ using Godot;
 
 namespace BrickAndMortal.Scripts.StoreFeatures
 {
-	class CustomerInStore : Sprite
+	class CustomerInStore : PathFollow2D
 	{
 		public int CurrentPrice;
 		public float DenyChance;

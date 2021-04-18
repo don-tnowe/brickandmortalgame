@@ -1,5 +1,5 @@
-using Godot;
 using BrickAndMortal.Scripts.StoreFeatures;
+using Godot;
 
 namespace BrickAndMortal.Scripts.HeroComponents
 {
@@ -7,19 +7,24 @@ namespace BrickAndMortal.Scripts.HeroComponents
 	{
 		[Export]
 		private StreamTexture _loadTexture;
-		
-		public InteractableArea NodeInteractableArea;
-		
+
 		public override void _Ready()
 		{
 			base._Ready();
+			SwitchState(States.Immobile);
+			NodeAnim.Play("EnterStore");
+			//NodeCam.LimitLeft = -10000000;
+			//NodeCam.LimitRight = -10000000;
 			GetNode<Sprite>("FlipH/Sprite").Texture = _loadTexture;
-			NodeCam.Zoom = new Vector2(1.5f, 1.5f);
+			_inStore = true;
 		}
-		
-		public override void InputAttack(bool pressed)
-		{
 
+		public void StartDay()
+		{
+			NodeTween.InterpolateProperty(NodeCam, "zoom",
+				Vector2.One, Vector2.One * 1.5f,
+				1, Tween.TransitionType.Quart
+				);
 		}
 	}
 }

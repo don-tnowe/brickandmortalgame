@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Graphics/UI/ItemDisplay/ItemDisplay.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/ItemOperations/ItemStatDisplay.cs" type="Script" id=2]
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scenes/HUDs/ItemStatsEnchantment.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
+[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -25,6 +27,14 @@ region = Rect2( 32, 0, 15, 15 )
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
 region = Rect2( 16, 32, 16, 16 )
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 16, 16, 16 )
+margin_left = 6.5918
+margin_right = 5.94974
+margin_top = 6.40893
+margin_bottom = 5.67102
 
 [node name="ItemStatDisplay" type="VBoxContainer"]
 light_mask = 0
@@ -87,7 +97,7 @@ light_mask = 0
 use_parent_material = true
 margin_top = 12.0
 margin_right = 68.0
-margin_bottom = 74.0
+margin_bottom = 76.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource( 1 )
@@ -244,7 +254,7 @@ light_mask = 0
 use_parent_material = true
 margin_top = 28.0
 margin_right = 60.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource( 5 )
@@ -273,33 +283,105 @@ __meta__ = {
 light_mask = 0
 use_parent_material = true
 margin_right = 56.0
-margin_bottom = 22.0
+margin_bottom = 24.0
 custom_constants/separation = 0
 
 [node name="Ench0" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
-margin_bottom = 22.0
+margin_bottom = 24.0
 
 [node name="Ench1" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
 margin_left = 14.0
 margin_right = 28.0
-margin_bottom = 22.0
+margin_bottom = 24.0
 
 [node name="Ench2" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
 margin_left = 28.0
 margin_right = 42.0
-margin_bottom = 22.0
+margin_bottom = 24.0
 
 [node name="Ench3" parent="Content/Box/BG/MarginContainer/Enchants" instance=ExtResource( 4 )]
 light_mask = 0
 margin_left = 42.0
 margin_right = 56.0
-margin_bottom = 22.0
+margin_bottom = 24.0
 
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 68, 74 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
+[node name="Prompt" type="Control" parent="."]
+margin_top = 74.0
+margin_right = 68.0
+margin_bottom = 74.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Prompt" type="CenterContainer" parent="Prompt"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -64.0
+margin_right = 64.0
+margin_bottom = 12.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Prompt/Prompt"]
+margin_left = 91.0
+margin_right = 105.0
+margin_bottom = 12.0
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "AA"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Prompt/Prompt/Label"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = -2.11135
+margin_right = 4.0
+margin_bottom = 2.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelKey" type="Label" parent="Prompt/Prompt/Label"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.0
+margin_top = -0.999996
+margin_right = 5.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+text = "E"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Prompt/Prompt/Label/LabelKey"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.0
+margin_right = 1.0
+margin_bottom = -1.0
+theme = ExtResource( 7 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

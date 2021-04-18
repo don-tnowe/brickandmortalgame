@@ -29,11 +29,11 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			_items.Add(item);
 		}
 
-		public void RemoveItem(int seed)
+		public void RemoveItem(int uid)
 		{
-			var seedStr = seed.ToString();
+			var uidStr = uid.ToString();
 			for (int i = 0; i < _items.Count; i++)
-				if (_items[i].Substring(7).StartsWith(seedStr))
+				if (_items[i].StartsWith("{Id:" + uidStr))
 				{
 					_items.RemoveAt(i);
 					break;
@@ -49,6 +49,12 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			return returnValue;
 		}
 
+		public void Clear()
+		{
+			_items = new List<string>();
+
+		}
+
 		public int GetItemCount()
 		{
 			return _items.Count;
@@ -56,7 +62,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 		public string GetSaveJSON()
 		{
-			var returnValue = "\"ItemsColected\":" + ItemsCollected + ", \"Items\":[";
+			var returnValue = "\"ItemsCollected\":" + ItemsCollected + ", \"Items\":[";
 			for (int i = 0; i < _items.Count; i++)
 			{
 				if (i > 0)

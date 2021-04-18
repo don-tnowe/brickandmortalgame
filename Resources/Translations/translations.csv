@@ -4,18 +4,22 @@ ItemType1;	Spell
 ItemType2;	Body Armor
  ;
  ;
-MenuBag;	Item Bag
-MenuMap;	Map
+MenuBag;		Item Bag
+MenuMap;		Map
+MenuChooseItem;	Choose an item!
+ ;
+ ;
+ButtonCancel;	Cancel
  ;
  ;
 MsgBagEmpty;	Your bag's empty. Get lootin'!
 MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!
  ;
  ;
-StorePromptOpen;	Open the store!
-StorePromptShelf;	Place an item!
-StorePromptSell;	Sell this!
-StorePromptAutoShelf;	Just fill all shelves
+StorePromptOpen;		Open the store!
+StorePromptShelf;		Place an item!
+StorePromptSell;		Sell this!
+StorePromptAutoShelf;	Auto-fill all shelves
  ;
 StoreBtnAccept;		Sold!
 StoreBtnHigher;		Higher.
@@ -23,4 +27,4 @@ StoreBtnHigher2;	HIGHER!!!
 StoreBtnDeny;		Nah...
  ; 
 StoreDialogueRequest1;	I'll buy this:
-StoreDialoguePrice1;		For the price of
+StoreDialoguePrice1;	For the price of

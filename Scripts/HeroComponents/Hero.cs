@@ -29,9 +29,12 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public float InputMoveDirection = 0;
 		public uint InputJumpStart = 0;
 		public uint InputAttackStart = 0;
+		protected bool _inStore = false;
+		private bool _canAttack = true;
 
 		private HeroState _controller;
-		private bool _canAttack = true;
+
+		public InteractableProps.InteractableArea NodeInteractableArea;
 
 		public Node2D NodeFlipH;
 		public RayCast2D NodeRayGround;
@@ -63,7 +66,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			NodeTimerCoyote = GetNode<Timer>("TimerCoyote");
 			NodeTimerAttack = GetNode<Timer>("TimerAttack");
 
-			if (HasNode("CombatCollision"))
+			if (HasNode("/root/Node/UI/HUDHearts"))
 			{
 				var heartHUD = GetNode("/root/Node/UI/HUDHearts");
 				var hitDetector = GetNode("CombatCollision");
@@ -161,24 +164,33 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			_controller.InputJump(pressed);
 		}
 
-		public virtual void InputAttack(bool pressed)
+		public void InputAttack(bool pressed)
 		{
 			if (pressed)
 				InputAttackStart = OS.GetTicksMsec();
-			if (pressed && _canAttack)
+			else
+				return;
+
+			if (NodeInteractableArea != null)
 			{
-				_canAttack = false;
-				NodeTimerAttack.Start();
-				if (NodeRayEnemyDetector.IsColliding())
-					NodeWeapon.Scale = new Vector2(Math.Sign(NodeRayEnemyDetector.GetCollisionPoint().x - GlobalPosition.x), 1);
-				else if (InputMoveDirection == 0)
-					NodeWeapon.Scale = new Vector2(NodeFlipH.Scale.x, 1);
-				else
-					NodeWeapon.Scale = new Vector2(InputMoveDirection, 1);
-				_controller.InputAttack();
-				NodeAnimWeapon.Stop();
-				NodeAnimWeapon.Play("Swing");
+				NodeInteractableArea.Interact(this);
+				return;
 			}
+
+			if (_inStore || !_canAttack)
+				return;
+
+			_canAttack = false;
+			NodeTimerAttack.Start();
+			if (NodeRayEnemyDetector.IsColliding())
+				NodeWeapon.Scale = new Vector2(Math.Sign(NodeRayEnemyDetector.GetCollisionPoint().x - GlobalPosition.x), 1);
+			else if (InputMoveDirection == 0)
+				NodeWeapon.Scale = new Vector2(NodeFlipH.Scale.x, 1);
+			else
+				NodeWeapon.Scale = new Vector2(InputMoveDirection, 1);
+			_controller.InputAttack();
+			NodeAnimWeapon.Stop();
+			NodeAnimWeapon.Play("Swing");
 		}
 
 		public void AnimationAction(int action)
@@ -214,8 +226,31 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		{
 			VelocityX *= 0.5f;
 		}
+		
+		
+		private void Defeated()
+		{
+			NodeAnim.Play("Defeat");
+			SetProcessInput(false);
+			NodeAnim.PauseMode = PauseModeEnum.Process;
+			GetTree().Paused = true;
+
+			GetTree().CallGroup("DestroyOnDefeat", "free");
+
+			SaveData.Screen = 1;
+			SaveData.CurCrawl++;
+			SaveData.SaveGame();
+		}
+		
+		private void EndCrawl()
+		{
+			GetTree().Paused = false;
+			GetTree().ChangeScene("res://Scenes/Screens/Store.tscn");
+		}
 	}
 }
+
+
 
 
 
