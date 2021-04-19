@@ -26,5 +26,6 @@ StoreBtnHigher;		Higher.
 StoreBtnHigher2;	HIGHER!!!
 StoreBtnDeny;		Nah...
  ; 
-StoreDialogueRequest1;	I'll buy this:
-StoreDialoguePrice1;	For the price of
+StoreDialogueRequest1;			I'll buy this, for the price of:
+StoreDialogueRequestHigh1;		Great! Then the better price is:
+StoreDialogueRequestAngry1;		Oof! This better be amazing if it costs:

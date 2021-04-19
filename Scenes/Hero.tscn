@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HeroComponents/Hero.cs" type="Script" id=2]
@@ -535,73 +535,7 @@ tracks/10/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "EnterStore"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("FlipH/Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("TransitionBlackout:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.25, 1 ),
-"update": 0,
-"values": [ Vector2( 20, 20 ), Vector2( 1e-05, 1e-05 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 1.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "SwitchStateAuto"
-} ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("TransitionBlackout:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("FlipH/Sprite:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 26 ]
-}
-
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=27]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -651,7 +585,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 9.5 ), Vector2( 0, 12.5 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=12]
 step = 0.04
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
@@ -716,7 +650,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=13]
 length = 6.0
 loop = true
 tracks/0/type = "value"
@@ -744,7 +678,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
@@ -807,7 +741,7 @@ tracks/4/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=15]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
@@ -884,7 +818,7 @@ tracks/5/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=16]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:position")
 tracks/0/interp = 1
@@ -922,7 +856,7 @@ tracks/2/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=17]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -962,7 +896,7 @@ tracks/2/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=18]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
@@ -1015,7 +949,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=19]
 length = 0.8
 loop = true
 step = 0.05
@@ -1068,7 +1002,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=20]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -1118,7 +1052,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=21]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:scale")
 tracks/0/interp = 1
@@ -1156,7 +1090,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 9.5 ) ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=22]
 tracks/0/type = "value"
 tracks/0/path = NodePath("FlipH/Sprite:frame")
 tracks/0/interp = 1
@@ -1206,7 +1140,7 @@ tracks/3/keys = {
 "values": [ "Run" ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=23]
 resource_name = "StartStoreDay"
 step = 0.05
 tracks/0/type = "value"
@@ -1275,7 +1209,141 @@ tracks/4/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=28]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("FlipH/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TransitionBlackout:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Vector2( 20, 20 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "SwitchStateAuto"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TransitionBlackout:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FlipH/Sprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 26 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "StoreSell"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("FlipH/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "SwitchState"
+}, {
+"args": [  ],
+"method": "SwitchStateAuto"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FlipH/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 48 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Anim:playback_speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cam:zoom")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( -4, -4, 1 ),
+"update": 0,
+"values": [ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+
+[sub_resource type="Animation" id=26]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -1333,7 +1401,6 @@ position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
 position = Vector2( 0, 9.5 )
-scale = Vector2( 0.75, 1.2 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 vframes = 8
@@ -1425,10 +1492,9 @@ wait_time = 1.5
 one_shot = true
 
 [node name="TransitionBlackout" type="Sprite" parent="."]
-visible = false
 self_modulate = Color( 0, 0, 0, 1 )
 light_mask = 0
-scale = Vector2( 20, 20 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 6 )
 
 [node name="Cam" type="Camera2D" parent="."]
@@ -1453,21 +1519,22 @@ anims/AttackGround = SubResource( 7 )
 anims/AttackLedge = SubResource( 8 )
 anims/AttackWall = SubResource( 9 )
 anims/Defeat = SubResource( 10 )
-anims/EnterStore = SubResource( 11 )
-anims/Fall = SubResource( 12 )
-anims/Hurt = SubResource( 13 )
-anims/Idle = SubResource( 14 )
-anims/Jump = SubResource( 15 )
-anims/Land = SubResource( 16 )
-anims/LedgeGrab = SubResource( 17 )
-anims/LedgeGrabPre = SubResource( 18 )
-anims/RoomTransition = SubResource( 19 )
-anims/Run = SubResource( 20 )
-anims/RunStart = SubResource( 21 )
-anims/RunStop = SubResource( 22 )
-anims/RunTurn = SubResource( 25 )
-anims/StartStoreDay = SubResource( 26 )
-anims/Wall = SubResource( 24 )
+anims/Fall = SubResource( 27 )
+anims/Hurt = SubResource( 12 )
+anims/Idle = SubResource( 13 )
+anims/Jump = SubResource( 14 )
+anims/Land = SubResource( 15 )
+anims/LedgeGrab = SubResource( 16 )
+anims/LedgeGrabPre = SubResource( 17 )
+anims/RoomTransition = SubResource( 18 )
+anims/Run = SubResource( 19 )
+anims/RunStart = SubResource( 20 )
+anims/RunStop = SubResource( 21 )
+anims/RunTurn = SubResource( 22 )
+anims/StartStoreDay = SubResource( 23 )
+anims/StoreEnter = SubResource( 28 )
+anims/StoreSell = SubResource( 25 )
+anims/Wall = SubResource( 26 )
 
 [node name="Tween" type="Tween" parent="."]
 

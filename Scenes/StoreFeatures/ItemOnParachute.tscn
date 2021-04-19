@@ -2,14 +2,13 @@
 
 [ext_resource path="res://Graphics/VFX/StoreItemOnParachute.png" type="Texture" id=1]
 
-[sub_resource type="Curve2D" id=2]
+[sub_resource type="Curve2D" id=1]
 resource_local_to_scene = true
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "New Anim"
+[sub_resource type="Animation" id=2]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Item/Sprite:rotation_degrees")
@@ -19,7 +18,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"transitions": PoolRealArray( -2, -2, 1 ),
 "update": 0,
 "values": [ 30.0, -30.0, 30.0 ]
 }
@@ -35,9 +34,22 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0, 1.0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Path2D" type="Path2D"]
-curve = SubResource( 2 )
+modulate = Color( 1, 1, 1, 0 )
+curve = SubResource( 1 )
 
 [node name="Item" type="PathFollow2D" parent="."]
 rotate = false
@@ -48,5 +60,5 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, 8 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-autoplay = "New Anim"
-"anims/New Anim" = SubResource( 1 )
+autoplay = "Init"
+anims/Init = SubResource( 2 )

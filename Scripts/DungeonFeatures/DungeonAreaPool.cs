@@ -28,7 +28,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			var item = new Item()
 			{
-				Id = -1,
+				Uid = -1,
 				Pool = ResourcePath.Substring(ResourcePath.FindLast("/") + 1),
 
 				ItemType = _random.Next(3),

@@ -94,6 +94,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		Ring = 64,
 		Necklace = 128,
 
+		WeaponOrSpell = Weapon | Spell,
 		AllArmor = Chestplate | Helmet | Boots | Gauntlets,
 		AllJewellery = Ring | Necklace,
 	}

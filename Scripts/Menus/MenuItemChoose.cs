@@ -8,6 +8,7 @@ namespace BrickAndMortal.Scripts.Menus
 		{
 			GetTree().Paused = false;
 			GetTree().SetInputAsHandled();
+			SetProcessInput(false);
 
 			_nodeTween.InterpolateCallback(this, 0.5f, "queue_free");
 			_nodeTween.InterpolateProperty(this, "modulate",
@@ -17,9 +18,10 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeTween.Start();
 		}
 
-		protected override void ItemSelected(Control node, int idx)
+		protected override void ItemSelected(TextureButton node, int idx)
 		{
 			base.ItemSelected(node, idx);
+			node?.ReleaseFocus();
 			CloseMenu();
 		}
 

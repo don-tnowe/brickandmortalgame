@@ -5,7 +5,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 {
 	public class Item
 	{
-		public int Id;
+		public int Uid;
 		public string Pool;
 
 		public int ItemType;
@@ -23,7 +23,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		{
 			var parsed = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, JsonElement>>(from);
 
-			Id = parsed["Id"].GetInt32();
+			Uid = parsed["Id"].GetInt32();
 			Pool = parsed["Pool"].GetString();
 
 			ItemType = parsed["ItemType"].GetInt32();
@@ -53,7 +53,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		{
 			// Seed MUST be the first value.
 			var returnValue = "{"
-				+ "\"Id\":" + Id
+				+ "\"Id\":" + Uid
 				+ ", \"Pool\":\"" + Pool + "\""
 				+ ", \"ItemType\":" + ItemType
 				+ ", \"Power\":" + Power

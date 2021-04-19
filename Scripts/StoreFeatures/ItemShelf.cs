@@ -1,4 +1,3 @@
-
 using BrickAndMortal.Scripts.ItemOperations;
 using Godot;
 
@@ -57,7 +56,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			display.ShowPopup();
 		}
 
-		private void Interacted(object with)
+		private void Interacted(HeroComponents.HeroStore with)
 		{
 			if (CanChoose)
 				_nodeStoreManager.ChooseShelfItem(this);

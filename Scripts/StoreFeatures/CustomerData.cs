@@ -15,11 +15,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		[Export]
 		private int _needCount = 1;
 		[Export]
-		private float _minPriceMultiplier = -0.4f;
+		private float _minPriceMultiplier = 0.6f;
 		[Export]
 		private float _denyPriceMultiplier = 2;
 		[Export]
-		private float _priceIncrementMultiplier = 0.25f;
+		private float _priceIncrementMultiplier = 0.2f;
 		[Export]
 		private float _denyChanceInit = -1;
 		[Export]
@@ -39,31 +39,33 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			{4, 1}
 		};
 
-		public EquipFlags LastOrderEquipFlags;
-		public int[] LastOrderEnchants;
-		public int LastOrderStartPrice;
-		public int LastOrderDenyPrice;
+		public bool Denied { get; private set; }
+
+		private EquipFlags _lastOrderEquipFlags;
+		private int[] _lastOrderEnchants;
+		private int _lastOrderStartPrice;
+		private int _lastOrderDenyPrice;
 
 		private System.Random _random = new System.Random();
 
 		public void NewOrder()
 		{
-			LastOrderEquipFlags = _needsTypes[_random.Next(_needsTypes.Length)];
-			LastOrderEnchants = ItemData.GetRandomEnchants(_needsEnchants, _needCount, LastOrderEquipFlags, _random);
+			_lastOrderEquipFlags = _needsTypes[_random.Next(_needsTypes.Length)];
+			_lastOrderEnchants = ItemData.GetRandomEnchants(_needsEnchants, _needCount, _lastOrderEquipFlags, _random);
 		}
 
 		public bool WillBuyItem(Item item)
 		{
-			if (((EquipFlags)(1 << item.ItemType) & LastOrderEquipFlags) == 0)
+			if (((EquipFlags)(1 << item.ItemType) & _lastOrderEquipFlags) == 0)
 				return false;
-			for (int i = 0; i < LastOrderEnchants.Length; i++)
+
+			for (int i = 0; i < _lastOrderEnchants.Length; i++)
 			{
 				var found = false;
 				for (int j = 0; j < item.HeldEnchantments[0].Length; j++)
-				{
-					if (item.HeldEnchantments[0][j] == LastOrderEnchants[i])
+					if (item.HeldEnchantments[1][j] > 0 && item.HeldEnchantments[0][j] == _lastOrderEnchants[i])
 						found = true;
-				}
+
 				if (!found)
 					return false;
 			}
@@ -71,41 +73,132 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		}
 
 
-		public int GetItemStartingPrice(object item)
-		{
-			return GetItemStartingPrice((Item)item);
-		}
-
 		public int GetItemStartingPrice(Item item)
 		{
-			float price = (
+			float price = 
 				item.Power * _multiplierPower
 				+ item.Shine * _multiplierShine
 				+ item.Magic * _multiplierMagic
-				);
+				;
+
 			for (int i = 0; i < item.HeldEnchantments[0].Length; i++)
-				if (_multipliersEnchants.ContainsKey(item.HeldEnchantments[0][i]))
-					price += item.HeldEnchantments[1][i] * ItemData.AllEnchantments[item.HeldEnchantments[1][i]].BaseValue * _multipliersEnchants[i];
+			{
+				var idx = item.HeldEnchantments[0][i];
+				var value = item.HeldEnchantments[1][i];
+				if (_multipliersEnchants.ContainsKey(idx))
+					price += value * ItemData.AllEnchantments[idx].BaseValue * _multipliersEnchants[idx];
+			}
+
 			if (price < 1)
 				price = 1;
-			LastOrderDenyPrice = (int)(price * _denyPriceMultiplier);
-			price *= (float)(1.0 + _random.NextDouble() * (_minPriceMultiplier - 1));
-			LastOrderStartPrice = (int)price;
-			return (int)price;
+
+			_lastOrderDenyPrice = (int)(price * _denyPriceMultiplier);
+			_lastOrderStartPrice = (int)price;
+			return (int)(price * _random.NextDouble() * (1 - _minPriceMultiplier));
 		}
 
-		public float GetIncrementedDeny(float currentDeny)
+		public float GetIncrementedDeny(int currentPrice, float currentDeny)
 		{
-			if (currentDeny < _denyChanceInit)
-				return 0;
-			if (_random.NextDouble() < currentDeny - _denyChanceInit)
-				return 1;
-			return _denyChanceIncrement;
+			if (currentDeny + _denyChanceInit > _random.NextDouble())
+				Denied = true;
+
+			if (currentPrice > _lastOrderDenyPrice)
+				return currentDeny + _denyChanceIncrement;
+
+			return currentDeny;
+		}
+
+		public float GetSuperIncrementedDeny(int currentPrice, float currentDeny)
+		{
+			if (currentDeny + _denyChanceInit > 0)
+				Denied = true;
+
+			if (currentPrice > _lastOrderDenyPrice)
+				return currentDeny + _denyChanceIncrement;
+
+			return currentDeny;
 		}
 
 		public int GetIncrementedPrice(int currentPrice)
 		{
-			return _random.Next((int)(_denyChanceInit * _priceIncrementMultiplier));
+			var halfIncrement = (int)(_priceIncrementMultiplier * _lastOrderStartPrice / 2);
+			return currentPrice + _random.Next(halfIncrement) + halfIncrement;
+		}
+
+		public int GetSuperIncrementedPrice(int currentPrice)
+		{
+			var halfIncrement = (int)(_priceIncrementMultiplier * _lastOrderStartPrice * 4);
+			return currentPrice + _random.Next(halfIncrement) + halfIncrement;
+		}
+
+		public int GetPriceOpinion(int currentPrice, float currentDeny)
+		{
+			if (currentPrice < _lastOrderDenyPrice)
+				return (currentPrice < _lastOrderDenyPrice - _lastOrderStartPrice * _priceIncrementMultiplier - 1) ? 1 : 2;
+			else if (currentDeny + _denyChanceInit <= 0)
+				return 3 - (int)(currentDeny / _denyChanceInit * 2);
+			else
+				return (currentDeny + _denyChanceInit) < 0.5f ? 5 : 6;
+		}
+
+		public void DisplayRequest(Control bubble)
+		{
+			var box = bubble.GetNode<Control>("Clip/Box");
+
+			var equipFrame = 0;
+			switch (_lastOrderEquipFlags)
+			{
+				case EquipFlags.Weapon:
+					equipFrame = 0;
+					break;
+				case EquipFlags.Spell:
+					equipFrame = 1;
+					break;
+
+				case EquipFlags.Chestplate:
+					equipFrame = 2;
+					break;
+				case EquipFlags.Helmet:
+					equipFrame = 3;
+					break;
+				case EquipFlags.Boots:
+					equipFrame = 4;
+					break;
+				case EquipFlags.Gauntlets:
+					equipFrame = 5;
+					break;
+
+				case EquipFlags.Ring:
+					equipFrame = 6;
+					break;
+				case EquipFlags.Necklace:
+					equipFrame = 7;
+					break;
+
+				case EquipFlags.WeaponOrSpell:
+					equipFrame = 16;
+					break;
+				case EquipFlags.AllArmor:
+					equipFrame = 17;
+					break;
+				case EquipFlags.AllJewellery:
+					equipFrame = 18;
+					break;
+			};
+
+			box.GetChild(0).GetChild<Sprite>(0).Frame = equipFrame;
+
+			for (int i = 1; i < box.GetChildCount(); i++)
+				if (_lastOrderEnchants.Length < i)
+				{
+					box.GetChild<CanvasItem>(i).Visible = false;
+				}
+				else
+				{
+					box.GetChild<CanvasItem>(i).Visible = true;
+					box.GetChild(i).GetChild<Sprite>(0).Frame = _lastOrderEnchants[i - 1];
+				}
+			box.RectSize = new Vector2(0, box.RectSize.y);
 		}
 	}
 }

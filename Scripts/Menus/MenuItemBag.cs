@@ -44,7 +44,7 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeTween.Start();
 		}
 
-		protected virtual void ItemSelected(Control node, int idx)
+		protected virtual void ItemSelected(TextureButton node, int idx)
 		{
 			Item item = null;
 			if (idx >= 0)

@@ -12,7 +12,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 
 		public void Initialize()
 		{
-			HeldItem = (Item)GetNode<DungeonBuilder>("../../..").GetRandomItem();
+			HeldItem = GetNode<DungeonBuilder>("../../..").GetRandomItem();
 			GetNode<Sprite>("Item").Frame = HeldItem.ItemType * 8 + HeldItem.Frame;
 		}
 

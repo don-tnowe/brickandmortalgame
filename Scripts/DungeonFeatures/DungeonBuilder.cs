@@ -62,7 +62,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			return new Vector2(_onMapX, _onMapY);
 		}
 
-		public object GetRandomItem()
+		public ItemOperations.Item GetRandomItem()
 		{
 			return _curPool.GetRandomItem();
 		}

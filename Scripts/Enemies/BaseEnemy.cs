@@ -38,7 +38,7 @@ namespace BrickAndMortal.Scripts.Enemies
 			_nodeShape = GetNode<CollisionShape2D>("Shape");
 			_nodeAnim = GetNode<AnimationPlayer>("Anim");
 			Connect("Defeated", GetNode(_nodePathRoom), "EnemyDefeated",
-					new Godot.Collections.Array(new object[] { GetPositionInParent() })
+					new Godot.Collections.Array() { GetPositionInParent() }
 				);
 		}
 

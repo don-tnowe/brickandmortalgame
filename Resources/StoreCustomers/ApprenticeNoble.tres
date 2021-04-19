@@ -4,17 +4,17 @@
 
 [resource]
 script = ExtResource( 1 )
-ImageFilename = null
+ImageFilename = "ApprenticeNoble"
 _needsTypes = PoolIntArray( 1, 2, 60 )
 _needsEnchants = PoolIntArray( 0, 1, 2 )
 _needCount = 1
-_minPriceMultiplier = -0.4
+_minPriceMultiplier = 0.6
 _denyPriceMultiplier = 2.0
-_priceIncrementMultiplier = 0.25
+_priceIncrementMultiplier = 0.2
 _denyChanceInit = -1.0
 _denyChanceIncrement = 0.2
 _multiplierPower = 1.0
-_multiplierShine = 1.5
+_multiplierShine = 4.0
 _multiplierMagic = 0.0
 _multipliersEnchants = {
 4: 4.0

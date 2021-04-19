@@ -15,7 +15,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 		public void CollectItem(Item item)
 		{
-			item.Id = ItemsCollected;
+			item.Uid = ItemsCollected;
 			ItemsCollected++;
 
 			AddItem(item.ToJSON());
@@ -33,7 +33,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		{
 			var uidStr = uid.ToString();
 			for (int i = 0; i < _items.Count; i++)
-				if (_items[i].StartsWith("{Id:" + uidStr))
+				if (_items[i].StartsWith("{\"Id\":" + uidStr))
 				{
 					_items.RemoveAt(i);
 					break;
