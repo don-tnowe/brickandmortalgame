@@ -66,6 +66,11 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			return _curPool.GetRandomItem();
 		}
+		public override void _Input(InputEvent @event)
+		{
+			if (@event.IsAction("debug") && @event.GetActionStrength("debug") > 0)
+				SaveData.ItemBag.CollectItem( GetRandomItem());
+		}
 	}
 }
 

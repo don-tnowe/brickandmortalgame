@@ -44,12 +44,6 @@ namespace BrickAndMortal.Scripts.HUDs
 			_nodeAnim.Play("GainItem");
 		}
 
-		public override void _Input(InputEvent @event)
-		{
-			if (@event.IsAction("debug"))
-				ItemCollect((Item)GetParent().GetParent<DungeonFeatures.DungeonBuilder>().GetRandomItem());
-		}
-
 		private void UpdateItemCount()
 		{
 			_nodeLabelItemcount.Text = SaveData.ItemBag.GetItemCount().ToString();

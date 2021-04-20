@@ -11,9 +11,12 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		[Export]
 		private PackedScene _sceneCustomer;
 
-		public bool[] ItemsOnShelves;
+		private bool[] _itemsOnShelves;
 
-		public CustomerInStore CurrentCustomer { get; private set; }
+		private CustomerData _currentCustomer;
+		private CustomerInStore _currentCustomerNode;
+		private int _currentPrice = 1;
+		private float _currentDeny = 0;
 
 		private int _customersLeft = 0;
 		private ItemShelf _nodeNegotiatedShelf;
@@ -38,7 +41,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_nodeMenuSell = GetNode<MenuSell>("UI/MenuSell");
 			_nodeTween = GetNode<Tween>("UI/Tween");
 
-			ItemsOnShelves = new bool[SaveData.ItemBag.GetItemCount()];
+			_itemsOnShelves = new bool[SaveData.ItemBag.GetItemCount()];
 
 			var dayCustomerNames = new List<string>();
 			foreach (string i in SaveData.PossibleCustomers)
@@ -51,7 +54,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			{
 				var newCustomer = (CustomerInStore)_sceneCustomer.Instance();
 				_nodeCustomers.AddChild(newCustomer);
-				newCustomer.Initialize(
+				newCustomer.Customer = (
 					ResourceLoader.Load<CustomerData>(
 						"res://Resources/StoreCustomers/"
 						+ dayCustomerNames[i]
@@ -67,7 +70,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		{
 			var a = (MenuItemChoose)_sceneMenuItemChoose.Instance();
 			GetNode("UI").AddChild(a);
-			a.OpenMenu(ItemsOnShelves);
+			a.OpenMenu(_itemsOnShelves);
 			a.EventReturnItem += shelf.SetItem;
 		}
 		
@@ -78,14 +81,14 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			var shelfIdx = 0;
 			while (itemIdx < itemArray.Length && shelfIdx < _nodeShelves.GetChildCount())
 			{
-				if (ItemsOnShelves[itemIdx])
+				if (_itemsOnShelves[itemIdx])
 				{
 					itemIdx++;
 					continue;
 				}
 				if (_nodeShelves.GetChild<ItemShelf>(shelfIdx).HeldItem == null)
 				{
-					_nodeShelves.GetChild<ItemShelf>(shelfIdx).SetItem(itemArray[itemIdx], itemIdx);
+					_nodeShelves.GetChild<ItemShelf>(shelfIdx).SetItem(itemArray[itemIdx], itemIdx, _itemsOnShelves);
 					itemIdx++;
 				}
 
@@ -112,7 +115,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			GetNode<AnimationPlayer>("Hero/Anim").Play("StartStoreDay");
 		}
 
-		public void HighlightSellableItems(CustomerInStore customer = null)
+		public void HighlightSellableItems(CustomerData customer = null)
 		{
 			var itemCount = 0;
 			for (int i = 0; i < _nodeShelves.GetChildCount(); i++)
@@ -126,12 +129,12 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 					_nodeShelves.GetChild<ItemShelf>(i).CanSell = false;
 			}
 
-			if (customer != null && itemCount == 0)
+			if (customer != null && customer == _currentCustomer && itemCount == 0)
 			{
-				customer.GetNode("Anim").Connect("animation_finished",
+				_currentCustomerNode.GetNode("Anim").Connect("animation_finished",
 					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { customer }
 					);
-				customer.PlayAnimation("DenyPlayer");
+				_currentCustomerNode.PlayAnimation("DenyPlayer");
 			}
 		}
 
@@ -141,11 +144,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			
 			var item = shelf.HeldItem;
 
-			CurrentCustomer.StartNegotiation(item);
+			_currentPrice = _currentCustomer.GetItemStartingPrice(item);
 			_nodeMenuSell.OpenMenu(item);
 			HighlightSellableItems();
-			shelf.NodeAnim.Play("NoItem");
 
+			shelf.NodeAnim.Play("NoItem");
 			_nodeHero.NodeAnim.Play("StoreSell");
 			_nodeTween.InterpolateCallback(_nodeCustomerRequestBubble, 0.5f, "hide");
 			_nodeTween.InterpolateProperty(_nodeCustomerRequestBubble, "margin_top",
@@ -161,40 +164,53 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public void RaisePrice()
 		{
-			if (CurrentCustomer.RaisePrice())
-				Deny();
+			if (_currentCustomer.Denied)
+			{
+				DenyByCustomer();
+				return;
+			}
+			_currentPrice = _currentCustomer.GetIncrementedPrice(_currentPrice);
+			_currentDeny = _currentCustomer.GetIncrementedDeny(_currentPrice, _currentDeny);
 		}
 
 		public void SuperRaisePrice()
 		{
-			if (CurrentCustomer.SuperRaisePrice())
-				Deny();
+			if (_currentCustomer.Denied)
+			{
+				DenyByCustomer();
+				return;
+			}
+			_currentPrice = _currentCustomer.GetSuperIncrementedPrice(_currentPrice);
+			_currentDeny = _currentCustomer.GetSuperIncrementedDeny(_currentPrice, _currentDeny);
 		}
 
 		public void Accept()
 		{
-			SaveData.Money += CurrentCustomer.CurrentPrice;
-			SaveData.ItemBag.RemoveItem(CurrentCustomer.NegotiationItemUid);
-			CurrentCustomer.PlayAnimation("ItemReceived");
+			SaveData.Money += _currentPrice;
+			SaveData.ItemBag.RemoveItem(_currentCustomerNode.NegotiationItemUid);
+			_currentCustomerNode.PlayAnimation("ItemReceived");
 			_nodeNegotiatedShelf.NodeAnim.Play("NoItem");
 			_nodeNegotiatedShelf.HeldItem = null;
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
 			NextCustomer();
 		}
 
-		public void DenyPlayer()
+		public void DenyByPlayer()
 		{
-			_nodeNegotiatedShelf?.NodeAnim.Play("CantSell");
-			CurrentCustomer.PlayAnimation("DenyPlayer");
-			_nodeHero.NodeAnim.PlaybackSpeed = 1;
-			NextCustomer();
+			_currentCustomerNode.PlayAnimation("DenyPlayer");
+			Deny();
 		}
 
-		public void Deny()
+		public void DenyByCustomer()
 		{
 			_nodeMenuSell.CloseMenu();
-			_nodeNegotiatedShelf.NodeAnim.Play("CantSell");
-			CurrentCustomer.PlayAnimation("Deny");
+			_currentCustomerNode.PlayAnimation("Deny");
+			Deny();
+		}
+
+		private void Deny()
+		{
+			_nodeNegotiatedShelf.ReturnToShelf();
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
 			NextCustomer();
 		}
@@ -204,63 +220,69 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_customersLeft -= 1;
 			var count = _nodeCustomers.GetChildCount();
 
-
 			if (_customersLeft > 2)
 				_nodeCustomers.GetChild<CustomerInStore>(_customersLeft - 2).PlayAnimation("Step2");
 			if (_customersLeft > 1 && _customersLeft < count + 1)
 				_nodeCustomers.GetChild<CustomerInStore>(_customersLeft - 1).PlayAnimation("Step1");
 			if (_customersLeft > 0 && _customersLeft < count)
 			{
-				CurrentCustomer = _nodeCustomers.GetChild<CustomerInStore>(_customersLeft);
-				CurrentCustomer.PlayAnimation("Step0");
+				_currentCustomerNode = _nodeCustomers.GetChild<CustomerInStore>(_customersLeft);
+				_currentCustomer = _currentCustomerNode.Customer;
+				_currentCustomerNode.PlayAnimation("Step0");
 			}
 
 
 			if (_customersLeft == 0)
 				return; // TODO: END THE DAY;
 
-			if (CurrentCustomer == null)
+			if (_currentCustomer == null)
 			{
 				var customer = _nodeCustomers.GetChild<CustomerInStore>(_customersLeft - 2);
 				customer.GetNode("Anim").Connect("animation_finished", 
-					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { customer }
+					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { customer, true}
 					);
 				return;
 			}
 
-			CurrentCustomer.DisplayRequest(_nodeCustomerRequestBubble);
-
-			_nodeTween.Stop(_nodeCustomerRequestBubble);
-			_nodeTween.InterpolateCallback(_nodeCustomerRequestBubble, 0.5f, "show");
-			_nodeTween.InterpolateProperty(_nodeCustomerRequestBubble, "margin_right",
-				12, 9 + _nodeCustomerRequestBubble.GetNode<Control>("Clip/Box").RectSize.x,
-				0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out, 0.5f
-				);
-			_nodeTween.InterpolateProperty(_nodeCustomerRequestBubble, "margin_top",
-				-15, -21,
-				0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out, 0.5f
-				);
-			_nodeTween.Start();
-
-			HighlightSellableItems(CurrentCustomer);
-
+			_currentCustomerNode.GetNode("Anim").Connect("animation_finished",
+					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { _currentCustomerNode, false }
+					);
 		}
 
 		public int GetNegotiationPrice()
 		{
-			return CurrentCustomer.CurrentPrice;
+			return _currentPrice;
 		}
 
 		public int GetPriceOpinion()
 		{
-			return CurrentCustomer.GetPriceOpinion();
+			return _currentCustomer.GetPriceOpinion(_currentPrice, _currentDeny);
 		}
 
-
-		private void CustomerAnimationFinished(string name, CustomerInStore customer)
+		private void CustomerAnimationFinished(string name, Node customer, bool skip)
 		{
 			customer.GetNode("Anim").Disconnect("animation_finished", this, nameof(CustomerAnimationFinished));
-			NextCustomer(); 
+			if (skip)
+			{
+				NextCustomer();
+				return;
+			}
+
+			_currentCustomer.DisplayRequest(_nodeCustomerRequestBubble);
+
+			_nodeTween.Stop(_nodeCustomerRequestBubble);
+			_nodeTween.InterpolateCallback(_nodeCustomerRequestBubble, 0.1f, "show");
+			_nodeTween.InterpolateProperty(_nodeCustomerRequestBubble, "margin_right",
+				12, 9 + _nodeCustomerRequestBubble.GetNode<Control>("Clip/Box").RectSize.x,
+				0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out
+				);
+			_nodeTween.InterpolateProperty(_nodeCustomerRequestBubble, "margin_top",
+				-15, -21,
+				0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out
+				);
+			_nodeTween.Start();
+
+			HighlightSellableItems(_currentCustomer);
 		}
 
 	}

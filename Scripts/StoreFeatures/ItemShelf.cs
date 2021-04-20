@@ -64,14 +64,14 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				_nodeStoreManager.SellFromShelf(this);
 		}
 		
-		public void SetItem(Item newItem, int idx)
+		public void SetItem(Item newItem, int idx, bool[] itemsOnShelves)
 		{
 			HeldItem = newItem;
 
 			if (_heldItemIdx != -1)
-				_nodeStoreManager.ItemsOnShelves[_heldItemIdx] = false;
+				itemsOnShelves[_heldItemIdx] = false;
 			if (idx != -1)
-				_nodeStoreManager.ItemsOnShelves[idx] = true;
+				itemsOnShelves[idx] = true;
 
 			_heldItemIdx = idx;
 
@@ -82,6 +82,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			if (newItem != null)
 				GetNode<Sprite>("Item").Frame = newItem.ItemType * 8 + newItem.Frame;
+		}
+
+		public void ReturnToShelf()
+        {
+			GetNode<Sprite>("Item").Visible = true;
 		}
 	}
 }

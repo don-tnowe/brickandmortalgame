@@ -4,6 +4,9 @@ namespace BrickAndMortal.Scripts.Menus
 {
 	class MenuItemChoose : MenuItemBag
 	{
+		public delegate void ReturnItem(ItemOperations.Item item, int idx, bool[] blockedItems);
+		public event ReturnItem EventReturnItem;
+
 		public override void CloseMenu()
 		{
 			GetTree().Paused = false;
@@ -20,7 +23,11 @@ namespace BrickAndMortal.Scripts.Menus
 
 		protected override void ItemSelected(TextureButton node, int idx)
 		{
+			ItemOperations.Item item = null;
+			if (idx >= 0)
+				item = _itemArray[idx];
 			base.ItemSelected(node, idx);
+			EventReturnItem?.Invoke(item, idx, _restrictedItems);
 			node?.ReleaseFocus();
 			CloseMenu();
 		}

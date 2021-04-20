@@ -1,6 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/StoreFeatures/CustomerData.cs" type="Script" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
 
 [resource]
 script = ExtResource( 1 )
@@ -13,6 +16,7 @@ _denyPriceMultiplier = 2.0
 _priceIncrementMultiplier = 0.2
 _denyChanceInit = -1.0
 _denyChanceIncrement = 0.2
+_opinionCurve = SubResource( 1 )
 _multiplierPower = 1.0
 _multiplierShine = 4.0
 _multiplierMagic = 0.0

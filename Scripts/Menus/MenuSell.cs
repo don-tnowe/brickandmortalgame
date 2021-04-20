@@ -52,7 +52,7 @@ namespace BrickAndMortal.Scripts.Menus
 					_nodeStoreManager.RaisePrice();
 					break;
 				case 2:
-					_nodeStoreManager.Deny();
+					_nodeStoreManager.DenyByPlayer();
 					CloseMenu();
 					break;
 				case 3:
@@ -65,7 +65,6 @@ namespace BrickAndMortal.Scripts.Menus
 
 		public void CloseMenu()
 		{
-			GrabFocus();
 			ReleaseFocus();
 			_nodeAnim.Play("Close");
 		}
@@ -77,7 +76,7 @@ namespace BrickAndMortal.Scripts.Menus
 
 			_nodePriceLabel.Text = price.ToString();
 			_nodeOpinionOsc.GetNode<Sprite>("Sprite").Frame = opinion;
-			_nodeOpinionOsc.Magnitude = opinion <= 2 ? 0 : opinion - 2;
+			_nodeOpinionOsc.Magnitude = opinion <= 6 ? 0 : opinion / 2 - 3;
 		}
 	}
 }

@@ -418,7 +418,7 @@ Magnitude = 0.0
 [node name="Sprite" type="Sprite" parent="AnchorL/Panel/Opinion"]
 texture = ExtResource( 8 )
 vframes = 4
-hframes = 2
+hframes = 4
 
 [node name="AnchorR" type="Control" parent="."]
 anchor_left = 1.0

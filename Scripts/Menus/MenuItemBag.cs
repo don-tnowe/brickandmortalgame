@@ -8,14 +8,12 @@ namespace BrickAndMortal.Scripts.Menus
 		[Export]
 		private PackedScene _sceneItem;
 
-		public delegate void ReturnItem(Item item, int idx);
-		public event ReturnItem EventReturnItem;
-
 		protected GridContainer _nodeItemGrid;
 		private ItemStatDisplay _nodeItemStatDisplay;
 		protected Tween _nodeTween;
 
 		protected Item[] _itemArray;
+		protected bool[] _restrictedItems;
 
 		public override void _Ready()
 		{
@@ -44,16 +42,11 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeTween.Start();
 		}
 
-		protected virtual void ItemSelected(TextureButton node, int idx)
-		{
-			Item item = null;
-			if (idx >= 0)
-				item = _itemArray[idx];
-			EventReturnItem?.Invoke(item, idx);
-		}
+		protected virtual void ItemSelected(TextureButton node, int idx) { }
 
 		public void OpenMenu(bool[] restrictedItems)
 		{
+			_restrictedItems = restrictedItems;
 			OpenMenu();
 			GetTree().Paused = true;
 

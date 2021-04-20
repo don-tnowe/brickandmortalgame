@@ -25,6 +25,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		[Export]
 		private float _denyChanceIncrement = 0.2f;
 		[Export]
+		private Curve _opinionCurve = new Curve();
+		[Export]
 		private float _multiplierPower = 1;
 		[Export]
 		private float _multiplierShine = 4;
@@ -48,6 +50,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		private System.Random _random = new System.Random();
 
+		public CustomerData()
+		{
+			NewOrder();
+		}
+
 		public void NewOrder()
 		{
 			_lastOrderEquipFlags = _needsTypes[_random.Next(_needsTypes.Length)];
@@ -56,6 +63,9 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public bool WillBuyItem(Item item)
 		{
+			if (item == null)
+				return false;
+
 			if (((EquipFlags)(1 << item.ItemType) & _lastOrderEquipFlags) == 0)
 				return false;
 
@@ -71,7 +81,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			}
 			return true;
 		}
-
 
 		public int GetItemStartingPrice(Item item)
 		{
@@ -133,12 +142,14 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public int GetPriceOpinion(int currentPrice, float currentDeny)
 		{
+			float opinion;
 			if (currentPrice < _lastOrderDenyPrice)
-				return (currentPrice < _lastOrderDenyPrice - _lastOrderStartPrice * _priceIncrementMultiplier - 1) ? 1 : 2;
+				opinion = (float)currentPrice / _lastOrderDenyPrice * 2;
 			else if (currentDeny + _denyChanceInit <= 0)
-				return 3 - (int)(currentDeny / _denyChanceInit * 2);
+				opinion = 2 - currentDeny / _denyChanceInit;
 			else
-				return (currentDeny + _denyChanceInit) < 0.5f ? 5 : 6;
+				opinion = 3 + (currentDeny + _denyChanceInit);
+			return (int)(_opinionCurve.Interpolate(opinion / 4) * 16);
 		}
 
 		public void DisplayRequest(Control bubble)
