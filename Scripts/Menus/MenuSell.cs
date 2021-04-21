@@ -40,16 +40,16 @@ namespace BrickAndMortal.Scripts.Menus
 			switch (idx)
 			{
 				case 0:
-					UpdateInfo();
 					_nodeAnim.Stop();
 					_nodeAnim.Play("RaisePrice");
 					_nodeStoreManager.SuperRaisePrice();
+					UpdateInfo();
 					break;
 				case 1:
-					UpdateInfo();
 					_nodeAnim.Stop();
 					_nodeAnim.Play("RaisePrice");
 					_nodeStoreManager.RaisePrice();
+					UpdateInfo();
 					break;
 				case 2:
 					_nodeStoreManager.DenyByPlayer();

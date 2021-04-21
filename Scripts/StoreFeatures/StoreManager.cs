@@ -10,6 +10,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		private PackedScene _sceneMenuItemChoose;
 		[Export]
 		private PackedScene _sceneCustomer;
+		[Export]
+		private PackedScene _sceneItemParachute;
 
 		private bool[] _itemsOnShelves;
 
@@ -193,6 +195,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_nodeNegotiatedShelf.HeldItem = null;
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
 			NextCustomer();
+			
+			var newNode = (Path2D)_sceneItemParachute.Instance();
+			newNode.GlobalPosition = _nodeNegotiatedShelf.GlobalPosition;
+			newNode.Curve.AddPoint(_currentCustomerNode.GlobalPosition - _nodeNegotiatedShelf.GlobalPosition);
+			AddChild(newNode);
 		}
 
 		public void DenyByPlayer()

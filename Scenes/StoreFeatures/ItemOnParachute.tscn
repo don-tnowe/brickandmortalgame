@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Graphics/VFX/StoreItemOnParachute.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/VFX/ItemGlitter.png" type="Texture" id=2]
 
 [sub_resource type="Curve2D" id=1]
 resource_local_to_scene = true
@@ -8,8 +9,23 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="Animation" id=2]
-length = 2.0
+[sub_resource type="CanvasItemMaterial" id=5]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 8, 8, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="Animation" id=4]
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Item/Sprite:rotation_degrees")
 tracks/0/interp = 1
@@ -46,19 +62,44 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
 
 [node name="Path2D" type="Path2D"]
-modulate = Color( 1, 1, 1, 0 )
+z_index = 40
 curve = SubResource( 1 )
 
 [node name="Item" type="PathFollow2D" parent="."]
 rotate = false
 
 [node name="Sprite" type="Sprite" parent="Item"]
-rotation = 0.523599
+position = Vector2( -4.76837e-07, -16 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, 8 )
 
+[node name="Ptcl" type="Particles2D" parent="Item/Sprite"]
+show_behind_parent = true
+material = SubResource( 5 )
+position = Vector2( 0, 16 )
+amount = 4
+lifetime = 0.33
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Init"
-anims/Init = SubResource( 2 )
+anims/Init = SubResource( 4 )
