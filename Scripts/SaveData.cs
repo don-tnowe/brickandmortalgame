@@ -12,11 +12,13 @@ namespace BrickAndMortal.Scripts
 		public static int Money = 0;
 
 		public static ItemOperations.ItemBag ItemBag = new ItemOperations.ItemBag();
-
+		
 		public static List<string> PossibleCustomers = new List<string>{ 
 			"Barbarian", "WarriorHeroic", "ApprenticeCool", "ApprenticeNoble", "Pyro",
 			"MonsterSlayer", "Botanist", "Tinkerer", "Trickster"
 		};
+
+		public static int[] Upgrades = { 0, 0, 0 };
 
 		private const string _fileFolder = "user://";
 		private static string _fileName = "Savegame0.dat";
@@ -30,7 +32,9 @@ namespace BrickAndMortal.Scripts
 
 			str += ", " + ItemBag.GetSaveJSON();
 
-			str += ", \"Customers\":" + JsonSerializer.Serialize(PossibleCustomers);
+			str += ", \"PossibleCustomers\":" + JsonSerializer.Serialize(PossibleCustomers);
+			
+			str += ", \"Upgrades\":" + JsonSerializer.Serialize(Upgrades);
 
 			str += "}";
 
@@ -48,16 +52,27 @@ namespace BrickAndMortal.Scripts
 			file.Open(_fileFolder + _fileName, File.ModeFlags.Read);
 			var contents = file.GetLine();
 			
-			var parsed = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(contents);
+			var parsedValues = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(contents);
 
-			Money = parsed["Money"].GetInt32();
-			CurCrawl = parsed["CurCrawl"].GetInt32();
+			Money = parsedValues["Money"].GetInt32();
+			CurCrawl = parsedValues["CurCrawl"].GetInt32();
 
-			ItemBag.ItemsCollected = parsed["ItemsCollected"].GetInt32();
-			var items = parsed["Items"];
+			ItemBag.ItemsCollected = parsedValues["ItemsCollected"].GetInt32();
+			var parsedDict = parsedValues["Items"];
 			ItemBag.Clear();
-			for (int i = 0; i < items.GetArrayLength(); ++i)
-				ItemBag.AddItem(items[i].GetString());
+			for (int i = 0; i < parsedDict.GetArrayLength(); ++i)
+				ItemBag.AddItem(parsedDict[i].GetString());
+			
+			var parsedArr = parsedValues["PossibleCustomers"];
+			
+			for (int i = 0; i < parsedArr.GetArrayLength(); ++i)
+				PossibleCustomers.Add(parsedArr[i].GetString());
+			
+			parsedArr = parsedValues["Upgrades"];
+			
+			for (int i = 0; i < parsedArr.GetArrayLength(); ++i)
+				Upgrades[i] = parsedArr[i].GetInt32();
+				
 			file.Close();
 		}
 	}

@@ -1,8 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=1]
-[ext_resource path="res://Graphics/UI/MapIcons.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/UI/Dungeon/MapIcons.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Menus/DungeonMapRoom.cs" type="Script" id=3]
+
+
 
 [node name="Room" type="Control"]
 margin_right = 16.0

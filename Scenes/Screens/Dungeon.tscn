@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/Hero.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Rooms/Start.tscn" type="PackedScene" id=2]
@@ -13,9 +13,8 @@
 [ext_resource path="res://Scenes/Menus/MenuDungeonMap.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Menus/MenuSwitcher.cs" type="Script" id=12]
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=13]
-[ext_resource path="res://Scenes/Menus/Button.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Graphics/UI/Navigation.png" type="Texture" id=15]
-[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=16]
+[ext_resource path="res://Graphics/UI/NavigationIcons.png" type="Texture" id=15]
+[ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 16 )
@@ -162,7 +161,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DirL" parent="UI/OverlayMenus/Top" instance=ExtResource( 14 )]
+[node name="DirL" type="TextureButton" parent="UI/OverlayMenus/Top"]
 margin_left = -4.0
 margin_top = 13.0
 margin_right = 12.0
@@ -175,6 +174,9 @@ texture_pressed = SubResource( 2 )
 texture_hover = SubResource( 3 )
 texture_disabled = SubResource( 4 )
 texture_focused = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirL"]
 position = Vector2( 8, 8 )
@@ -199,7 +201,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DirR" parent="UI/OverlayMenus/Top" instance=ExtResource( 14 )]
+[node name="DirR" type="TextureButton" parent="UI/OverlayMenus/Top"]
 margin_left = 86.0
 margin_top = 13.0
 margin_right = 102.0
@@ -212,6 +214,9 @@ texture_pressed = SubResource( 2 )
 texture_hover = SubResource( 3 )
 texture_disabled = SubResource( 4 )
 texture_focused = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirR"]
 position = Vector2( 8, 8 )

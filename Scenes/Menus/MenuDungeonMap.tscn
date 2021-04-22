@@ -1,10 +1,30 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Menus/MenuDungeonMap.cs" type="Script" id=1]
-[ext_resource path="res://Graphics/UI/MapBorder.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/UI/Frame.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Menus/DungeonMapRoom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Menus/Button.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Graphics/UI/Navigation.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/UI/NavigationIcons.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 16 )
 
 [node name="DungeonMap" type="Control"]
 self_modulate = Color( 0.572549, 0.403922, 0.223529, 1 )
@@ -43,10 +63,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" parent="Box/CenterT" instance=ExtResource( 4 )]
+[node name="Button" type="TextureButton" parent="Box/CenterT"]
 margin_left = 50.0
 margin_right = 66.0
+margin_bottom = 16.0
 mouse_default_cursor_shape = 2
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+texture_focused = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="Box/CenterT/Button"]
 position = Vector2( 8, 8 )
@@ -75,10 +104,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" parent="Box/Center/CenterL" instance=ExtResource( 4 )]
+[node name="Button" type="TextureButton" parent="Box/Center/CenterL"]
 margin_top = 34.0
+margin_right = 16.0
 margin_bottom = 50.0
 mouse_default_cursor_shape = 2
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+texture_focused = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="Box/Center/CenterL/Button"]
 position = Vector2( 8, 8 )
@@ -149,10 +187,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" parent="Box/Center/CenterR" instance=ExtResource( 4 )]
+[node name="Button" type="TextureButton" parent="Box/Center/CenterR"]
 margin_top = 34.0
+margin_right = 16.0
 margin_bottom = 50.0
 mouse_default_cursor_shape = 2
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+texture_focused = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="Box/Center/CenterR/Button"]
 position = Vector2( 8, 8 )
@@ -169,10 +216,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" parent="Box/CenterB" instance=ExtResource( 4 )]
+[node name="Button" type="TextureButton" parent="Box/CenterB"]
 margin_left = 50.0
 margin_right = 66.0
+margin_bottom = 16.0
 mouse_default_cursor_shape = 2
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+texture_focused = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="Box/CenterB/Button"]
 position = Vector2( 8, 8 )

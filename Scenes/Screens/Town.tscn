@@ -1,0 +1,661 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Graphics/Environment/Backgrounds/DayOver.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/Environment/Backgrounds/TownBlacksmith.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Themes/FontMoney.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=5]
+[ext_resource path="res://Scripts/VFX/Oscillator2D.cs" type="Script" id=6]
+[ext_resource path="res://Graphics/UI/MoneyDisplay.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/UI/Town/UpgradeIcons.png" type="Texture" id=8]
+[ext_resource path="res://Graphics/UI/NavigationIcons.png" type="Texture" id=11]
+[ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=13]
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 6.5918
+margin_right = 5.94974
+margin_top = 6.15191
+margin_bottom = 8.36978
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 16, 16, 16 )
+margin_left = 6.5918
+margin_right = 5.94974
+margin_top = 6.15191
+margin_bottom = 8.36978
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.436364, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 1, 0.351563, 0.351563, 0.351563, 1 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 6 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 13 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 13 )
+region = Rect2( 16, 0, 16, 16 )
+
+[node name="Node" type="Node"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="OverlayMenus" type="ColorRect" parent="UI"]
+pause_mode = 2
+self_modulate = Color( 0.572549, 0.403922, 0.223529, 1 )
+light_mask = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Menus" type="Control" parent="UI/OverlayMenus"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Results" type="Control" parent="UI/OverlayMenus/Menus"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BG" type="TextureRect" parent="UI/OverlayMenus/Menus/Results"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blacksmith" type="Control" parent="UI/OverlayMenus/Menus"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="UI/OverlayMenus/Menus/Blacksmith"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="AnchorR" type="Control" parent="UI/OverlayMenus/Menus/Blacksmith"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -116.0
+margin_top = 34.0
+margin_right = -4.0
+margin_bottom = -130.0
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR/Header"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 37.0
+margin_bottom = 4.0
+rect_min_size = Vector2( 140, 0 )
+rect_scale = Vector2( 0.75, 0.75 )
+theme = ExtResource( 5 )
+text = "UpgradeName0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Panel" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR"]
+self_modulate = Color( 1, 1, 1, 0.752941 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -116.0
+margin_top = 50.0
+margin_right = -4.0
+margin_bottom = -52.0
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR/Description"]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 88.0
+margin_bottom = 104.0
+rect_scale = Vector2( 0.5, 0.5 )
+theme = ExtResource( 5 )
+text = "UpgradeDesc0"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR"]
+anchor_right = 1.0
+margin_left = -116.0
+margin_top = 112.0
+margin_right = -22.0
+margin_bottom = 132.0
+rect_scale = Vector2( 0.75, 0.75 )
+theme = ExtResource( 5 )
+text = "Level 10"
+align = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Node2D" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR"]
+position = Vector2( -28, 121 )
+
+[node name="Sprite" type="Sprite" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR/Price"]
+position = Vector2( 0, -2 )
+scale = Vector2( 0.999997, 0.999997 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR/Price/Sprite"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = -18.0
+margin_right = 15.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 4 )
+text = "0"
+align = 2
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonAccept" type="Button" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorR"]
+margin_left = -116.0
+margin_top = 128.0
+margin_right = 33.0
+margin_bottom = 149.0
+grow_horizontal = 2
+rect_scale = Vector2( 0.75, 0.75 )
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 5 )
+text = "StoreBtnAccept"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnchorL" type="Control" parent="UI/OverlayMenus/Menus/Blacksmith"]
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Upgrades" type="VBoxContainer" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL"]
+margin_left = 16.0
+margin_top = 40.0
+margin_right = 144.0
+margin_bottom = 144.0
+rect_scale = Vector2( 0.75, 0.75 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item0" type="Button" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades"]
+margin_right = 128.0
+margin_bottom = 32.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 5 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item0"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeIcons" type="Sprite" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item0"]
+position = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+centered = false
+vframes = 2
+hframes = 2
+
+[node name="Name" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item0"]
+margin_left = 28.0
+margin_right = 128.0
+margin_bottom = 20.0
+theme = ExtResource( 5 )
+text = "UpgradeName0"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item0"]
+margin_left = 28.0
+margin_top = 12.0
+margin_right = 128.0
+margin_bottom = 32.0
+theme = ExtResource( 5 )
+text = "Level 1"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item1" type="Button" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades"]
+margin_top = 36.0
+margin_right = 128.0
+margin_bottom = 68.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 5 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item1"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeIcons" type="Sprite" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item1"]
+position = Vector2( 4, 3.99999 )
+texture = ExtResource( 8 )
+centered = false
+vframes = 2
+hframes = 2
+frame = 1
+
+[node name="Name" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item1"]
+margin_left = 28.0
+margin_top = -7.62939e-06
+margin_right = 128.0
+margin_bottom = 20.0
+theme = ExtResource( 5 )
+text = "UpgradeName1"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item1"]
+margin_left = 28.0
+margin_top = 12.0
+margin_right = 128.0
+margin_bottom = 32.0
+theme = ExtResource( 5 )
+text = "Level 1"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item2" type="Button" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades"]
+margin_top = 72.0
+margin_right = 128.0
+margin_bottom = 104.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 5 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item2"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeIcons" type="Sprite" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item2"]
+position = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+centered = false
+vframes = 2
+hframes = 2
+frame = 2
+
+[node name="Name" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item2"]
+margin_left = 28.0
+margin_right = 128.0
+margin_bottom = 20.0
+theme = ExtResource( 5 )
+text = "UpgradeName2"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="UI/OverlayMenus/Menus/Blacksmith/AnchorL/Upgrades/Item2"]
+margin_left = 28.0
+margin_top = 12.0
+margin_right = 128.0
+margin_bottom = 32.0
+theme = ExtResource( 5 )
+text = "Level 1"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Go" type="Control" parent="UI/OverlayMenus/Menus"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BG" type="TextureRect" parent="UI/OverlayMenus/Menus/Go"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -180.0
+margin_bottom = -180.0
+rect_rotation = -270.0
+rect_pivot_offset = Vector2( 0, 180 )
+texture = SubResource( 14 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="Control" parent="UI/OverlayMenus"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Labels" type="Control" parent="UI/OverlayMenus/Top"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelNavL" type="Label" parent="UI/OverlayMenus/Top/Labels"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -36.0
+margin_right = 189.0
+margin_bottom = -24.0
+grow_horizontal = 0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MenuBag"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelNav" type="Label" parent="UI/OverlayMenus/Top/Labels"]
+anchor_right = 1.0
+margin_top = -168.0
+margin_bottom = -156.0
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MenuMap"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/OverlayMenus/Top/Labels/LabelNav"]
+show_behind_parent = true
+anchor_right = 1.0
+margin_top = 3.0
+margin_bottom = 16.0
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelNavR" type="Label" parent="UI/OverlayMenus/Top/Labels"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -143.0
+margin_top = -36.0
+margin_right = 38.0
+margin_bottom = -24.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MenuBag"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/OverlayMenus/Top/Labels"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -25.0
+margin_top = -20.0
+margin_right = 25.0
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Node2D" parent="UI/OverlayMenus/Top/Labels/ColorRect"]
+position = Vector2( 25, 12 )
+script = ExtResource( 6 )
+Magnitude = 0.0
+
+[node name="Sprite" type="Sprite" parent="UI/OverlayMenus/Top/Labels/ColorRect/Price"]
+position = Vector2( 0, -2 )
+scale = Vector2( 0.999997, 0.999997 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="UI/OverlayMenus/Top/Labels/ColorRect/Price/Sprite"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = -18.0
+margin_right = 15.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 4 )
+text = "0"
+align = 2
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DirL" type="TextureButton" parent="UI/OverlayMenus/Top"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -24.0
+margin_right = 32.0
+margin_bottom = -8.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+texture_focused = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirL"]
+position = Vector2( 8, 8 )
+texture = ExtResource( 11 )
+vframes = 4
+hframes = 4
+frame = 2
+
+[node name="LabelKey" type="Label" parent="UI/OverlayMenus/Top/DirL"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -4.0
+margin_right = 52.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "[Q]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DirR" type="TextureButton" parent="UI/OverlayMenus/Top"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = -24.0
+margin_right = -16.0
+margin_bottom = -8.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+texture_focused = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirR"]
+position = Vector2( 8, 8 )
+texture = ExtResource( 11 )
+vframes = 4
+hframes = 4
+frame = 3
+
+[node name="LabelKey" type="Label" parent="UI/OverlayMenus/Top/DirR"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -43.0
+margin_top = -4.0
+margin_right = -5.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "[E]"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="UI"]
+pause_mode = 2
+[connection signal="pressed" from="UI/OverlayMenus/Top/DirL" to="UI/OverlayMenus" method="SwitchMenu" binds= [ -1 ]]
+[connection signal="pressed" from="UI/OverlayMenus/Top/DirR" to="UI/OverlayMenus" method="SwitchMenu" binds= [ 1 ]]

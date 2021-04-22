@@ -5,8 +5,9 @@
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scenes/HUDs/ItemStatsEnchantment.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
-[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=7]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

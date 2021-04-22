@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Scripts/StoreFeatures/StoreManager.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Rooms/StoreInterior.tscn" type="PackedScene" id=2]
@@ -8,18 +8,16 @@
 [ext_resource path="res://Scenes/Menus/MenuDungeonMapFake.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Graphics/Characters/HeroStore.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/StoreFeatures/InteractableArea.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Graphics/UI/Navigation.png" type="Texture" id=9]
-[ext_resource path="res://Graphics/UI/ItemFrame.png" type="Texture" id=10]
+[ext_resource path="res://Graphics/UI/NavigationIcons.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=10]
 [ext_resource path="res://Resources/Shaders/ShaderGreyscale.tres" type="Material" id=11]
 [ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=12]
-[ext_resource path="res://Scenes/DungeonFeatures/DamageNum.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Menus/MenuItemBag.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Menus/Button.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Graphics/VFX/ItemGlitter.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/Menus/MenuItemChoose.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Scenes/Menus/MenuSell.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Graphics/UI/CustomerNeedBubble.png" type="Texture" id=20]
+[ext_resource path="res://Graphics/UI/Store/CustomerNeedBubble.png" type="Texture" id=20]
 [ext_resource path="res://Graphics/Items/Enchants.png" type="Texture" id=21]
 [ext_resource path="res://Graphics/Items/EquipTypes.png" type="Texture" id=22]
 [ext_resource path="res://Scenes/StoreFeatures/CustomerInStore.tscn" type="PackedScene" id=23]
@@ -92,7 +90,6 @@ _sceneCustomer = ExtResource( 23 )
 _sceneItemParachute = ExtResource( 25 )
 
 [node name="Room" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 0 )
 
 [node name="Customers" type="Path2D" parent="."]
 position = Vector2( 0, 4 )
@@ -260,8 +257,6 @@ __meta__ = {
 [node name="Particles2D" parent="UI/Preload" instance=ExtResource( 16 )]
 process_material = SubResource( 6 )
 
-[node name="DamageNumbers" parent="UI/Preload" instance=ExtResource( 13 )]
-
 [node name="OverlayMenus" type="ColorRect" parent="UI"]
 pause_mode = 2
 visible = false
@@ -358,7 +353,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DirL" parent="UI/OverlayMenus/Top" instance=ExtResource( 15 )]
+[node name="DirL" type="TextureButton" parent="UI/OverlayMenus/Top"]
 margin_left = -4.0
 margin_top = 13.0
 margin_right = 12.0
@@ -371,6 +366,9 @@ texture_pressed = SubResource( 8 )
 texture_hover = SubResource( 9 )
 texture_disabled = SubResource( 10 )
 texture_focused = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirL"]
 position = Vector2( 8, 8 )
@@ -395,7 +393,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DirR" parent="UI/OverlayMenus/Top" instance=ExtResource( 15 )]
+[node name="DirR" type="TextureButton" parent="UI/OverlayMenus/Top"]
 margin_left = 86.0
 margin_top = 13.0
 margin_right = 102.0
@@ -408,6 +406,9 @@ texture_pressed = SubResource( 8 )
 texture_hover = SubResource( 9 )
 texture_disabled = SubResource( 10 )
 texture_focused = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Arrow" type="Sprite" parent="UI/OverlayMenus/Top/DirR"]
 position = Vector2( 8, 8 )
