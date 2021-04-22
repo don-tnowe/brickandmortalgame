@@ -240,9 +240,8 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="UI"]
 pause_mode = 2
 
-[node name="LightColor" type="CanvasModulate" parent="."]
-
 [node name="Room" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1, 0 )
+
+[node name="LightColor" type="CanvasModulate" parent="."]
 [connection signal="pressed" from="UI/OverlayMenus/Top/DirL" to="UI/OverlayMenus" method="SwitchMenu" binds= [ -1 ]]
 [connection signal="pressed" from="UI/OverlayMenus/Top/DirR" to="UI/OverlayMenus" method="SwitchMenu" binds= [ 1 ]]

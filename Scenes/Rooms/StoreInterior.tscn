@@ -51,8 +51,7 @@
 1/shapes = [  ]
 1/z_index = 0
 
-[node name="Room" type="Node2D"]
-position = Vector2( -2, 0 )
+[node name="Room" type="Node"]
 
 [node name="Shelves" type="Node" parent="."]
 

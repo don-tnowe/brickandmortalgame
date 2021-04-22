@@ -95,28 +95,30 @@ namespace BrickAndMortal.Scripts.Menus
 				newItem.FocusNeighbourBottom = new NodePath();
 				newItem.FocusNext = new NodePath();
 				newItem.FocusPrevious = new NodePath();
-
-				if (i % columns == columns - 1)
+				
+				// Leftmost column: wrap to last row 
+				if (i != 0 && i % columns == 0)
 				{
-					var to = _nodeItemGrid.GetChild<Control>((i + 1) % _nodeItemGrid.GetChildCount());
-					newItem.FocusNeighbourRight = newItem.GetPathTo(to);
-					to.FocusNeighbourLeft = to.GetPathTo(newItem);
+					var to = _nodeItemGrid.GetChild<Control>((i - 1) % _nodeItemGrid.GetChildCount());
+					newItem.FocusNeighbourLeft = newItem.GetPathTo(to);
+					to.FocusNeighbourRight = to.GetPathTo(newItem);
 				}
-
+				
+				// Bottom row
 				if (i >= _itemArray.Length - columns)
 				{
 					var to = _nodeItemGrid.GetChild<Control>(i % columns);
 					newItem.FocusNeighbourBottom = newItem.GetPathTo(to);
 					to.FocusNeighbourTop = to.GetPathTo(newItem);
 				}
-
+				
+				// Last element: wrap to start
 				if (i == _itemArray.Length - 1)
 				{
-					var to = _nodeItemGrid.GetChild<Control>(i / columns * columns);
+					var to = _nodeItemGrid.GetChild<Control>(0);
 					newItem.FocusNeighbourRight = newItem.GetPathTo(to);
 					to.FocusNeighbourLeft = to.GetPathTo(newItem);
 
-					to = _nodeItemGrid.GetChild<Control>(0);
 					newItem.FocusNext = newItem.GetPathTo(to);
 					to.FocusPrevious = to.GetPathTo(newItem);
 				}

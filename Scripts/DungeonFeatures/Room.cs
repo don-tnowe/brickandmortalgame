@@ -4,7 +4,7 @@ using Godot;
 
 namespace BrickAndMortal.Scripts.DungeonFeatures
 {
-	class Room : Node2D
+	class Room : Node
 	{
 		[Export]
 		public Color LightColor = new Color(1, 1, 1, 1);

@@ -10,7 +10,6 @@
 [ext_resource path="res://Scenes/Enemies/EnemyRockCrab.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/DungeonFeatures/PersistentObjects/ItemPedestal.tscn" type="PackedScene" id=10]
 
-
 [sub_resource type="TileSet" id=1]
 0/name = "Area1.png 0"
 0/texture = ExtResource( 6 )
@@ -34,7 +33,7 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[node name="Room" type="Node2D"]
+[node name="Room" type="Node"]
 script = ExtResource( 7 )
 LightColor = Color( 0.247059, 0.247059, 0.247059, 1 )
 _mapMods = PoolIntArray( 8, 0, 0, 0 )
