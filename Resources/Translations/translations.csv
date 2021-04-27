@@ -9,9 +9,12 @@ MenuMap;		Map
 MenuChooseItem;	Choose an item!
  ;
  ;
-ButtonCancel;	Cancel
-ButtonClear;	Clear
-ButtonBuy;	Buy!
+ButtonCancel;		Cancel
+ButtonClear;		Clear
+ButtonBuy;			Buy!
+ButtonBuyPrompt;	Press to buy!
+ButtonBuyNoMoney;	Too pricey...
+ButtonSaveExit;		Save and exit.
  ;
  ;
 MsgBagEmpty;	Your bag's empty. Get lootin'!
@@ -24,6 +27,7 @@ StorePromptOpen;		Open the store!
 StorePromptShelf;		Place an item!
 StorePromptSell;		Sell this!
 StorePromptAutoShelf;	Auto-fill all shelves
+StorePromptDeny;		Get out!
  ;
 StoreBtnAccept;		Sold!
 StoreBtnHigher;		Higher.
@@ -35,31 +39,28 @@ StoreDialogueRequestHigh1;		Great! Then the better price is:
 StoreDialogueRequestAngry1;		Oof! This better be amazing if it costs:
  ;
  ;
- ;
- ;
-TownBlacksmith;	Choose an item!
- ;
- ;
 UpgradeName0;Stronger Armor
-UpgradeDesc0;""Get some better armor, improve your durability.
-With each upgrade, get an extra heart.""
+UpgradeDesc0;Get some better armor, improve your durability.\n\nWith each upgrade, get an extra heart.
  ;
 UpgradeName1;Sharper Sword
-UpgradeDesc1;""Your toothpick too weak? A blade must be sharp to truly cut. 
-
-Buy to get +1 to attack damage.""
+UpgradeDesc1;Your toothpick too weak? A blade must be sharp to truly cut.\n\nBuy to get +1 to attack damage.
  ;
-UpgradeName2; Thermal Guard
-UpgradeDesc2; ""Heat and cold can be nasty when extreme. Suit up!
-
-This upgrade buffs some elemental resists by 25%.""
+UpgradeName2;Thermal Guard
+UpgradeDesc2;Heat and cold can be nasty when extreme. Suit up!\n\nThis upgrade buffs some elemental resists by 25%.
  ;
  ;
 TownDayResults;		Day Results
 TownBlacksmith;		Blacksmith
 TownDescend;		Descend
  ;
+DayResults0;	Profit
+DayResults1;	Customers
+DayResults2;	Items sold
+DayResults3;	Most profitable day 
  ;
+TownButtonDescend;	Into The Depths
+ ;
+TownDay;	Day
 TownLevel;	Level
 TownCost;	Cost
  ;

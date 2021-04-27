@@ -47,3 +47,8 @@ scale = Vector2( 1.28545, 423.072 )
 
 [node name="ScrollBottomRight" parent="." index="6"]
 position = Vector2( 448, 320 )
+
+[connection signal="TransitionActivated" from="Doors/Door0" to="." method="TransitionActivated"]
+[connection signal="TransitionActivated" from="Doors/Door1" to="." method="TransitionActivated"]
+[connection signal="TransitionActivated" from="Doors/Door3" to="." method="TransitionActivated"]
+[connection signal="TransitionActivated" from="Doors/Door2" to="." method="TransitionActivated"]

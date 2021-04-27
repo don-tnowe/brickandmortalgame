@@ -34,8 +34,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public override void _Ready()
 		{
-			SaveData.LoadGame();
-
 			_nodeHero = GetNode<HeroComponents.HeroStore>("Hero");
 			_nodeShelves = GetNode("Room/Shelves");
 			_nodeCustomers = GetNode("Customers");
@@ -46,13 +44,19 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_itemsOnShelves = new bool[SaveData.ItemBag.GetItemCount()];
 
 			var dayCustomerNames = new List<string>();
+
 			foreach (string i in SaveData.PossibleCustomers)
 				if (_random.NextDouble() < 0.5)
 					dayCustomerNames.Insert(0, i);
 				else
 					dayCustomerNames.Add(i);
 
-			for (int i = 0; i < 5; i++)
+			var customerCount = 4 + SaveData.CurCrawl / 3;
+
+			if (customerCount > SaveData.PossibleCustomers.Count)
+				customerCount = SaveData.PossibleCustomers.Count;
+
+			for (int i = 0; i < customerCount; i++)
 			{
 				var newCustomer = (CustomerInStore)_sceneCustomer.Instance();
 				_nodeCustomers.AddChild(newCustomer);
@@ -65,7 +69,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 					);
 			}
 
-			_customersLeft = _nodeCustomers.GetChildCount() + 2;
+			_customersLeft = customerCount + 2;
+
+			SaveData.LastDayCustomers = customerCount;
+			SaveData.LastDayEarned = 0;
+			SaveData.LastDaySold = 0;
 		}
 		
 		public void ChooseShelfItem(ItemShelf shelf)
@@ -130,23 +138,16 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				else
 					_nodeShelves.GetChild<ItemShelf>(i).CanSell = false;
 			}
-
-			if (customer != null && customer == _currentCustomer && itemCount == 0)
-			{
-				_currentCustomerNode.GetNode("Anim").Connect("animation_finished",
-					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { customer }
-					);
-				_currentCustomerNode.PlayAnimation("DenyPlayer");
-			}
 		}
 
-		public void SellFromShelf(ItemShelf shelf)
+		public void StartNegotiation(ItemShelf shelf)
 		{
 			_nodeNegotiatedShelf = shelf;
 			
 			var item = shelf.HeldItem;
 
 			_currentPrice = _currentCustomer.GetItemStartingPrice(item);
+			_currentDeny = _currentCustomer.GetStartingDeny();
 			_nodeMenuSell.OpenMenu(item);
 			HighlightSellableItems();
 
@@ -166,8 +167,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public void RaisePrice()
 		{
-			if (_currentCustomer.Denied)
-			{
+			if (_currentDeny > _random.NextDouble() * 0.5)
+			{ 
 				DenyByCustomer();
 				return;
 			}
@@ -177,34 +178,38 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public void SuperRaisePrice()
 		{
-			if (_currentCustomer.Denied)
+			if (_currentDeny > _random.NextDouble())
 			{
 				DenyByCustomer();
 				return;
 			}
 			_currentPrice = _currentCustomer.GetSuperIncrementedPrice(_currentPrice);
-			_currentDeny = _currentCustomer.GetSuperIncrementedDeny(_currentPrice, _currentDeny);
+			_currentDeny = _currentCustomer.GetIncrementedDeny(_currentPrice, _currentDeny);
 		}
 
-		public void Accept()
+		public void AcceptSale()
 		{
+			SaveData.LastDaySold++;
 			SaveData.Money += _currentPrice;
+			SaveData.LastDayEarned += _currentPrice;
 			SaveData.ItemBag.RemoveItem(_currentCustomerNode.NegotiationItemUid);
+
 			_currentCustomerNode.PlayAnimation("ItemReceived");
 			_nodeNegotiatedShelf.NodeAnim.Play("NoItem");
 			_nodeNegotiatedShelf.HeldItem = null;
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
+
 			NextCustomer();
-			
+
 			var newNode = (Path2D)_sceneItemParachute.Instance();
 			newNode.GlobalPosition = _nodeNegotiatedShelf.GlobalPosition;
 			newNode.Curve.AddPoint(_currentCustomerNode.GlobalPosition - _nodeNegotiatedShelf.GlobalPosition);
 			AddChild(newNode);
 		}
 
-		public void DenyByPlayer()
+		public void DenyByPlayer(object idk = null)
 		{
-			_currentCustomerNode.PlayAnimation("DenyPlayer");
+			_currentCustomerNode?.PlayAnimation("DenyPlayer");
 			Deny();
 		}
 
@@ -217,7 +222,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		private void Deny()
 		{
-			_nodeNegotiatedShelf.ReturnToShelf();
+			_nodeNegotiatedShelf?.ReturnToShelf();
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
 			NextCustomer();
 		}
@@ -238,22 +243,26 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				_currentCustomerNode.PlayAnimation("Step0");
 			}
 
-
 			if (_customersLeft == 0)
-				return; // TODO: END THE DAY;
+			{
+				_nodeTween.InterpolateCallback(this, 3, "EndDay");
+				_nodeCustomerRequestBubble.Visible = false;
+				return;
+			}
 
 			if (_currentCustomer == null)
 			{
 				var customer = _nodeCustomers.GetChild<CustomerInStore>(_customersLeft - 2);
-				customer.GetNode("Anim").Connect("animation_finished", 
-					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { customer, true}
+				customer.GetNode("Anim").Connect("animation_finished",
+					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { customer, true }
 					);
 				return;
 			}
 
+			GetNode<InteractableProps.InteractableArea>("Interactables/QuickDeny").Interactable = false;
+
 			_currentCustomerNode.GetNode("Anim").Connect("animation_finished",
-					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { _currentCustomerNode, false }
-					);
+					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { _currentCustomerNode, false });
 		}
 
 		public int GetNegotiationPrice()
@@ -269,6 +278,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		private void CustomerAnimationFinished(string name, Node customer, bool skip)
 		{
 			customer.GetNode("Anim").Disconnect("animation_finished", this, nameof(CustomerAnimationFinished));
+
 			if (skip)
 			{
 				NextCustomer();
@@ -288,12 +298,26 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				0.5f, Tween.TransitionType.Elastic, Tween.EaseType.Out
 				);
 			_nodeTween.Start();
+			GetNode<InteractableProps.InteractableArea>("Interactables/QuickDeny").Interactable = true;
 
 			HighlightSellableItems(_currentCustomer);
 		}
 
+		private void EndDay()
+		{
+			if (SaveData.BestDayEarned < SaveData.LastDayEarned) 
+				SaveData.BestDayEarned = SaveData.LastDayEarned;
+
+			SaveData.SaveGame();
+
+			GetTree().ChangeScene("res://Scenes/Screens/Town.tscn");
+		}	
 	}
 }
+
+
+
+
 
 
 

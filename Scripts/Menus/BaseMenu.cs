@@ -7,7 +7,7 @@ namespace BrickAndMortal.Scripts.Menus
 		[Export]
 		public string Title;
 
-		public bool IsOpen;
+		public bool IsOpen = false;
 
 		[Signal]
 		private delegate void Opened();
@@ -16,8 +16,10 @@ namespace BrickAndMortal.Scripts.Menus
 
 		public virtual void OpenMenu()
 		{
+			FocusMode = FocusModeEnum.All;
 			EmitSignal(nameof(Opened));
 			IsOpen = true;
+			GrabFocus();
 		}
 
 		public virtual void CloseMenu()

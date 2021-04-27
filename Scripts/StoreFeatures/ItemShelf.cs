@@ -61,7 +61,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			if (CanChoose)
 				_nodeStoreManager.ChooseShelfItem(this);
 			else if (_canSell)
-				_nodeStoreManager.SellFromShelf(this);
+				_nodeStoreManager.StartNegotiation(this);
 		}
 		
 		public void SetItem(Item newItem, int idx, bool[] itemsOnShelves)

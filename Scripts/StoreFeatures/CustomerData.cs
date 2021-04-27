@@ -41,8 +41,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			{4, 1}
 		};
 
-		public bool Denied { get; private set; }
-
 		private EquipFlags _lastOrderEquipFlags;
 		private int[] _lastOrderEnchants;
 		private int _lastOrderStartPrice;
@@ -106,26 +104,17 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			return (int)(price * _random.NextDouble() * (1 - _minPriceMultiplier));
 		}
 
+		public float GetStartingDeny()
+        {
+			return _denyChanceInit;
+        }
+
 		public float GetIncrementedDeny(int currentPrice, float currentDeny)
 		{
-			if (currentDeny + _denyChanceInit > _random.NextDouble())
-				Denied = true;
-
 			if (currentPrice > _lastOrderDenyPrice)
 				return currentDeny + _denyChanceIncrement;
-
-			return currentDeny;
-		}
-
-		public float GetSuperIncrementedDeny(int currentPrice, float currentDeny)
-		{
-			if (currentDeny + _denyChanceInit > 0)
-				Denied = true;
-
-			if (currentPrice > _lastOrderDenyPrice)
-				return currentDeny + _denyChanceIncrement;
-
-			return currentDeny;
+			else
+				return currentDeny;
 		}
 
 		public int GetIncrementedPrice(int currentPrice)

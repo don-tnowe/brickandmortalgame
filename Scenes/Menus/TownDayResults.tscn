@@ -1,0 +1,196 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Graphics/Environment/Backgrounds/DayOver.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Menus/TownDayResults.cs" type="Script" id=2]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
+
+[node name="Results" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+Title = "TownDayResults"
+
+[node name="BG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Labels" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -90.0
+margin_right = 90.0
+margin_bottom = 180.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label0" type="Label" parent="Labels"]
+margin_left = 13.0
+margin_top = 46.0
+margin_right = 98.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+text = "DayResults0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label1" type="Label" parent="Labels"]
+margin_left = 17.0
+margin_top = 78.0
+margin_right = 154.0
+margin_bottom = 92.0
+rect_rotation = -7.61127
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+text = "DayResults1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Labels"]
+margin_left = 70.2352
+margin_top = 67.0
+margin_right = 193.235
+margin_bottom = 81.0
+rect_rotation = 10.1636
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+text = "DayResults2"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Labels"]
+margin_left = 68.0
+margin_top = 95.0
+margin_right = 248.0
+margin_bottom = 109.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+text = "DayResults3"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Labels"]
+margin_left = -154.0
+margin_top = -79.0
+margin_right = 26.0
+margin_bottom = -65.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "DayResults4"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Values" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -90.0
+margin_right = 90.0
+margin_bottom = 180.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label0" type="Label" parent="Values"]
+margin_left = 13.0
+margin_top = 58.0
+margin_right = 98.0
+margin_bottom = 72.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label1" type="Label" parent="Values"]
+margin_left = 22.0
+margin_top = 86.0729
+margin_right = 159.0
+margin_bottom = 100.073
+rect_rotation = -7.61127
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Values"]
+margin_left = 68.2352
+margin_top = 74.0
+margin_right = 191.235
+margin_bottom = 88.0
+rect_rotation = 10.1636
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Values"]
+margin_left = 68.0
+margin_top = 102.0
+margin_right = 248.0
+margin_bottom = 116.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Values"]
+margin_left = -154.0
+margin_top = -71.0
+margin_right = 26.0
+margin_bottom = -57.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "DayResults4"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

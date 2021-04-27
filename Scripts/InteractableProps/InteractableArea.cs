@@ -7,6 +7,8 @@ namespace BrickAndMortal.Scripts.InteractableProps
 		[Export]
 		public string Message = "";
 		[Export]
+		private bool _interactable = true;
+		[Export]
 		private bool _closesOnInteract = false;
 		[Export]
 		private bool _destroysOnInteract = false;
@@ -19,11 +21,20 @@ namespace BrickAndMortal.Scripts.InteractableProps
 		public bool Interactable {
 			set 
 			{
-				Interactable = value;
+				_interactable = value;
 				GetChild<CollisionShape2D>(0).Disabled = !value;
 			}
+			get
+			{
+				return _interactable;
+			}
 		}
-
+		
+		public override void _Ready() 
+		{
+			Interactable = _interactable;
+		}
+		
 		public void HeroEntered(HeroComponents.Hero hero)
 		{
 			hero.NodeInteractableArea?.HeroExited(hero);

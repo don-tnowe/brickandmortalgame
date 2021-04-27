@@ -1,7 +1,6 @@
-using BrickAndMortal.Scripts.StoreFeatures;
 using Godot;
 
-namespace BrickAndMortal.Scripts.Menus
+namespace BrickAndMortal.Scripts.StoreFeatures
 {
 	class MenuSell : Control
 	{
@@ -31,12 +30,12 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeAnim.Stop();
 			_nodeAnim.Play("Open");
 			UpdateInfo();
-			CallDeferred("grab_focus");
 			_nodeOpinionOsc.GetNode<Sprite>("Sprite").Frame = 0;
 		}
 
 		private void ButtonFocused(int idx)
 		{
+			_nodeAnim.Advance(60);
 			switch (idx)
 			{
 				case 0:
@@ -56,7 +55,7 @@ namespace BrickAndMortal.Scripts.Menus
 					CloseMenu();
 					break;
 				case 3:
-					_nodeStoreManager.Accept();
+					_nodeStoreManager.AcceptSale();
 					CloseMenu();
 					break;
 			}

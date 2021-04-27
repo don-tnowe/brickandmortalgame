@@ -6,8 +6,10 @@ namespace BrickAndMortal.Scripts.Menus
 	{
 		[Export]
 		private bool _loops = true;
+		[Export]
+		private bool _canClose = true;
 
-		private int _selected = 1;
+		private int _selected = 0;
 		private bool _isOpen = false;
 
 		private Label[] _nodesNavLabels = new Label[3];
@@ -20,7 +22,15 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeTween = GetNode<Tween>("../Tween");
 			
 			for (int i = 0; i < 3; i++)
+			{
 				_nodesNavLabels[i] = GetNode("Top/Labels").GetChild<Label>(i);
+			}
+			for (int i = 1; i < _nodeMenus.GetChildCount(); i++)
+			{
+				_nodeMenus.GetChild<Control>(i).AnchorLeft = 4;
+				_nodeMenus.GetChild<Control>(i).AnchorRight = 5;
+			}
+
 			SwitchMenu(0);
 		}
 
@@ -33,10 +43,20 @@ namespace BrickAndMortal.Scripts.Menus
 			var node = _nodeMenus.GetChild<BaseMenu>(newSelected);
 			node.OpenMenu();
 			_nodesNavLabels[1].Text = node.Title;
-
-			_nodesNavLabels[0].Text = _nodeMenus.GetChild<BaseMenu>(Mathf.PosMod(newSelected - 1, _nodeMenus.GetChildCount())).Title;
-			_nodesNavLabels[2].Text = _nodeMenus.GetChild<BaseMenu>(Mathf.PosMod(newSelected + 1, _nodeMenus.GetChildCount())).Title;
-
+			
+			var menuCount = _nodeMenus.GetChildCount();
+			
+			_nodesNavLabels[0].Text = _nodeMenus.GetChild<BaseMenu>(Mathf.PosMod(newSelected - 1, menuCount)).Title;
+			_nodesNavLabels[2].Text = _nodeMenus.GetChild<BaseMenu>(Mathf.PosMod(newSelected + 1, menuCount)).Title;
+			
+			if (!_loops)
+			{
+				if (newSelected == 0)
+					_nodesNavLabels[0].Text = "";
+				if (newSelected == menuCount - 1)
+					_nodesNavLabels[2].Text = "";
+			}
+			
 			_nodeTween.InterpolateProperty(GetNode("Top"), "margin_top",
 				24, 16,
 				0.15f, Tween.TransitionType.Quart, Tween.EaseType.Out
@@ -71,7 +91,7 @@ namespace BrickAndMortal.Scripts.Menus
 			_selected = 0;
 			_isOpen = true;
 			GetTree().Paused = true;
-			_nodeMenus.GetChild<BaseMenu>(0).OpenMenu();
+			SwitchMenu(0);
 
 			Visible = true;
 			for (int i = 0; i < _nodeMenus.GetChildCount(); i++)
@@ -110,14 +130,17 @@ namespace BrickAndMortal.Scripts.Menus
 				return;
 			if (@event is InputEventKey && @event.IsEcho())
 				return;
-
-			if (@event.IsAction("pause") && @event.GetActionStrength("pause") > 0)
+			
+			if (_canClose)
+			{
+				if (@event.IsAction("pause") && @event.GetActionStrength("pause") > 0)
+					if (!_isOpen)
+						OpenMenu();
+					else
+						CloseMenu();
 				if (!_isOpen)
-					OpenMenu();
-				else
-					CloseMenu();
-			if (!_isOpen)
-				return;
+					return;
+			}
 
 			if (@event.IsAction("ui_page_up") && @event.GetActionStrength("ui_page_up") > 0)
 			{
