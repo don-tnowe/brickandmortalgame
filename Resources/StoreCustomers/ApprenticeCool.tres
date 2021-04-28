@@ -3,14 +3,15 @@
 [ext_resource path="res://Scripts/StoreFeatures/CustomerData.cs" type="Script" id=1]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 1.40907, 0, 0, Vector2( 1, 0.733918 ), 0.348046, 0.0, 0, 0 ]
 
 [resource]
 script = ExtResource( 1 )
 ImageFilename = "ApprenticeCool"
 _needsTypes = PoolIntArray( 1, 2, 60 )
 _needsEnchants = PoolIntArray( 0, 1, 2 )
-_needCount = 1
+_needsMin = 1
+_needsMax = 1
 _minPriceMultiplier = 0.6
 _denyPriceMultiplier = 2.0
 _priceIncrementMultiplier = 0.2
