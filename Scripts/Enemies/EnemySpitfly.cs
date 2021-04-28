@@ -4,7 +4,7 @@ using Godot;
 
 namespace BrickAndMortal.Scripts.Enemies
 {
-	class EnemyRockCrab : BaseEnemy
+	class EnemySpitfly : BaseEnemy
 	{
 		[Export]
 		private PackedScene _sceneAtk;
@@ -15,7 +15,7 @@ namespace BrickAndMortal.Scripts.Enemies
 		{
 			base._Ready();
 			_nodeRayGround = GetNode<RayCast2D>("RayGround");
-			PhysVelocityXFlip = (int)Scale.x;
+			
 		}
 
 		public override void PhysMoveBody(float delta)
@@ -36,16 +36,20 @@ namespace BrickAndMortal.Scripts.Enemies
 
 		public void StartMoving()
 		{
-			CurState = 0; // Crawl
+			CurState = 0; 
 			PlayAnim("Move");
 		}
 
 		public void HeroProximity(object area)
 		{
-			CurState = 2; // Attack
-			PlayAnim("Attack");
+			CurState = 1; // Flee
 		}
 
+		private void HeroProximityExited(object body)
+		{
+			if (CurState == 2)
+				CurState = 0; // Wander
+		}
 
 		public void Attack()
 		{
@@ -53,3 +57,5 @@ namespace BrickAndMortal.Scripts.Enemies
 		}
 	}
 }
+
+

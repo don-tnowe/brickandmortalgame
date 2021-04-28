@@ -13,7 +13,9 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		[Export]
 		private int[] _needsEnchants = new int[] { 0, 1, 2 };
 		[Export]
-		private int _needCount = 1;
+		private int _needsMin = 0;
+		[Export]
+		private int _needsMax = 1;
 		[Export]
 		private float _minPriceMultiplier = 0.6f;
 		[Export]
@@ -56,7 +58,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		public void NewOrder()
 		{
 			_lastOrderEquipFlags = _needsTypes[_random.Next(_needsTypes.Length)];
-			_lastOrderEnchants = ItemData.GetRandomEnchants(_needsEnchants, _needCount, _lastOrderEquipFlags, _random);
+			_lastOrderEnchants = ItemData.GetRandomEnchants(_needsEnchants, _needsMin + _random.Next(_needsMax - _needsMin + 1), _lastOrderEquipFlags, _random);
 		}
 
 		public bool WillBuyItem(Item item)
@@ -101,13 +103,13 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			_lastOrderDenyPrice = (int)(price * _denyPriceMultiplier);
 			_lastOrderStartPrice = (int)price;
-			return (int)(price * _random.NextDouble() * (1 - _minPriceMultiplier));
+			return (int)(price * (_random.NextDouble() * 0.5 + 0.5) * _minPriceMultiplier);
 		}
 
 		public float GetStartingDeny()
-        {
+		{
 			return _denyChanceInit;
-        }
+		}
 
 		public float GetIncrementedDeny(int currentPrice, float currentDeny)
 		{

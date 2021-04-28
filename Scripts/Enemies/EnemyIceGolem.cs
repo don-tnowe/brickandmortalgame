@@ -4,7 +4,7 @@ using Godot;
 
 namespace BrickAndMortal.Scripts.Enemies
 {
-	class EnemyRockCrab : BaseEnemy
+	class EnemyIceGolem : BaseEnemy
 	{
 		[Export]
 		private PackedScene _sceneAtk;
@@ -15,6 +15,7 @@ namespace BrickAndMortal.Scripts.Enemies
 		{
 			base._Ready();
 			_nodeRayGround = GetNode<RayCast2D>("RayGround");
+			PhysicsEnabled = true;
 			PhysVelocityXFlip = (int)Scale.x;
 		}
 
@@ -36,7 +37,7 @@ namespace BrickAndMortal.Scripts.Enemies
 
 		public void StartMoving()
 		{
-			CurState = 0; // Crawl
+			CurState = 0; // Walk
 			PlayAnim("Move");
 		}
 
@@ -46,10 +47,9 @@ namespace BrickAndMortal.Scripts.Enemies
 			PlayAnim("Attack");
 		}
 
-
 		public void Attack()
 		{
-			SpawnAtk(_sceneAtk);
+			//SpawnAtk(_sceneAtk);
 		}
 	}
 }

@@ -107,7 +107,7 @@ namespace BrickAndMortal.Scripts.Menus
 
 		private void PingHero()
 		{
-			if (!IsOpen)
+			if (!IsOpen || _nodeHeroMarker == null)
 				return;
 
 			_nodeTween.InterpolateProperty(_nodeHeroMarker, "scale",
