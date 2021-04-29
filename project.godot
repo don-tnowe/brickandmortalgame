@@ -31,6 +31,10 @@ window/stretch/aspect="expand"
 
 script_templates_search_path="res://Scripts"
 
+[global]
+
+layer=false
+
 [importer_defaults]
 
 texture={
@@ -139,10 +143,11 @@ debug={
 
 [layer_names]
 
-2d_physics/layer_1="Hero"
+2d_physics/layer_1="HeroPhysics"
 2d_physics/layer_2="Platform"
-2d_physics/layer_3="Hazard"
-2d_physics/layer_4="Enemy"
+2d_physics/layer_4="EnemyPhysics"
+2d_physics/layer_11="HeroCombat"
+2d_physics/layer_14="EnemyCombat"
 
 [locale]
 

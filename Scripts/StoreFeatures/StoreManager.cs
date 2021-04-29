@@ -108,14 +108,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		private void OpenStore(Node door)
 		{
-			var itemCount = 0;
-			for (int i = 0; i < _nodeShelves.GetChildCount(); i++)
-				if (_nodeShelves.GetChild<ItemShelf>(i).HeldItem != null)
-					itemCount++;
-
-			if (itemCount == 0)
-				return;
-
 			door.QueueFree();
 			GetNode("Interactables/AutoShelf").QueueFree();
 

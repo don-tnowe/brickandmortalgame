@@ -5,14 +5,15 @@ namespace BrickAndMortal.Scripts.HUDs
 {
 	public class HUDHearts : Control
 	{
+		[Export]
+		private PackedScene _sceneHeartSmall;
+		
 		private const int _heartsPerRow = 10;
 		private const int _pointsPerHeart = 10;
 
-		private PackedScene _sceneHeartSmall = GD.Load<PackedScene>("res://Scenes/HUDs/HeartSmall.tscn");
-
 		private TextureProgress _heartBig;
-		private List<TextureRect> _heartsSmall;
 		private HBoxContainer[] _heartRows;
+		private List<TextureRect> _heartsSmall;
 
 		private int _displayedMax = 0;
 		private int _displayedFilled = 0;
@@ -21,11 +22,11 @@ namespace BrickAndMortal.Scripts.HUDs
 		public override void _Ready()
 		{
 			_heartBig = GetNode<TextureProgress>("HeartBig");
+			_heartRows = new HBoxContainer[]{
+				GetNode<HBoxContainer>("Row0"),
+				GetNode<HBoxContainer>("Row1")
+			};
 			_heartsSmall = new List<TextureRect>();
-			_heartRows = new HBoxContainer[] {
-			GetNode<HBoxContainer>("Row0"),
-			GetNode<HBoxContainer>("Row1")
-		};
 		}
 
 		public void ResetHearts(int maxhealth)

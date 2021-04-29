@@ -7,11 +7,9 @@ namespace BrickAndMortal.Scripts.Combat
 	public class CombatActor : Area2D
 	{
 		[Export]
-		public int HealthMax = 20;
-		[Export]
-		public int Health = 20;
-		[Export]
 		public Dictionary<Elements, float> Defense;
+		[Export]
+		private int _health = 20;
 
 		[Signal]
 		private delegate void HealthSet(int value);
@@ -23,10 +21,41 @@ namespace BrickAndMortal.Scripts.Combat
 		public bool IsPlayer = false;
 		public bool Invincible = false;
 
+		public int HealthMax
+        {
+            set
+            {
+				_healthMax = value;
+				EmitSignal(nameof(HealthSetMax), _healthMax);
+				EmitSignal(nameof(HealthSet), _health);
+			}
+			get
+            {
+				return _healthMax;
+            }
+		}
+
+		public int Health
+		{
+			set
+			{
+				_health = value;
+				EmitSignal(nameof(HealthSet), _health);
+				if (_health <= 0)
+					EmitSignal(nameof(Defeated));
+			}
+			get
+			{
+				return _health;
+			}
+		}
+
+		private int _healthMax;
+
 		private PackedScene _sceneDamageNum = ResourceLoader.Load<PackedScene>("res://Scenes/DungeonFeatures/DamageNum.tscn");
 		private Random _random = new Random();
 
-		public virtual void Hurt(CombatAttack byAttack)
+        public virtual void Hurt(CombatAttack byAttack)
 		{
 			byAttack.HitTarget(this);
 			var damage = 0;
@@ -52,10 +81,6 @@ namespace BrickAndMortal.Scripts.Combat
 			}
 
 			Health -= damage;
-			EmitSignal(nameof(HealthSet), Health);
-
-			if (Health <= 0)
-				EmitSignal(nameof(Defeated));
 
 			if (IsPlayer)
 				if (damage <= 0)
@@ -76,12 +101,6 @@ namespace BrickAndMortal.Scripts.Combat
 			nodeDamageNum.GetNode<Label>("Node/Label").Text = damage.ToString();
 			nodeDamageNum.GetNode<AnimationPlayer>("Anim").Play("Eff" + effectivenessLevel);
 			nodeDamageNum.GlobalPosition = GlobalPosition + new Vector2(((float)_random.NextDouble() - 0.5f) * 16, 0);
-		}
-
-		public void UpdateMaxHp()
-		{
-			EmitSignal(nameof(HealthSetMax), HealthMax);
-			EmitSignal(nameof(HealthSet), Health);
 		}
 	}
 }

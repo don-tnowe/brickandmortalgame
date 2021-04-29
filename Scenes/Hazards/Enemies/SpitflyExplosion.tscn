@@ -6,24 +6,24 @@
 [ext_resource path="res://Resources/Shaders/ShaderMixColor.tres" type="Material" id=4]
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=8]
 radius = 48.0
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.497976 )
 colors = PoolColorArray( 0.929412, 1, 0, 1, 1, 0.444189, 0.0487805, 1 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 8 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 width = 64
 
-[sub_resource type="Curve" id=1]
+[sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, -3.21142, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=6]
 lifetime_randomness = 1.0
 flag_disable_z = true
 spread = 180.0
@@ -34,11 +34,10 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 100.0
 scale = 0.25
-scale_curve = SubResource( 2 )
-color_ramp = SubResource( 7 )
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "Init"
+[sub_resource type="Animation" id=7]
 length = 3.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Explosion/H:scale")
@@ -166,16 +165,17 @@ tracks/9/keys = {
 [node name="Attack" type="Area2D"]
 show_behind_parent = true
 z_index = 4
-collision_layer = 4
-collision_mask = 0
+collision_layer = 0
+collision_mask = 9216
 script = ExtResource( 2 )
 Damage = {
-0: 12.0
+0: 0.0,
+1: 15
 }
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 6 )
+shape = SubResource( 8 )
 disabled = true
 
 [node name="Explosion" type="Node2D" parent="."]
@@ -215,7 +215,7 @@ amount = 24
 lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 5 )
+process_material = SubResource( 6 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -223,7 +223,7 @@ __meta__ = {
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Init"
-anims/Init = SubResource( 4 )
+anims/Init = SubResource( 7 )
 
 [node name="Spitfly" type="Sprite" parent="."]
 visible = false

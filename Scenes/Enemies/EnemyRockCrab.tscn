@@ -98,7 +98,7 @@ tracks/5/keys = {
 "values": [ 0.0, 0.0, 256.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -153,7 +153,7 @@ _sceneAtk = ExtResource( 8 )
 shape = SubResource( 1 )
 
 [node name="CombatCollision" type="Area2D" parent="."]
-collision_layer = 8
+collision_layer = 8192
 collision_mask = 0
 script = ExtResource( 6 )
 Defense = {
@@ -163,6 +163,7 @@ Defense = {
 shape = SubResource( 1 )
 
 [node name="ContactDmg" parent="CombatCollision" instance=ExtResource( 5 )]
+position = Vector2( -1, 0 )
 scale = Vector2( 0.6, 0.5 )
 Damage = {
 0: 6.0
@@ -186,25 +187,23 @@ collision_mask = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 3 )
-position = Vector2( 4, 7 )
+position = Vector2( 4, 6.33333 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -6 )
 hframes = 4
 vframes = 4
-frame = 2
+frame = 1
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Move"
 playback_process_mode = 0
 anims/Attack = SubResource( 3 )
-anims/Move = SubResource( 5 )
+anims/Move = SubResource( 4 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="TimerBehaviour" type="Timer" parent="."]
-
-[connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
 [connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
-[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
 [connection signal="body_entered" from="HeroProximity" to="." method="HeroProximity"]

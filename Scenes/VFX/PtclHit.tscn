@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/VFX/ParticlesBase.cs" type="Script" id=1]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=2]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -22,7 +23,9 @@ scale = 4.0
 scale_curve = SubResource( 2 )
 
 [node name="Particles2D" type="Particles2D"]
+material = ExtResource( 2 )
 position = Vector2( 0, 1 )
+z_index = 5
 emitting = false
 amount = 12
 lifetime = 0.75

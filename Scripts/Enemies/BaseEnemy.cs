@@ -14,24 +14,29 @@ namespace BrickAndMortal.Scripts.Enemies
 		[Export]
 		public int CurState = 0;
 		[Export]
+		public float PhysGravity = HeroParameters.GravityJump;
+		[Export]
 		private PackedScene _sceneDefeated;
 		[Export]
 		private PackedScene _sceneHit;
 		
-		
 		[Signal]
 		private delegate void Defeated(int idx);
+
+		public bool AttackInvuln = false;
+
+		public int PhysVelocityXFlip = 1;
+		public int XFlip = 1;
+
+		public Vector2 LastFramePhysVelocity;
+		public int LastHitDir = 1;
 
 		private Tween _nodeTween;
 		private Sprite _nodeSprite;
 		private CollisionShape2D _nodeShape;
 		private AnimationPlayer _nodeAnim;
 
-		public bool AttackInvuln = false;
-
-		public float PhysGravity = BrickAndMortal.Scripts.HeroParameters.GravityJump;
-		public int PhysVelocityXFlip = 1;
-		public int LastHitDir = 1;
+		protected System.Random _random;
 
 		public override void _Ready()
 		{
@@ -42,6 +47,9 @@ namespace BrickAndMortal.Scripts.Enemies
 			Connect("Defeated", GetNode("../.."), "EnemyDefeated",
 					new Godot.Collections.Array() { GetPositionInParent() }
 				);
+			_random = new System.Random(GetPositionInParent());
+
+			XFlip = (int)Scale.x;
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -52,10 +60,18 @@ namespace BrickAndMortal.Scripts.Enemies
 
 		public virtual void PhysMoveBody(float delta)
 		{
+			LastFramePhysVelocity = new Vector2(PhysVelocityX, PhysVelocityY);
 			PhysVelocityY += PhysGravity * delta;
 			var newVec = MoveAndSlide(new Vector2(PhysVelocityX * PhysVelocityXFlip, PhysVelocityY), Vector2.Up);
 			PhysVelocityX = newVec.x * PhysVelocityXFlip;
 			PhysVelocityY = newVec.y;
+		}
+
+		public void SetXFlipped(bool flipped)
+        {
+			if ((XFlip > 0) == flipped)
+				ApplyScale(new Vector2(-1, 1));
+			XFlip = flipped ? -1 : 1;
 		}
 
 		public void PlayAnim(string anim)
@@ -63,16 +79,24 @@ namespace BrickAndMortal.Scripts.Enemies
 			_nodeAnim.Play(anim);
 		}
 
-		public CombatAttack SpawnAtk(PackedScene fromScene, bool isGlobal = false)
+		public CombatAttack SpawnAtk(PackedScene fromScene, bool isGlobal = false, Vector2 dir = new Vector2())
 		{
 			var atk = (CombatAttack)fromScene.Instance();
+
 			if (isGlobal)
 			{
 				GetParent().GetParent().AddChild(atk);
 				atk.GlobalPosition = GlobalPosition;
+				atk.Attacker = atk.GetPathTo(this);
 			}
 			else
+			{
 				AddChild(atk);
+				atk.Attacker = "..";
+			}
+
+			atk.Launch(dir);
+
 			return atk;
 		}
 

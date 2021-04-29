@@ -23,6 +23,8 @@ namespace BrickAndMortal.Scripts.Combat
 		public NodePath Attacker;
 
 		public virtual void HitTarget(CombatActor target) { }
+
+		public virtual void Launch(Vector2 dir) { }
 	}
 }
 

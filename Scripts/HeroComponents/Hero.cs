@@ -69,17 +69,22 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			if (HasNode("/root/Node/UI/HUDHearts"))
 			{
 				var heartHUD = GetNode("/root/Node/UI/HUDHearts");
-				var hitDetector = GetNode("CombatCollision");
+				var hitDetector = GetNode<HeroCombatCollision>("CombatCollision");
 				hitDetector.Connect("HealthSetMax", heartHUD, "ResetHearts");
 				hitDetector.Connect("HealthSet", heartHUD, "UpdateHearts");
-				hitDetector.CallDeferred("UpdateMaxHp");
+
+				hitDetector.HealthMax = 20 + SaveData.Upgrades[0] * 10;
+				hitDetector.Health = hitDetector.HealthMax;
+				NodeWeapon.Damage[Elements.Phys] = 2 + SaveData.Upgrades[1];
+				hitDetector.Defense[Elements.Fire] = 1 + SaveData.Upgrades[2] * 0.25f;
+				hitDetector.Defense[Elements.Ice] = 1 + SaveData.Upgrades[2] * 0.25f;
 			}
 		}
 
 		public override void _Ready()
 		{
 			InitializeNodeReferences();
-			SwitchState(States.Air);
+			SwitchState(States.Immobile);
 		}
 
 		public override void _PhysicsProcess(float delta)

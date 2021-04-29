@@ -97,7 +97,7 @@ z_index = 1
 curve = SubResource( 1 )
 
 [node name="Hero" parent="." instance=ExtResource( 4 )]
-position = Vector2( 432, 306 )
+position = Vector2( 432, 308 )
 script = ExtResource( 3 )
 _loadTexture = ExtResource( 7 )
 

@@ -1,0 +1,154 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Combat/Attacks/ProjectileBasic.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/VFX/ProjectileBreak.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=4]
+[ext_resource path="res://Scenes/VFX/PtclFire.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 1.2
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("OO:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.25, 0.55, 0.85, 1.15 ),
+"transitions": PoolRealArray( -2, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1875, 0.34375 ), Vector2( 0.34375, 0.1875 ), Vector2( 0.1875, 0.34375 ), Vector2( 0.34375, 0.1875 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OY:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25, 0.55, 0.85, 1.15 ),
+"transitions": PoolRealArray( -2, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0.34375, 0.1875 ), Vector2( 0.1875, 0.34375 ), Vector2( 0.34375, 0.1875 ), Vector2( 0.1875, 0.34375 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OW:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.25, 0.85 ),
+"transitions": PoolRealArray( -3, -3 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 0.16, 0.16 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Init"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:collision_mask")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1024, 9216 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Anim:current_animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 5.46416 ),
+"update": 2,
+"values": [ "Idle" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OY:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.265625, 0.265625 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("OO:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.265625, 0.265625 ) ]
+}
+
+[node name="Projectile" type="Area2D"]
+material = ExtResource( 4 )
+z_index = 3
+collision_layer = 0
+collision_mask = 1024
+script = ExtResource( 1 )
+Damage = {
+1: 8
+}
+_spawnOnDestroy = ExtResource( 2 )
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RayWall" type="RayCast2D" parent="."]
+enabled = true
+exclude_parent = false
+cast_to = Vector2( 0, 0 )
+collision_mask = 2
+
+[node name="OO" type="Sprite" parent="."]
+self_modulate = Color( 1, 0.415686, 0, 1 )
+show_behind_parent = true
+use_parent_material = true
+position = Vector2( 2.38419e-07, 0 )
+scale = Vector2( 0.265625, 0.265625 )
+texture = ExtResource( 3 )
+
+[node name="Particles2D" parent="." instance=ExtResource( 5 )]
+
+[node name="OY" type="Sprite" parent="."]
+self_modulate = Color( 1, 0.733333, 0, 1 )
+show_behind_parent = true
+use_parent_material = true
+position = Vector2( -2.08616e-07, -1.78814e-06 )
+scale = Vector2( 0.265625, 0.265625 )
+texture = ExtResource( 3 )
+
+[node name="OW" type="Sprite" parent="."]
+show_behind_parent = true
+use_parent_material = true
+position = Vector2( 2.38419e-07, -2.38419e-07 )
+scale = Vector2( 0.101111, 0.101111 )
+z_index = 1
+texture = ExtResource( 3 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Init"
+anims/Idle = SubResource( 2 )
+anims/Init = SubResource( 3 )

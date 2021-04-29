@@ -15,7 +15,7 @@ namespace BrickAndMortal.Scripts.Enemies
 		{
 			base._Ready();
 			_nodeRayGround = GetNode<RayCast2D>("RayGround");
-			PhysVelocityXFlip = (int)Scale.x;
+			PhysVelocityXFlip = XFlip;
 		}
 
 		public override void PhysMoveBody(float delta)
@@ -25,7 +25,7 @@ namespace BrickAndMortal.Scripts.Enemies
 				if (CurState == 0)
 				{
 					PhysVelocityXFlip = -PhysVelocityXFlip;
-					Scale *= new Vector2(-1, 1);
+					SetXFlipped(PhysVelocityXFlip < 0);
 				}
 				else
 					PhysVelocityX = 0;
@@ -34,20 +34,20 @@ namespace BrickAndMortal.Scripts.Enemies
 			
 		}
 
-		public void StartMoving()
+		private void StartMoving()
 		{
 			CurState = 0; // Crawl
 			PlayAnim("Move");
 		}
 
-		public void HeroProximity(object area)
+		private void HeroProximity(object area)
 		{
 			CurState = 2; // Attack
 			PlayAnim("Attack");
 		}
 
 
-		public void Attack()
+		private void Attack()
 		{
 			SpawnAtk(_sceneAtk);
 		}
