@@ -70,7 +70,7 @@ tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
 "points": PoolRealArray( 30, -0.25, 0, 0.327721, -12.75, -1, -0.417614, 17.25, 0.170186, 22.25, 40, -0.0798144, -16.75, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 0.9 )
+"times": PoolRealArray( 0, 0.75, 1.1 )
 }
 tracks/5/type = "bezier"
 tracks/5/path = NodePath("Particles2D:position:y")
@@ -80,7 +80,7 @@ tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
 "points": PoolRealArray( 29, -0.25, 0, 0, -99.75, -56, -0.21235, 0.25, 0.240162, 0.25, 22, 0, -5.75, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 0.9 )
+"times": PoolRealArray( 0, 0.75, 1.1 )
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Circle:position")

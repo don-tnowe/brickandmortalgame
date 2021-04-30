@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Hazards/Traps/TrapPressureSpikes.tscn" type="PackedScene" id=1]
+
+[node name="PressureSpikes" type="Node2D"]
+
+[node name="L" parent="." instance=ExtResource( 1 )]
+position = Vector2( 8, 0 )
+
+[node name="R" parent="." instance=ExtResource( 1 )]
+position = Vector2( -8, 0 )
+
+[connection signal="body_entered" from="L" to="R" method="Trigger"]
+[connection signal="body_entered" from="R" to="L" method="Trigger"]

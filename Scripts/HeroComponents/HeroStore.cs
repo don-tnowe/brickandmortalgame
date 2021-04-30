@@ -11,6 +11,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public override void _Ready()
 		{
 			base._Ready();
+			SaveData.Screen = 2;
 			SwitchState(States.Immobile);
 			NodeAnim.Play("StoreEnter");
 			//NodeCam.LimitLeft = -10000000;
@@ -25,6 +26,16 @@ namespace BrickAndMortal.Scripts.HeroComponents
 				Vector2.One, Vector2.One * 1.5f,
 				1, Tween.TransitionType.Quart
 				);
+		}
+		
+		public void EndDay()
+		{			
+			if (SaveData.BestDayEarned < SaveData.LastDayEarned) 
+				SaveData.BestDayEarned = SaveData.LastDayEarned;
+
+			SaveData.SaveGame();
+
+			GetTree().ChangeScene("res://Scenes/Screens/Town.tscn");
 		}
 	}
 }

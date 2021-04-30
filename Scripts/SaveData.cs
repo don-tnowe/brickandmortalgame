@@ -33,6 +33,7 @@ namespace BrickAndMortal.Scripts
 			var str = "{";
 
 			str += "\"Money\":" + Money;
+			str += ", \"Screen\":" + Screen;
 			str += ", \"CurCrawl\":" + CurCrawl;
 
 			str += ", " + ItemBag.GetSaveJSON();
@@ -68,6 +69,7 @@ namespace BrickAndMortal.Scripts
 			try
 			{
 				Money = parsedValues["Money"].GetInt32();
+				Screen = parsedValues["Screen"].GetInt32();
 				CurCrawl = parsedValues["CurCrawl"].GetInt32();
 
 				ItemBag.ItemsCollected = parsedValues["ItemsCollected"].GetInt32();
@@ -98,7 +100,6 @@ namespace BrickAndMortal.Scripts
 				SaveGame();
 				LoadGame();
 			}
-
 		}
 	}
 }

@@ -237,7 +237,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			if (_customersLeft == 0)
 			{
-				_nodeTween.InterpolateCallback(this, 3, "EndDay");
+				GetNode<HeroComponents.Hero>("Hero").NodeAnim.Play("StoreDayEnd");
 				_nodeCustomerRequestBubble.Visible = false;
 				return;
 			}
@@ -294,16 +294,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			HighlightSellableItems(_currentCustomer);
 		}
-
-		private void EndDay()
-		{
-			if (SaveData.BestDayEarned < SaveData.LastDayEarned) 
-				SaveData.BestDayEarned = SaveData.LastDayEarned;
-
-			SaveData.SaveGame();
-
-			GetTree().ChangeScene("res://Scenes/Screens/Town.tscn");
-		}	
 	}
 }
 

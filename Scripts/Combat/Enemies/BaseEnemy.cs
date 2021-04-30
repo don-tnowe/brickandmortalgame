@@ -1,7 +1,6 @@
-using BrickAndMortal.Scripts.Combat;
 using Godot;
 
-namespace BrickAndMortal.Scripts.Enemies
+namespace BrickAndMortal.Scripts.Combat.Enemies
 {
 	public class BaseEnemy : KinematicBody2D
 	{
@@ -68,7 +67,7 @@ namespace BrickAndMortal.Scripts.Enemies
 		}
 
 		public void SetXFlipped(bool flipped)
-        {
+		{
 			if ((XFlip > 0) == flipped)
 				ApplyScale(new Vector2(-1, 1));
 			XFlip = flipped ? -1 : 1;

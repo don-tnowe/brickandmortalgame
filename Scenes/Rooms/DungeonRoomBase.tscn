@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Graphics/Environment/Tilemaps/Store.png" type="Texture" id=1]
 [ext_resource path="res://Graphics/Environment/Tilemaps/Area1.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Tilesets/TilesSolid.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/DungeonFeatures/Room.cs" type="Script" id=4]
+[ext_resource path="res://Scenes/DungeonFeatures/UpwardsExit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/DungeonFeatures/RoomDoor.tscn" type="PackedScene" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Area1.png 0"
@@ -54,11 +56,35 @@ script = ExtResource( 4 )
 
 [node name="Doors" type="Node" parent="."]
 
+[node name="Door0" parent="Doors" instance=ExtResource( 6 )]
+position = Vector2( 0, 192 )
+ToMapX = -1
+
+[node name="Door1" parent="Doors" instance=ExtResource( 6 )]
+position = Vector2( 448, 192 )
+ExitDir = 2
+
+[node name="Door3" parent="Doors" instance=ExtResource( 6 )]
+position = Vector2( 192, 0 )
+rotation = 1.57079
+ToMapX = 0
+ToMapY = -1
+ExitDir = 1
+
+[node name="Door2" parent="Doors" instance=ExtResource( 6 )]
+position = Vector2( 192, 320 )
+rotation = 1.57079
+ToMapX = 0
+ToMapY = 1
+ExitDir = 3
+
+[node name="UpwardsExit" parent="Doors/Door2" instance=ExtResource( 5 )]
+rotation = -1.57079
+
 [node name="Geometry" type="Node" parent="."]
 
 [node name="Ground" type="TileMap" parent="Geometry"]
 position = Vector2( 0, -16 )
-z_index = 1
 tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 2
@@ -80,7 +106,7 @@ __meta__ = {
 }
 
 [node name="Back" type="TileMap" parent="Geometry"]
-z_index = -10
+z_index = -11
 tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 2
@@ -97,4 +123,9 @@ __meta__ = {
 [node name="Decoration" type="Node" parent="."]
 
 [node name="ScrollBottomRight" type="Position2D" parent="."]
-position = Vector2( 366, 177 )
+position = Vector2( 448, 320 )
+
+[connection signal="TransitionActivated" from="Doors/Door0" to="." method="TransitionActivated"]
+[connection signal="TransitionActivated" from="Doors/Door1" to="." method="TransitionActivated"]
+[connection signal="TransitionActivated" from="Doors/Door3" to="." method="TransitionActivated"]
+[connection signal="TransitionActivated" from="Doors/Door2" to="." method="TransitionActivated"]

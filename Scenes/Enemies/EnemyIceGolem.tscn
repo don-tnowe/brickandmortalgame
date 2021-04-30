@@ -1,12 +1,12 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://Scripts/Enemies/EnemyIceGolem.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Combat/Enemies/EnemyIceGolem.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/VFX/EnemyDefeatedBig.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/Shaders/ShaderMixColor.tres" type="Material" id=3]
 [ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Hazards/HazardInvisible.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Combat/CombatActor.cs" type="Script" id=6]
-[ext_resource path="res://Scenes/Hazards/Enemies/IceGolemMelee.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Hazards/EnemyAttacks/IceGolemMelee.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Graphics/Characters/Enemies/EnemyIceGolem.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]

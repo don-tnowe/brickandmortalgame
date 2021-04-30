@@ -49,6 +49,7 @@ namespace BrickAndMortal.Scripts.Menus
 			_restrictedItems = restrictedItems;
 			OpenMenu();
 			GetTree().Paused = true;
+			GetNode<Label>("Money").Text = SaveData.Money.ToString();
 
 			for (int i = 0; i < _itemArray.Length; i++)
 				_nodeItemGrid.GetChild<TextureButton>(i).Disabled = restrictedItems[i];
@@ -59,6 +60,7 @@ namespace BrickAndMortal.Scripts.Menus
 			base.OpenMenu();
 			_nodeTween.Stop(this);
 			_itemArray = SaveData.ItemBag.GetItemArray();
+			GetNode<Label>("Money").Text = SaveData.Money.ToString();
 
 			if (_itemArray.Length == 0)
 			{

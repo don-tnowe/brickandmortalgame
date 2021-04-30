@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scripts/Combat/Attacks/ProjectileBasic.cs" type="Script" id=1]
-[ext_resource path="res://Scenes/VFX/ProjectileBreak.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=3]
-[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=4]
+[ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Combat/Attacks/ProjectileBasic.cs" type="Script" id=2]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=3]
+[ext_resource path="res://Scenes/VFX/ProjectileBreak.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/VFX/PtclFire.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -103,15 +103,15 @@ tracks/3/keys = {
 }
 
 [node name="Projectile" type="Area2D"]
-material = ExtResource( 4 )
+material = ExtResource( 3 )
 z_index = 3
 collision_layer = 0
 collision_mask = 1024
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 Damage = {
 1: 8
 }
-_spawnOnDestroy = ExtResource( 2 )
+_spawnOnDestroy = ExtResource( 4 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -128,7 +128,7 @@ show_behind_parent = true
 use_parent_material = true
 position = Vector2( 2.38419e-07, 0 )
 scale = Vector2( 0.265625, 0.265625 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="Particles2D" parent="." instance=ExtResource( 5 )]
 
@@ -138,7 +138,7 @@ show_behind_parent = true
 use_parent_material = true
 position = Vector2( -2.08616e-07, -1.78814e-06 )
 scale = Vector2( 0.265625, 0.265625 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="OW" type="Sprite" parent="."]
 show_behind_parent = true
@@ -146,7 +146,7 @@ use_parent_material = true
 position = Vector2( 2.38419e-07, -2.38419e-07 )
 scale = Vector2( 0.101111, 0.101111 )
 z_index = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Init"

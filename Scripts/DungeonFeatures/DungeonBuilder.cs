@@ -5,20 +5,20 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 {
 	class DungeonBuilder : Node
 	{
-		public Dictionary<Vector2, RoomData> Rooms = new Dictionary<Vector2,RoomData>();
+		public Dictionary<int, RoomData> Rooms = new Dictionary<int,RoomData>();
 		public Room CurRoom;
 
-		private int _onMapX = 0;
-		private int _onMapY = 0;
+		private const int _mapWidth = 64;
+		
+		private int _mapPos = 4128;
 
 		private DungeonAreaPool _curPool;
 
 		public override void _Ready()
 		{
-			SaveData.LoadGame();
 			CurRoom = GetNode<Room>("Room");
 			CurRoom.LoadRoom();
-			Rooms.Add(new Vector2(_onMapX, _onMapY), CurRoom.GetSerialized());
+			Rooms.Add(_mapPos, CurRoom.GetSerialized());
 			GetNode<CanvasModulate>("LightColor").Color = GetNode<Room>("Room").LightColor;
 
 			_curPool = ResourceLoader.Load<DungeonAreaPool>("res://Resources/DungeonAreaPools/Area0.tres");
@@ -26,19 +26,20 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 		public void SwitchRoom(int toMapX, int toMapY, Vector2 positionOffset)
 		{
-			Rooms[new Vector2(_onMapX, _onMapY)] = CurRoom.GetSerialized();
+			Rooms[_mapPos] = CurRoom.GetSerialized();
 
 			Room newRoom;
 			RoomData newRoomData = null;
+			var newPos = _mapPos + toMapX + (toMapY * _mapWidth);
 
-			if (Rooms.ContainsKey(new Vector2(_onMapX + toMapX, _onMapY + toMapY)))
+			if (Rooms.ContainsKey(newPos))
 			{
-				newRoomData = Rooms[new Vector2(_onMapX + toMapX, _onMapY + toMapY)];
+				newRoomData = Rooms[newPos];
 				newRoom = (Room)ResourceLoader.Load<PackedScene>(newRoomData.ScenePath).Instance();
 			}
 			else
 			{
-				Rooms.Add(new Vector2(_onMapX + toMapX, _onMapY + toMapY), new RoomData());
+				Rooms.Add(newPos, new RoomData());
 				newRoom = (Room)ResourceLoader.Load<PackedScene>(_curPool.GetRandomRoomPath()).Instance();
 			}
 
@@ -52,14 +53,18 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			CurRoom.QueueFree();
 
 			CurRoom = newRoom;
-			_onMapX += toMapX;
-			_onMapY += toMapY;
+			_mapPos = newPos;
 			GetNode<CanvasModulate>("LightColor").Color = newRoom.LightColor;
 		}
 
 		public Vector2 GetPosOnMap()
 		{
-			return new Vector2(_onMapX, _onMapY);
+			return IntToPos(_mapPos);
+		}
+		
+		public Vector2 IntToPos(int from)
+		{
+			return new Vector2(from % _mapWidth, from / _mapWidth);
 		}
 
 		public ItemOperations.Item GetRandomItem()
@@ -71,6 +76,16 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			if (@event.IsAction("debug") && @event.GetActionStrength("debug") > 0)
 				SaveData.ItemBag.CollectItem( GetRandomItem());
+		}
+		
+		public string ToJSON()
+		{
+			return "{}"; //TODO
+		}
+		
+		public void DeserializeFrom(string json)
+		{
+			//Also TODO
 		}
 	}
 }

@@ -1,8 +1,7 @@
-using BrickAndMortal.Scripts.Combat;
 using System;
 using Godot;
 
-namespace BrickAndMortal.Scripts.Enemies
+namespace BrickAndMortal.Scripts.Combat.Enemies
 {
 	class EnemySpitfly : BaseEnemy
 	{

@@ -85,6 +85,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		{
 			InitializeNodeReferences();
 			SwitchState(States.Immobile);
+			SaveData.Screen = 1;
 		}
 
 		public override void _PhysicsProcess(float delta)

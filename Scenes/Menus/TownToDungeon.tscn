@@ -7,12 +7,12 @@
 [ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=5]
 [ext_resource path="res://Graphics/VFX/GradientBlackGrey.png" type="Texture" id=6]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.323887, 0.643725, 1 )
 colors = PoolColorArray( 0, 1, 0.976563, 1, 0, 0.367188, 1, 1, 0.640625, 0, 1, 0 )
 
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 2
@@ -27,9 +27,9 @@ orbit_velocity_random = 0.0
 radial_accel = 4.97
 radial_accel_random = 1.0
 scale = 2.0
-color_ramp = SubResource( 4 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 resource_name = "Go"
 length = 3.0
 step = 0.05
@@ -156,7 +156,7 @@ tracks/9/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=5]
 resource_name = "Idle"
 length = 5.0
 loop = true
@@ -326,7 +326,7 @@ __meta__ = {
 [node name="HeroD" type="Sprite" parent="AnchorCenter"]
 visible = false
 position = Vector2( 0, 2 )
-scale = Vector2( 1.49414, 0.700195 )
+scale = Vector2( 1.40625, 0.703125 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -11.2638 )
 hframes = 8
@@ -335,7 +335,6 @@ frame = 26
 
 [node name="HeroS" type="Sprite" parent="AnchorCenter"]
 position = Vector2( 0, 2 )
-scale = Vector2( 0.95288, 1.04712 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -12 )
 hframes = 8
@@ -361,8 +360,8 @@ __meta__ = {
 [node name="Anim" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnchorCenter")
 autoplay = "Init"
-anims/Go = SubResource( 9 )
-anims/Idle = SubResource( 8 )
+anims/Go = SubResource( 4 )
+anims/Idle = SubResource( 5 )
 anims/Init = SubResource( 6 )
 
 [connection signal="pressed" from="AnchorCenter/HideOnClick/ButtonDescend" to="." method="Descend"]

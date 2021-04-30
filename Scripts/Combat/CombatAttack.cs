@@ -25,6 +25,8 @@ namespace BrickAndMortal.Scripts.Combat
 		public virtual void HitTarget(CombatActor target) { }
 
 		public virtual void Launch(Vector2 dir) { }
+		
+		public virtual void Launch(float angle) { }
 	}
 }
 

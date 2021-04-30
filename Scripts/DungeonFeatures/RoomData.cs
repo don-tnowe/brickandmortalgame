@@ -1,4 +1,4 @@
-﻿
+
 namespace BrickAndMortal.Scripts.DungeonFeatures
 {
 	class RoomData
@@ -8,5 +8,10 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		public string[] PersistentObjects;
 		public bool[] BlockedExits;
 		public int[] MapMods;
+		
+		public string ToJSON() 
+		{
+			return "\"Value\":\"nay i'll do this later\""; // TODO
+		}
 	} 
 }

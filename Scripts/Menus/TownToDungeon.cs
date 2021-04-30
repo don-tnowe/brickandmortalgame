@@ -7,6 +7,9 @@ namespace BrickAndMortal.Scripts.Menus
 		public override void _Ready()
 		{
 			GetNode<Label>("AnchorCenter/HideOnClick/Day").Text = Tr("TownDay") + " " + SaveData.CurCrawl;
+			
+			SaveData.Screen = 0;
+			SaveData.SaveGame();
 		}
 		
 		public override void OpenMenu()

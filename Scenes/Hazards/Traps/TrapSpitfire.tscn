@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Graphics/Environment/Traps/TrapSpitfire.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Combat/Traps/TrapSpitfire.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/Hazards/EnemyAttacks/SpitflyProjectile.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Init"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 1, 0, 1, 2, 3, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "Fire"
+} ]
+}
+
+[node name="Spitfire" type="Sprite"]
+texture = ExtResource( 1 )
+hframes = 2
+vframes = 2
+frame = 1
+script = ExtResource( 2 )
+_sceneProjectile = ExtResource( 3 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Init"
+playback_process_mode = 0
+anims/Init = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 0
+
+[connection signal="timeout" from="Timer" to="." method="PrepareFire"]

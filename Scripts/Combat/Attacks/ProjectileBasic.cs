@@ -43,6 +43,11 @@ namespace BrickAndMortal.Scripts.Combat.Attacks
 			Velocity = direction.Normalized() * Speed;
 		}
 
+		public override void Launch(float angle)
+		{
+			Velocity = new Vector2((float)System.Math.Cos(angle), (float)System.Math.Sin(angle)) * Speed;
+		}
+		
 		private void DetectWallCollision(float delta)
 		{
 			_nodeRayWall.CastTo = Velocity * delta;

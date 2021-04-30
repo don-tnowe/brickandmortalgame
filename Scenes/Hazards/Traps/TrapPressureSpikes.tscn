@@ -1,0 +1,208 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Graphics/Environment/Traps/TrapPressureSpikes.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/VFX/WhiteSquare.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Combat/Traps/TrapPressurePlate.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 2 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Init"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Plate/Flash:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Plate/Needles:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Plate:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Damage/Shape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Shape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Trigger"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Plate/Flash:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 4, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Plate/Needles:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.31, 0.7, 2.1, 2.3 ),
+"transitions": PoolRealArray( 1, 1, 0.25, 1, 4, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1e-05 ), Vector2( 1, 1e-05 ), Vector2( 1, 1.5 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Plate:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.28, 0.3, 0.8, 2.1, 2.3 ),
+"transitions": PoolRealArray( 0.25, 1, 1, 0.25, 1, 4, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ), Vector2( 0, 1 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 1 ), Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Plate/Flash:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( -0.1, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 3 ), Vector2( 12, 5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Shape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Damage/Shape:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[node name="PressureSpikes" type="Area2D"]
+collision_layer = 0
+collision_mask = 9
+script = ExtResource( 3 )
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -2 )
+shape = SubResource( 1 )
+
+[node name="Damage" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 9216
+script = ExtResource( 4 )
+Damage = {
+0: 10
+}
+
+[node name="Shape" type="CollisionPolygon2D" parent="Damage"]
+position = Vector2( 0, -7 )
+polygon = PoolVector2Array( -7, 7, 7, 7, 4, -6, -4, -6 )
+disabled = true
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, 7 )
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="Plate" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 2
+vframes = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Flash" type="Sprite" parent="Plate"]
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+position = Vector2( 0, -0.5904 )
+scale = Vector2( 12, 5 )
+texture = ExtResource( 2 )
+
+[node name="Needles" type="Sprite" parent="Plate"]
+position = Vector2( 0, 0.1296 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -4.42518 )
+hframes = 2
+frame = 1
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "Init"
+playback_process_mode = 0
+anims/Init = SubResource( 2 )
+anims/Trigger = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="Trigger"]

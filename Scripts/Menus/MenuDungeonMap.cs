@@ -39,7 +39,7 @@ namespace BrickAndMortal.Scripts.Menus
 			GrabFocus();
 			_nodeRooms.RectPosition = new Vector2(-0.5f - posOnMap.x, -0.5f - posOnMap.y) * _roomSize;
 
-			foreach (Vector2 i in _nodeDungeonBuilder.Rooms.Keys)
+			foreach (int i in _nodeDungeonBuilder.Rooms.Keys)
 			{
 				DungeonMapRoom newRoom;
 				if (_nodeRooms.GetChildCount() <= idx)
@@ -52,9 +52,9 @@ namespace BrickAndMortal.Scripts.Menus
 					newRoom = _nodeRooms.GetChild<DungeonMapRoom>(idx);
 				}
 
-				newRoom.RectPosition = i * _roomSize;
+				newRoom.RectPosition = _nodeDungeonBuilder.IntToPos(i) * _roomSize;
 
-				if (i == posOnMap)
+				if (_nodeDungeonBuilder.IntToPos(i) == posOnMap)
 				{
 					_nodeHeroMarker = newRoom.GetNode("Icons").GetChild<Sprite>(0);
 					newRoom.DisplayRoom(_nodeDungeonBuilder.CurRoom.GetSerialized(), true);

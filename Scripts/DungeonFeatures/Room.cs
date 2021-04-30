@@ -62,6 +62,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_slainEnemies = from.SlainEnemies;
 			_blockedExits = from.BlockedExits;
 			_persistentObjects = from.PersistentObjects;
+			_mapMods = from.MapMods;
 			_remainingEnemies = 0;
 			for (int i = 0; i < _slainEnemies.Length; ++i)
 			{
@@ -146,6 +147,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		}
 	}
 }
+
 
 
 

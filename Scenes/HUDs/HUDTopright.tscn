@@ -7,7 +7,6 @@
 [ext_resource path="res://Graphics/VFX/ItemGlitter.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/HUDs/HUDTopright.cs" type="Script" id=6]
 
-
 [sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
 particles_anim_h_frames = 2
@@ -32,8 +31,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( -69, -0.25, 0, 0.25, 0, 0, 0, -60, 0.25, 0 ),
-"times": PoolRealArray( 0, 1 )
+"points": PoolRealArray( -69, -0.25, 0, 0.25, 0, 0, 0, -60, 0.25, 0, 0, 0, -60, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
 }
 tracks/1/type = "bezier"
 tracks/1/path = NodePath("AnchorCenter/FlyingItem:position:y")
@@ -42,8 +41,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( 64, -0.25, 0, 0.25, 0, 0, 0, 60, 0.25, 0 ),
-"times": PoolRealArray( 0, 1 )
+"points": PoolRealArray( 64, -0.25, 0, 0.25, 0, 0, 0, 60, 0.25, 0, 0, 0, 60, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("AnchorCenter/FlyingItem/Img:scale")
@@ -220,9 +219,10 @@ __meta__ = {
 }
 
 [node name="Bag" type="Sprite" parent="AnchorTR/Control"]
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 1 )
-vframes = 4
 hframes = 4
+vframes = 4
 
 [node name="ItemCount" type="Label" parent="AnchorTR/Control"]
 material = ExtResource( 3 )
@@ -250,7 +250,6 @@ __meta__ = {
 
 [node name="FlyingItem" type="Particles2D" parent="AnchorCenter"]
 material = SubResource( 1 )
-position = Vector2( 93, 24 )
 emitting = false
 amount = 15
 lifetime = 0.5
@@ -263,9 +262,10 @@ __meta__ = {
 
 [node name="Img" type="Sprite" parent="AnchorCenter/FlyingItem"]
 visible = false
+scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 4 )
-vframes = 8
 hframes = 8
+vframes = 8
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "init"
