@@ -85,8 +85,9 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		}
 
 		public void ReturnToShelf()
-        {
+		{
 			GetNode<Sprite>("Item").Visible = true;
+			NodeAnim.Play("HasItem");
 		}
 	}
 }

@@ -1,9 +1,9 @@
-﻿using BrickAndMortal.Scripts.ItemOperations;
+using BrickAndMortal.Scripts.ItemOperations;
 using Godot;
 
 namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 {
-    class ItemPedestalDungeon : InteractableProps.ItemPedestal, IDungeonPersistent
+	class ItemPedestalDungeon : InteractableProps.ItemPedestal, IDungeonPersistent
 	{
 		public string GetSerializedPrefix()
 		{

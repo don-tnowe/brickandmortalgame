@@ -1,14 +1,13 @@
 using System.Collections.Generic;
-using Godot;
 
 namespace BrickAndMortal.Scripts.ItemOperations
 {
-	class ItemBag
+	class ItemBag : Godot.Reference
 	{
 		public int ItemsCollected = 0;
 
-		public delegate void AddedItem(Item item);
-		public event AddedItem EventAddedItem;
+		[Godot.Signal]
+		public delegate void AddedItem(string itemJSON);
 
 		private List<string> _items = new List<string>();
 
@@ -19,7 +18,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			ItemsCollected++;
 
 			AddItem(item.ToJSON());
-			EventAddedItem(item);
+			EmitSignal(nameof(AddedItem), item.ToJSON());
 
 			SaveData.SaveGame();
 		}

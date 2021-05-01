@@ -22,17 +22,17 @@ namespace BrickAndMortal.Scripts.Combat
 		public bool Invincible = false;
 
 		public int HealthMax
-        {
-            set
-            {
+		{
+			set
+			{
 				_healthMax = value;
 				EmitSignal(nameof(HealthSetMax), _healthMax);
 				EmitSignal(nameof(HealthSet), _health);
 			}
 			get
-            {
+			{
 				return _healthMax;
-            }
+			}
 		}
 
 		public int Health
@@ -55,7 +55,7 @@ namespace BrickAndMortal.Scripts.Combat
 		private PackedScene _sceneDamageNum = ResourceLoader.Load<PackedScene>("res://Scenes/DungeonFeatures/DamageNum.tscn");
 		private Random _random = new Random();
 
-        public virtual void Hurt(CombatAttack byAttack)
+		public virtual void Hurt(CombatAttack byAttack)
 		{
 			byAttack.HitTarget(this);
 			var damage = 0;

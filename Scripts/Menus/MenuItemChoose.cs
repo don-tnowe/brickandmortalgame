@@ -28,6 +28,7 @@ namespace BrickAndMortal.Scripts.Menus
 				item = _itemArray[idx];
 			base.ItemSelected(node, idx);
 			EventReturnItem?.Invoke(item, idx, _restrictedItems);
+			EventReturnItem = null;
 			node?.ReleaseFocus();
 			CloseMenu();
 		}

@@ -1,11 +1,12 @@
 	;en
-ItemType0;	Weapon
-ItemType1;	Spell
-ItemType2;	Body Armor
+GameName;	Brick And Mortal: Pit's Treasures
+LangName;	English
+AnyButtonPrompt;	Press any button
  ;
  ;
 MenuBag;		Item Bag
 MenuMap;		Map
+MenuSettings;	Settings
 MenuChooseItem;	Choose an item!
  ;
  ;
@@ -21,6 +22,9 @@ MsgBagEmpty;	Your bag's empty. Get lootin'!
 MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!
  ;
  ;
+ItemType0;	Weapon
+ItemType1;	Spell
+ItemType2;	Body Armor
  ;
  ;
 StorePromptOpen;		Open the store!

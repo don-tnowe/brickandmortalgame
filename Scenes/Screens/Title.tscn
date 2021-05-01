@@ -167,7 +167,7 @@ grow_horizontal = 2
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.752941 )
-text = "Press any button"
+text = "AnyButtonPrompt"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
