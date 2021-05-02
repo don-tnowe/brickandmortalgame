@@ -6,10 +6,10 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 {
 	public class DungeonAreaPool : Resource
 	{
-		[Export]
+		[Export(PropertyHint.Dir)]
 		private string _roomLoadFolder = "res://Scenes/Rooms";
 		[Export]
-		private string[] _roomNames = {"Start"};
+		private int _roomCount = 1;
 		[Export]
 		private int[] _itemStats = new int[3];
 		[Export]
@@ -21,7 +21,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 
 		public string GetRandomRoomPath()
 		{
-			return _roomLoadFolder + "/" + _roomNames[_random.Next() % _roomNames.Length] + ".tscn";
+			return _roomLoadFolder + "/Room" + _random.Next() % _roomCount + ".tscn";
 		}
 
 		public Item GetRandomItem()

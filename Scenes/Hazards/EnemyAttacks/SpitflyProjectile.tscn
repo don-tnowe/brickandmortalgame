@@ -109,7 +109,7 @@ collision_layer = 0
 collision_mask = 1024
 script = ExtResource( 2 )
 Damage = {
-1: 8
+1: 12
 }
 _spawnOnDestroy = ExtResource( 4 )
 

@@ -11,9 +11,9 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		[Export]
 		private int[] _mapMods = new int[4];
 		[Signal]
-		private delegate void AllEnemiesDefeated();
+		public delegate void AllEnemiesDefeated();
 		[Signal]
-		private delegate void UnblockBottomExits();
+		public delegate void UnblockBottomExits();
 
 		private DungeonBuilder _nodeDungeonBuilder;
 		private Hero _nodeHero;
@@ -45,9 +45,11 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		{
 			_slainEnemies[id] = true;
 			_remainingEnemies--;
+			
 			if (_remainingEnemies <= 0)
 			{
 				EmitSignal(nameof(AllEnemiesDefeated));
+				
 				for (int i = 0; i < _mapMods.Length; i++)
 					if (_mapMods[i] == 0 || _mapMods[i] >= 8 && _mapMods[i] < 16)
 					{
@@ -64,6 +66,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_persistentObjects = from.PersistentObjects;
 			_mapMods = from.MapMods;
 			_remainingEnemies = 0;
+			
 			for (int i = 0; i < _slainEnemies.Length; ++i)
 			{
 				if (_slainEnemies[i])
@@ -71,6 +74,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 				else
 					_remainingEnemies++;
 			}
+			
 			for (int i = 0; i < _persistentObjects.Length; ++i)
 			{
 				((IDungeonPersistent)_nodePersistentObjects.GetChild(i)).DeserializeFrom(_persistentObjects[i]);
@@ -82,6 +86,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			_slainEnemies = new bool[_nodeEnemies.GetChildCount()];
 			_remainingEnemies = _nodeEnemies.GetChildCount();
 			_persistentObjects = new string[_nodePersistentObjects.GetChildCount()];
+			
 			for (int i = 0; i < _persistentObjects.Length; ++i)
 			{
 				var node = ((IDungeonPersistent)_nodePersistentObjects.GetChild(i));

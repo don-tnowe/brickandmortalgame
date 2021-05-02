@@ -6,7 +6,7 @@
 [ext_resource path="res://Resources/Shaders/ShaderMixColor.tres" type="Material" id=4]
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=1]
 radius = 48.0
 
 [sub_resource type="Gradient" id=2]
@@ -170,12 +170,12 @@ collision_mask = 9216
 script = ExtResource( 2 )
 Damage = {
 0: 0.0,
-1: 15
+1: 18
 }
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 disabled = true
 
 [node name="Explosion" type="Node2D" parent="."]

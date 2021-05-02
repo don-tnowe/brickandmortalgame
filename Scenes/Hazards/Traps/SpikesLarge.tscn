@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=1]
+[ext_resource path="res://Graphics/Environment/Traps/TrapSpikes.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/VFX/ItemGlitter.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.0127389, 0.515924, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+width = 8
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 2
+emission_box_extents = Vector3( 24, 8, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 3 )
+anim_speed = 1.0
+
+[node name="Spikes" type="Sprite"]
+position = Vector2( -24, -16 )
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( 0, 1 )
+region_enabled = true
+region_rect = Rect2( 16, 0, 48, 16 )
+
+[node name="Area" type="Area2D" parent="."]
+position = Vector2( 24, 9 )
+collision_layer = 0
+collision_mask = 9216
+script = ExtResource( 1 )
+Damage = {
+3: 20
+}
+
+[node name="Shape" type="CollisionPolygon2D" parent="Area"]
+polygon = PoolVector2Array( -24, 8, 24, 8, 24, 4, 0, -1, -24, 4 )
+
+[node name="Ptcl" type="Particles2D" parent="."]
+show_behind_parent = true
+material = SubResource( 1 )
+position = Vector2( 24, 9 )
+z_index = 4
+amount = 1
+lifetime = 0.33
+local_coords = false
+process_material = SubResource( 4 )
+texture = ExtResource( 3 )

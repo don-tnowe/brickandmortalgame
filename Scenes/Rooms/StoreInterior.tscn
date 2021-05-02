@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Graphics/Environment/Tilemaps/Area1.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/Environment/Tilemaps/Area0.png" type="Texture" id=1]
 [ext_resource path="res://Graphics/Environment/Tilemaps/Store.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Tilesets/TilesSolid.tres" type="TileSet" id=3]
+[ext_resource path="res://Resources/Tilesets/TilesStore.tres" type="TileSet" id=4]
 [ext_resource path="res://Scenes/StoreFeatures/ItemShelf.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/DungeonFeatures/PlatformOneWay.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Graphics/Environment/StoreProps.png" type="Texture" id=8]
@@ -110,7 +111,7 @@ position = Vector2( 48, 120 )
 
 [node name="Back" type="TileMap" parent="Geometry"]
 z_index = -10
-tile_set = SubResource( 1 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 2
 collision_mask = 0

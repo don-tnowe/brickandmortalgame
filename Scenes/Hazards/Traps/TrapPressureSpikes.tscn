@@ -6,7 +6,7 @@
 [ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 2 )
+extents = Vector2( 7, 2 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Init"
@@ -161,7 +161,8 @@ collision_layer = 0
 collision_mask = 9216
 script = ExtResource( 4 )
 Damage = {
-0: 10
+0: 0,
+3: 12
 }
 
 [node name="Shape" type="CollisionPolygon2D" parent="Damage"]

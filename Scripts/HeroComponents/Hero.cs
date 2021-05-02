@@ -119,6 +119,14 @@ namespace BrickAndMortal.Scripts.HeroComponents
 				InputJump(false);
 				InputAttack(false);
 			}
+			if (@event.IsAction("ui_down"))
+			{
+				if (@event.GetActionStrength("ui_down") > 0)
+					NodeCam.Position = new Vector2(0, 64);
+					
+				else
+					NodeCam.Position = new Vector2(0, 0);
+			}
 		}
 
 		public HeroState SwitchState(States state)

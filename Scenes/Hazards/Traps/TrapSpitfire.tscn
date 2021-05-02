@@ -37,7 +37,6 @@ tracks/1/keys = {
 texture = ExtResource( 1 )
 hframes = 2
 vframes = 2
-frame = 1
 script = ExtResource( 2 )
 _sceneProjectile = ExtResource( 3 )
 
@@ -48,5 +47,6 @@ anims/Init = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="PrepareFire"]

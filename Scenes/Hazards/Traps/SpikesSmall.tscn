@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=1]
+[ext_resource path="res://Graphics/Environment/Traps/TrapSpikes.png" type="Texture" id=2]
+
+[node name="Spikes" type="Sprite"]
+position = Vector2( 0, -8 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 9216
+script = ExtResource( 1 )
+Damage = {
+3: 20
+}
+
+[node name="Shape" type="CollisionPolygon2D" parent="Area"]
+polygon = PoolVector2Array( -7, 8, 7, 8, 0, 0 )

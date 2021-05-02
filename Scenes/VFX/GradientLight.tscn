@@ -3,21 +3,19 @@
 [ext_resource path="res://Resources/Shaders/MaterialAdditive.tres" type="Material" id=1]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.2, 0.8, 1 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
-width = 128
+width = 512
 
-[node name="Sunlight0" type="Light2D"]
+[node name="Gradientlight" type="Light2D"]
 material = ExtResource( 1 )
-rotation = -0.261799
-scale = Vector2( 1, 512 )
-z_index = 50
+rotation = 1.5708
+scale = Vector2( 1, 200 )
+z_index = 49
 texture = SubResource( 2 )
-offset = Vector2( 0, 0.5 )
-energy = 1.25
+offset = Vector2( 100, 0 )
 mode = 2
 range_layer_min = -1
 __meta__ = {

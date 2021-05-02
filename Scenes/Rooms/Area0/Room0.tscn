@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Rooms/DungeonRoomBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Hazards/Enemies/EnemyRockCrab.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/DungeonProps/ItemPedestal.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/VFX/CurvedGradient.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/VFX/Sunlight.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Backgrounds/Area0.tscn" type="PackedScene" id=6]
+
+[node name="Room" instance=ExtResource( 1 )]
+_mapMods = PoolIntArray( 8, 0, 0, 0 )
+
+[node name="BG" parent="." index="0" instance=ExtResource( 6 )]
+
+[node name="Door1" parent="Doors" index="1"]
+position = Vector2( 448, 160 )
+
+[node name="Door3" parent="Doors" index="2"]
+position = Vector2( 96, 0 )
+
+[node name="Ground" parent="Geometry" index="0"]
+tile_data = PoolIntArray( 3, 1610612744, 0, 4, 1610612744, 0, 65541, 6, 0, 65542, 5, 0, 65543, 5, 0, 65544, 5, 0, 65545, 5, 0, 65546, 5, 0, 65547, 5, 0, 65548, 5, 0, 131073, 5, 0, 131074, 7, 0, 196610, 3, 0, 196611, 2, 0, 196612, 2, 0, 196613, 2, 0, 196614, 4, 0, 196621, 6, 0, 262144, 7, 0, 262145, 0, 0, 262146, 0, 0, 262147, 6, 0, 262148, 5, 0, 262149, 7, 0, 262150, 0, 0, 262151, 0, 0, 327686, 3, 0, 327687, 2, 0, 327688, 2, 0, 327689, 4, 0, 327690, 3, 0, 327691, 2, 0, 327692, 2, 0, 327693, 2, 0, 393216, 2, 0, 393217, 2, 0, 393218, 2, 0, 393219, 2, 0, 393220, 2, 0, 393221, 4, 0, 393223, 6, 0, 393224, 7, 0, 393227, 6, 0, 458754, 5, 0, 458755, 5, 0, 458756, 7, 0, 524295, 3, 0, 524296, 2, 0, 524297, 2, 0, 524298, 2, 0, 524299, 2, 0, 589826, 2, 0, 589827, 2, 0, 589828, 2, 0, 589829, 2, 0, 589830, 4, 0, 655366, 8, 0, 655367, 8, 0 )
+
+[node name="Solid" parent="Geometry" index="1"]
+tile_data = PoolIntArray( -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65549, 0, 0, 65550, 0, 0, 131072, 0, 0, 131085, 0, 0, 131086, 0, 0, 262143, 0, 0, 196608, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196622, 0, 0, 327679, 0, 0, 262158, 0, 0, 393215, 0, 0, 327687, 0, 0, 327688, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 458751, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393228, 0, 0, 393229, 0, 0, 458752, 0, 0, 458753, 0, 0, 458764, 0, 0, 458765, 0, 0, 524288, 0, 0, 524289, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0 )
+
+[node name="Back" parent="Geometry" index="2"]
+tile_data = PoolIntArray( 9, 9, 0, 10, 9, 0, 65546, -1073741813, 0, 65547, 9, 0, 65548, 9, 0, 65549, 9, 0, 131082, 1610612748, 0, 131083, 1610612749, 0, 131084, 9, 0, 131085, 9, 0, 196619, -1073741813, 0, 196620, 9, 0, 196621, 9, 0, 262155, -1073741813, 0, 262156, 9, 0, 262157, 9, 0, 327689, 11, 0, 327690, 11, 0, 327691, 11, 0, 393220, 12, 0, 393224, 1610612748, 0, 393225, 1610612747, 0, 393226, 1610612747, 0, 393227, 1610612747, 0, 458754, 9, 0, 458755, 9, 0, 458756, -1610612725, 0, 524290, 9, 0, 524291, 9, 0, 524292, -1610612725, 0, 524294, 10, 0, 524295, 10, 0 )
+
+[node name="RockCrab" parent="Enemies" index="0" instance=ExtResource( 2 )]
+position = Vector2( 96, 280 )
+
+[node name="RockCrab2" parent="Enemies" index="1" instance=ExtResource( 2 )]
+position = Vector2( 336, 248 )
+scale = Vector2( -1, 1 )
+
+[node name="Pedestal" parent="PersistentObjects" index="0" instance=ExtResource( 3 )]
+position = Vector2( 144, 88 )
+
+[node name="Gradient0" parent="Decoration" index="0" instance=ExtResource( 4 )]
+self_modulate = Color( 0.917647, 0.905882, 0.584314, 1 )
+position = Vector2( 168, 144 )
+rotation = 0.785397
+scale = Vector2( 0.745336, 0.745336 )
+
+[node name="Gradient1" parent="Decoration" index="1" instance=ExtResource( 4 )]
+self_modulate = Color( 0.113725, 0.521569, 0.768627, 1 )
+position = Vector2( 216, 320 )
+rotation = -1.57079
+scale = Vector2( 0.583986, 1 )
+
+[node name="Sunlight1" parent="Decoration" index="2" instance=ExtResource( 5 )]
+position = Vector2( 112, -48 )
+scale = Vector2( 1, 440.791 )
+
+[connection signal="AllEnemiesDefeated" from="." to="PersistentObjects/Pedestal" method="UnlockItem"]

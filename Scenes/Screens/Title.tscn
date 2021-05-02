@@ -65,7 +65,7 @@ tracks/2/keys = {
 } ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("AnchorC/Title:self_modulate")
+tracks/3/path = NodePath("AnchorC/Title:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -87,6 +87,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 4, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 2, 2 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AnchorC/TitleBG:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 1.4 ),
+"transitions": PoolRealArray( 1, 4, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 6, -41 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -137,9 +149,10 @@ position = Vector2( 0, -16 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 4 )
 
-[node name="Ptcl" type="Particles2D" parent="AnchorC"]
+[node name="Ptcl" type="Particles2D" parent="AnchorC/Title"]
 material = SubResource( 1 )
-position = Vector2( -2.00001, -18 )
+position = Vector2( -2.66667, -2.66667 )
+scale = Vector2( 1.33333, 1.33333 )
 amount = 2
 lifetime = 0.33
 randomness = 1.0

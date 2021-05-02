@@ -20,7 +20,7 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 		private PackedScene _sceneHit;
 		
 		[Signal]
-		private delegate void Defeated(int idx);
+		private delegate void Defeated();
 
 		public bool AttackInvuln = false;
 
@@ -43,10 +43,11 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			_nodeSprite = GetNode<Sprite>("Sprite");
 			_nodeShape = GetNode<CollisionShape2D>("Shape");
 			_nodeAnim = GetNode<AnimationPlayer>("Anim");
+			
+			_random = new System.Random(GetPositionInParent());
 			Connect("Defeated", GetNode("../.."), "EnemyDefeated",
 					new Godot.Collections.Array() { GetPositionInParent() }
 				);
-			_random = new System.Random(GetPositionInParent());
 
 			XFlip = (int)Scale.x;
 		}
@@ -122,7 +123,7 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			EmitSignal(nameof(Defeated));
 
 			var fx = (Node2D)_sceneDefeated.Instance();
-			GetParent().AddChild(fx);
+			GetParent().CallDeferred("add_child",fx);
 			fx.GlobalPosition = GlobalPosition;
 			fx.Scale = new Vector2(-LastHitDir, 1);
 			

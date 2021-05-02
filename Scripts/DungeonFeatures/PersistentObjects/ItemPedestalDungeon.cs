@@ -5,6 +5,15 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 {
 	class ItemPedestalDungeon : InteractableProps.ItemPedestal, IDungeonPersistent
 	{
+		/* Doesn't work. No error, but doesn't emit if connected from code.
+		public override void _Ready()
+		{
+			GetNode<DungeonBuilder>("/root/Node").CurRoom.Connect(
+				nameof(Room.AllEnemiesDefeated), this, nameof(UnlockItem)
+				);
+		}
+		*/
+		
 		public string GetSerializedPrefix()
 		{
 			return "ItemPedestal ||";
@@ -46,3 +55,10 @@ namespace BrickAndMortal.Scripts.DungeonFeatures.PersistentObjects
 		}
 	}
 }
+
+
+
+
+
+
+
