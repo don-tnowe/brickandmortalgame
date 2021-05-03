@@ -22,6 +22,13 @@ MsgBagEmpty;	Your bag's empty. Get lootin'!
 MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!
  ;
  ;
+MapLegend;			Legend
+MapLegendYou;		It's You!
+MapLegendCleared;	Cleared
+MapLegendTreasure;	Treasure
+MapLegendTraps;		Trap room
+ ;
+ ;
 ItemType0;	Weapon
 ItemType1;	Spell
 ItemType2;	Body Armor
@@ -41,6 +48,7 @@ StoreBtnDeny;		Nah...
 StoreDialogueRequest1;			I'll buy this, for the price of:
 StoreDialogueRequestHigh1;		Great! Then the better price is:
 StoreDialogueRequestAngry1;		Oof! This better be amazing if it costs:
+StoreDialogueRequestWorried1;	Oh no! I'm almost out of money if it costs:
  ;
  ;
 UpgradeName0;Stronger Armor

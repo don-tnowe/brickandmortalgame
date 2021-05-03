@@ -128,7 +128,7 @@ namespace BrickAndMortal.Scripts.Menus
 			}
 			
 			if (RestrictedItems != null)
-				for (int i = 0; i < _itemArray.Length; i++)
+				for (int i = 0; i < RestrictedItems.Length; i++)
 					_nodeItemGrid.GetChild<TextureButton>(i).Disabled = RestrictedItems[i];
 
 			ItemFocused(_nodeItemGrid.GetChild<Control>(_itemArray.Length - 1), _itemArray.Length - 1);

@@ -182,7 +182,6 @@ z_index = 2
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
-PhysVelocityX = 5.45548
 PhysicsEnabled = true
 _sceneDefeated = ExtResource( 2 )
 _sceneHit = ExtResource( 4 )

@@ -4,8 +4,9 @@
 [ext_resource path="res://Scenes/Hazards/Enemies/EnemySpitfly.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/DungeonProps/ItemPedestal.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/VFX/CurvedGradient.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/VFX/Sunlight.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/VFX/LightBeam.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Backgrounds/Area0.tscn" type="PackedScene" id=6]
+
 
 [node name="Room" instance=ExtResource( 1 )]
 LightColor = Color( 0.509804, 0.509804, 0.509804, 1 )

@@ -18,6 +18,7 @@ _priceIncrementMultiplier = 0.2
 _denyChanceInit = -1.0
 _denyChanceIncrement = 0.1
 _opinionCurve = SubResource( 1 )
+_opinionPersonality = 1
 _multiplierPower = 0.5
 _multiplierShine = 6.0
 _multiplierMagic = 0.0

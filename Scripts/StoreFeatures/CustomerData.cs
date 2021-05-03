@@ -29,6 +29,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		[Export]
 		private Curve _opinionCurve = new Curve();
 		[Export]
+		private int _opinionPersonality = 1;
+		[Export]
 		private float _multiplierPower = 1;
 		[Export]
 		private float _multiplierShine = 4;
@@ -137,7 +139,12 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				opinion = 3 + (currentDeny + _denyChanceInit);
 			return (int)(_opinionCurve.Interpolate(opinion / 4) * 16);
 		}
-
+		
+		public int GetOpinionPersonality()
+		{
+			return _opinionPersonality;
+		}
+		
 		public void DisplayRequest(Control bubble)
 		{
 			var box = bubble.GetNode<Control>("Clip/Box");

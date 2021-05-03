@@ -6,6 +6,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 	{
 		private StoreManager _nodeStoreManager;
 		private Label _nodePriceLabel;
+		private Label _nodeOpinionLabel;
 		private VFX.Oscillator2D _nodeOpinionOsc;
 		private ItemOperations.ItemStatDisplay _nodeItemStats;
 		private AnimationPlayer _nodeAnim;
@@ -16,6 +17,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		{
 			_nodeStoreManager = GetNode<StoreManager>("../..");
 			_nodePriceLabel = GetNode<Label>("AnchorL/Panel/Price/Sprite/Label");
+			_nodeOpinionLabel = GetNode<Label>("AnchorL/Panel/Label");
 			_nodeOpinionOsc = GetNode<VFX.Oscillator2D>("AnchorL/Panel/Opinion");
 			_nodeItemStats = GetNode<ItemOperations.ItemStatDisplay>("AnchorR/ItemStatDisplay");
 			_nodeAnim = GetNode<AnimationPlayer>("Anim");
@@ -31,6 +33,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_nodeAnim.Play("Open");
 			UpdateInfo();
 			_nodeOpinionOsc.GetNode<Sprite>("Sprite").Frame = 0;
+			_nodeOpinionLabel.Text = "StoreDialogueRequest" + opinionText + _nodeStoreManager.GetOpinionPersonality();
 		}
 
 		private void ButtonFocused(int idx)
@@ -76,6 +79,19 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_nodePriceLabel.Text = price.ToString();
 			_nodeOpinionOsc.GetNode<Sprite>("Sprite").Frame = opinion;
 			_nodeOpinionOsc.Magnitude = opinion <= 6 ? 0 : opinion / 2 - 3;
+			
+			var opinionText = "";
+			
+			if (opinion >= 12)
+				opinionText = "Worried";
+				
+			else if (opinion >= 8)
+				opinionText = "Angry";
+				
+			else if (opinion >= 4)
+				opinionText = "High";
+			
+			_nodeOpinionLabel.Text = "StoreDialogueRequest" + opinionText + _nodeStoreManager.GetOpinionPersonality();
 		}
 	}
 }

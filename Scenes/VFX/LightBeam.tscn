@@ -17,8 +17,7 @@ scale = Vector2( 1, 512 )
 z_index = 50
 texture = SubResource( 2 )
 offset = Vector2( 0, 0.5 )
-energy = 1.25
-mode = 2
+energy = 0.75
 range_layer_min = -1
 __meta__ = {
 "_edit_lock_": true

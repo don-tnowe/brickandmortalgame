@@ -1,28 +1,30 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Menus/MenuDungeonMap.cs" type="Script" id=1]
 [ext_resource path="res://Graphics/UI/Frame.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Menus/DungeonMapRoom.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/UI/NavigationIcons.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/UI/Dungeon/MapIcons.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=7]
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 16, 16, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 16, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 4 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -47,9 +49,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = 32.0
-margin_top = -48.0
+margin_top = -57.0
 margin_right = -32.0
-margin_bottom = 48.0
+margin_bottom = 39.0
 custom_constants/separation = -10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -68,11 +70,11 @@ margin_left = 50.0
 margin_right = 66.0
 margin_bottom = 16.0
 mouse_default_cursor_shape = 2
-texture_normal = SubResource( 7 )
-texture_pressed = SubResource( 8 )
-texture_hover = SubResource( 9 )
-texture_disabled = SubResource( 10 )
-texture_focused = SubResource( 11 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+texture_focused = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -80,8 +82,8 @@ __meta__ = {
 [node name="Arrow" type="Sprite" parent="Box/CenterT/Button"]
 position = Vector2( 8, 8 )
 texture = ExtResource( 5 )
-vframes = 4
 hframes = 4
+vframes = 4
 frame = 1
 
 [node name="Center" type="HBoxContainer" parent="Box"]
@@ -109,11 +111,11 @@ margin_top = 34.0
 margin_right = 16.0
 margin_bottom = 50.0
 mouse_default_cursor_shape = 2
-texture_normal = SubResource( 7 )
-texture_pressed = SubResource( 8 )
-texture_hover = SubResource( 9 )
-texture_disabled = SubResource( 10 )
-texture_focused = SubResource( 11 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+texture_focused = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -121,8 +123,8 @@ __meta__ = {
 [node name="Arrow" type="Sprite" parent="Box/Center/CenterL/Button"]
 position = Vector2( 8, 8 )
 texture = ExtResource( 5 )
-vframes = 4
 hframes = 4
+vframes = 4
 frame = 2
 
 [node name="Frame" type="NinePatchRect" parent="Box/Center"]
@@ -192,11 +194,11 @@ margin_top = 34.0
 margin_right = 16.0
 margin_bottom = 50.0
 mouse_default_cursor_shape = 2
-texture_normal = SubResource( 7 )
-texture_pressed = SubResource( 8 )
-texture_hover = SubResource( 9 )
-texture_disabled = SubResource( 10 )
-texture_focused = SubResource( 11 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+texture_focused = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -204,8 +206,8 @@ __meta__ = {
 [node name="Arrow" type="Sprite" parent="Box/Center/CenterR/Button"]
 position = Vector2( 8, 8 )
 texture = ExtResource( 5 )
-vframes = 4
 hframes = 4
+vframes = 4
 frame = 3
 
 [node name="CenterB" type="CenterContainer" parent="Box"]
@@ -221,11 +223,11 @@ margin_left = 50.0
 margin_right = 66.0
 margin_bottom = 16.0
 mouse_default_cursor_shape = 2
-texture_normal = SubResource( 7 )
-texture_pressed = SubResource( 8 )
-texture_hover = SubResource( 9 )
-texture_disabled = SubResource( 10 )
-texture_focused = SubResource( 11 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+texture_focused = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -233,10 +235,162 @@ __meta__ = {
 [node name="Arrow" type="Sprite" parent="Box/CenterB/Button"]
 position = Vector2( 8, 8 )
 texture = ExtResource( 5 )
-vframes = 4
 hframes = 4
+vframes = 4
 
 [node name="TimerPingHero" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelLegend" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -91.0
+margin_top = -48.0
+margin_right = 150.0
+margin_bottom = -36.0
+rect_scale = Vector2( 0.75, 0.75 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MapLegend"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Legend" type="GridContainer" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = -36.0
+margin_right = 268.0
+margin_bottom = 37.0
+rect_scale = Vector2( 0.5, 0.5 )
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/Legend"]
+margin_right = 150.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MapLegendYou"
+align = 2
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Control/Legend"]
+margin_left = 154.0
+margin_right = 202.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 32, 0 )
+
+[node name="Icon0" type="Sprite" parent="Control/Legend/Control"]
+position = Vector2( 7, 6 )
+texture = ExtResource( 6 )
+hframes = 8
+vframes = 8
+frame = 1
+
+[node name="Icon1" type="Sprite" parent="Control/Legend/Control"]
+position = Vector2( 43, 6 )
+texture = ExtResource( 6 )
+hframes = 8
+vframes = 8
+frame = 2
+
+[node name="Label2" type="Label" parent="Control/Legend"]
+margin_left = 206.0
+margin_right = 356.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MapLegendCleared"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control/Legend"]
+margin_top = 16.0
+margin_right = 150.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MapLegendTreasure"
+align = 2
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="Control/Legend"]
+margin_left = 154.0
+margin_top = 16.0
+margin_right = 202.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 48, 0 )
+
+[node name="Icon0" type="Sprite" parent="Control/Legend/Control2"]
+position = Vector2( 3, 4 )
+texture = ExtResource( 6 )
+hframes = 8
+vframes = 8
+frame = 8
+
+[node name="Icon2" type="Sprite" parent="Control/Legend/Control2"]
+position = Vector2( 15, 8 )
+texture = ExtResource( 6 )
+hframes = 8
+vframes = 8
+frame = 9
+
+[node name="Icon1" type="Sprite" parent="Control/Legend/Control2"]
+position = Vector2( 43, 6 )
+texture = ExtResource( 6 )
+hframes = 8
+vframes = 8
+frame = 16
+
+[node name="Label4" type="Label" parent="Control/Legend"]
+margin_left = 206.0
+margin_top = 16.0
+margin_right = 356.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MapLegendTraps"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="timeout" from="TimerPingHero" to="." method="PingHero"]

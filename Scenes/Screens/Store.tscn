@@ -280,9 +280,9 @@ __meta__ = {
 }
 
 [node name="ItemBag" parent="UI/OverlayMenus/Menus" instance=ExtResource( 14 )]
-Title = null
 
 [node name="DungeonMap" parent="UI/OverlayMenus/Menus" instance=ExtResource( 6 )]
+Title = "MenuMap"
 
 [node name="Top" type="NinePatchRect" parent="UI/OverlayMenus"]
 anchor_left = 0.5

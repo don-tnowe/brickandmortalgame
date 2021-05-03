@@ -4,8 +4,6 @@
 [ext_resource path="res://Graphics/UI/Dungeon/MapIcons.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Menus/DungeonMapRoom.cs" type="Script" id=3]
 
-
-
 [node name="Room" type="Control"]
 margin_right = 16.0
 margin_bottom = 16.0
@@ -40,27 +38,27 @@ __meta__ = {
 [node name="Icon0" type="Sprite" parent="Icons"]
 position = Vector2( 5, -4 )
 texture = ExtResource( 2 )
-vframes = 8
 hframes = 8
+vframes = 8
 frame = 1
 
 [node name="Icon1" type="Sprite" parent="Icons"]
 position = Vector2( -5, -4 )
 texture = ExtResource( 2 )
-vframes = 8
 hframes = 8
+vframes = 8
 frame = 2
 
 [node name="Icon2" type="Sprite" parent="Icons"]
 position = Vector2( 10, 5 )
 texture = ExtResource( 2 )
-vframes = 8
 hframes = 8
+vframes = 8
 frame = 1
 
 [node name="Icon3" type="Sprite" parent="Icons"]
 position = Vector2( 0, 4 )
 texture = ExtResource( 2 )
-vframes = 8
 hframes = 8
+vframes = 8
 frame = 1

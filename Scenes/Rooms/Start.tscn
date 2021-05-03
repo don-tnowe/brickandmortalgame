@@ -3,7 +3,8 @@
 [ext_resource path="res://Scenes/Backgrounds/Area0.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/VFX/CurvedGradient.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Rooms/DungeonRoomBase.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/VFX/Sunlight.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/VFX/LightBeam.tscn" type="PackedScene" id=9]
+
 
 [node name="Room" instance=ExtResource( 4 )]
 

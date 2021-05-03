@@ -85,9 +85,9 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		{
 			var a = (MenuItemChoose)_sceneMenuItemChoose.Instance();
 			GetNode("UI").AddChild(a);
-			a.OpenMenu();
 			a.RestrictedItems = _itemsOnShelves;
 			a.EventReturnItem += shelf.SetItem;
+			a.OpenMenu();
 			GetTree().Paused = true;
 		}
 		
@@ -277,6 +277,11 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			return _currentCustomer.GetPriceOpinion(_currentPrice, _currentDeny);
 		}
 
+		public int GetOpinionPersonality()
+		{
+			return _currentCustomer.GetOpinionPersonality();
+		}
+		
 		private void CustomerAnimationFinished(string name, Node customer, bool skip)
 		{
 			customer.GetNode("Anim").Disconnect("animation_finished", this, nameof(CustomerAnimationFinished));

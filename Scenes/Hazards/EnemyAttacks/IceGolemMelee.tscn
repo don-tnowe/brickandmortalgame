@@ -19,7 +19,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.75, 0.9 ),
+"times": PoolRealArray( 0, 0.75, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -131,20 +131,19 @@ Damage = {
 }
 
 [node name="Particles2D" parent="." instance=ExtResource( 4 )]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 40, 22 )
+position = Vector2( 17.9314, -51.0605 )
 
 [node name="Circle" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0.752941 )
-position = Vector2( 35, -8 )
+position = Vector2( 31, 19 )
 rotation = 2.8798
-scale = Vector2( 1e-05, 2 )
+scale = Vector2( 2, 0.100001 )
 texture = ExtResource( 2 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2( 21, 3 )
+position = Vector2( 21, -39 )
 rotation = -0.523598
-scale = Vector2( 0.5, 1 )
+scale = Vector2( 0.6, 1 )
 shape = SubResource( 1 )
 disabled = true
 
