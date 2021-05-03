@@ -106,8 +106,6 @@ _loadTexture = ExtResource( 7 )
 [node name="Open" parent="Interactables" instance=ExtResource( 8 )]
 position = Vector2( 80, 304 )
 Message = "StorePromptOpen"
-_closesOnInteract = true
-_destroysOnInteract = true
 
 [node name="Sprite" type="Sprite" parent="Interactables/Open"]
 texture = ExtResource( 24 )
@@ -125,13 +123,11 @@ texture = ExtResource( 17 )
 [node name="AutoShelf" parent="Interactables" instance=ExtResource( 8 )]
 position = Vector2( 400, 304 )
 Message = "StorePromptAutoShelf"
-_closesOnInteract = true
 
 [node name="QuickDeny" parent="Interactables" instance=ExtResource( 8 )]
 position = Vector2( 144, 302 )
 Message = "StorePromptDeny"
 _interactable = false
-_closesOnInteract = true
 
 [node name="ZAbove" type="Node2D" parent="."]
 position = Vector2( 124, 292 )
@@ -284,6 +280,7 @@ __meta__ = {
 }
 
 [node name="ItemBag" parent="UI/OverlayMenus/Menus" instance=ExtResource( 14 )]
+Title = null
 
 [node name="DungeonMap" parent="UI/OverlayMenus/Menus" instance=ExtResource( 6 )]
 

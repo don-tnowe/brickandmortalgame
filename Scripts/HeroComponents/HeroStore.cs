@@ -16,14 +16,6 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			GetNode<Sprite>("FlipH/Sprite").Texture = _loadTexture;
 			_inStore = true;
 		}
-
-		public void StartDay()
-		{
-			NodeTween.InterpolateProperty(NodeCam, "zoom",
-				Vector2.One, Vector2.One * 1.5f,
-				1, Tween.TransitionType.Quart
-				);
-		}
 		
 		public void EndDay()
 		{			

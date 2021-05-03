@@ -121,7 +121,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			HighlightSellableItems();
 			NextCustomer();
 
-			GetNode<AnimationPlayer>("Hero/Anim").Play("StartStoreDay");
+			GetNode<AnimationPlayer>("Hero/Anim").Play("StoreDayStart");
 		}
 
 		public void HighlightSellableItems(CustomerData customer = null)
