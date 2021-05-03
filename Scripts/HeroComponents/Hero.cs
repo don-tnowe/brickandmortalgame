@@ -73,7 +73,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 				hitDetector.Connect("HealthSetMax", heartHUD, "ResetHearts");
 				hitDetector.Connect("HealthSet", heartHUD, "UpdateHearts");
 
-				hitDetector.HealthMax = 20 + SaveData.Upgrades[0] * 10;
+				hitDetector.HealthMax = 30 + SaveData.Upgrades[0] * 10;
 				hitDetector.Health = hitDetector.HealthMax;
 				NodeWeapon.Damage[Elements.Phys] = 2 + SaveData.Upgrades[1];
 				hitDetector.Defense[Elements.Fire] = 1 + SaveData.Upgrades[2] * 0.25f;

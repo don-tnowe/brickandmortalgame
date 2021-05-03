@@ -24,11 +24,6 @@ scale = Vector2( 1.28545, 423.072 )
 
 [node name="Gradient0" parent="Decoration" index="1" instance=ExtResource( 2 )]
 self_modulate = Color( 0.917647, 0.905882, 0.584314, 1 )
-position = Vector2( 88, 32 )
+position = Vector2( 104, 128 )
 rotation = 0.785397
 scale = Vector2( 0.745336, 0.745336 )
-
-[connection signal="TransitionActivated" from="Doors/Door0" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door1" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door3" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door2" to="." method="TransitionActivated"]

@@ -56,7 +56,3 @@ scale = Vector2( 1, 440.791 )
 position = Vector2( 672, 320 )
 
 [connection signal="AllEnemiesDefeated" from="." to="PersistentObjects/Pedestal" method="UnlockItem"]
-[connection signal="TransitionActivated" from="Doors/Door0" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door1" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door3" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door2" to="." method="TransitionActivated"]

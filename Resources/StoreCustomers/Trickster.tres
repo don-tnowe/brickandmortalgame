@@ -3,18 +3,18 @@
 [ext_resource path="res://Scripts/StoreFeatures/CustomerData.cs" type="Script" id=1]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 2.8925, 0, 1, Vector2( 0.132426, 0.383041 ), 0.0, 0.0, 0, 0, Vector2( 0.498762, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.997531, 0.0, 1, 0 ]
 
 [resource]
 script = ExtResource( 1 )
 ImageFilename = "Trickster"
-_needsTypes = PoolIntArray( 1, 2, 60 )
-_needsEnchants = PoolIntArray( 0, 1, 2 )
-_needsMin = 0
+_needsTypes = PoolIntArray( 1 )
+_needsEnchants = PoolIntArray( 5 )
+_needsMin = 1
 _needsMax = 1
-_minPriceMultiplier = 0.6
+_minPriceMultiplier = 0.1
 _denyPriceMultiplier = 2.0
-_priceIncrementMultiplier = 0.2
+_priceIncrementMultiplier = 0.7
 _denyChanceInit = -1.0
 _denyChanceIncrement = 0.2
 _opinionCurve = SubResource( 1 )
@@ -22,5 +22,6 @@ _multiplierPower = 1.0
 _multiplierShine = 4.0
 _multiplierMagic = 0.0
 _multipliersEnchants = {
-4: 4.0
+3: 2.5,
+5: 3
 }

@@ -19,7 +19,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		private CustomerInStore _currentCustomerNode;
 		private int _currentPrice = 1;
 		private float _currentDeny = 0;
-
+		
+		private CustomerData[] _dayCustomers;
 		private int _customersLeft = 0;
 		private ItemShelf _nodeNegotiatedShelf;
 
@@ -42,7 +43,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_nodeTween = GetNode<Tween>("UI/Tween");
 
 			_itemsOnShelves = new bool[SaveData.ItemBag.GetItemCount()];
-
+			GetNode<MenuItemBag>("/root/Node/UI/OverlayMenus/Menus/ItemBag").RestrictedItems = _itemsOnShelves;
+			
 			var dayCustomerNames = new List<string>();
 
 			foreach (string i in SaveData.PossibleCustomers)
@@ -56,11 +58,14 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			if (customerCount > SaveData.PossibleCustomers.Count)
 				customerCount = SaveData.PossibleCustomers.Count;
 
+			_dayCustomers = new CustomerData[customerCount];
+			
 			for (int i = 0; i < customerCount; i++)
 			{
 				var newCustomer = (CustomerInStore)_sceneCustomer.Instance();
 				_nodeCustomers.AddChild(newCustomer);
-				newCustomer.Customer = (
+				newCustomer.SetImage(dayCustomerNames[i]);
+				_dayCustomers[i] = (
 					ResourceLoader.Load<CustomerData>(
 						"res://Resources/StoreCustomers/"
 						+ dayCustomerNames[i]
@@ -80,8 +85,10 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		{
 			var a = (MenuItemChoose)_sceneMenuItemChoose.Instance();
 			GetNode("UI").AddChild(a);
-			a.OpenMenu(_itemsOnShelves);
+			a.OpenMenu();
+			a.RestrictedItems = _itemsOnShelves;
 			a.EventReturnItem += shelf.SetItem;
+			GetTree().Paused = true;
 		}
 		
 		private void AutoShelf(object idk)
@@ -226,12 +233,15 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			if (_customersLeft > 2)
 				_nodeCustomers.GetChild<CustomerInStore>(_customersLeft - 2).PlayAnimation("Step2");
+				
 			if (_customersLeft > 1 && _customersLeft < count + 1)
 				_nodeCustomers.GetChild<CustomerInStore>(_customersLeft - 1).PlayAnimation("Step1");
+				
 			if (_customersLeft > 0 && _customersLeft < count)
 			{
 				_currentCustomerNode = _nodeCustomers.GetChild<CustomerInStore>(_customersLeft);
-				_currentCustomer = _currentCustomerNode.Customer;
+				_currentCustomer = _dayCustomers[_customersLeft];
+				_currentCustomer.NewOrder();
 				_currentCustomerNode.PlayAnimation("Step0");
 			}
 

@@ -8,19 +8,20 @@ _data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
 [resource]
 script = ExtResource( 1 )
 ImageFilename = "Barbarian"
-_needsTypes = PoolIntArray( 1, 2, 60 )
-_needsEnchants = PoolIntArray( 0, 1, 2 )
-_needsMin = 0
+_needsTypes = PoolIntArray( 1, 60 )
+_needsEnchants = PoolIntArray( 0, 2, 3 )
+_needsMin = 1
 _needsMax = 1
-_minPriceMultiplier = 0.6
-_denyPriceMultiplier = 2.0
+_minPriceMultiplier = 0.8
+_denyPriceMultiplier = 1.5
 _priceIncrementMultiplier = 0.2
 _denyChanceInit = -1.0
 _denyChanceIncrement = 0.2
 _opinionCurve = SubResource( 1 )
-_multiplierPower = 1.0
-_multiplierShine = 4.0
+_multiplierPower = 1.5
+_multiplierShine = 3.0
 _multiplierMagic = 0.0
 _multipliersEnchants = {
-4: 4.0
+0: 2.0,
+3: 1.25
 }

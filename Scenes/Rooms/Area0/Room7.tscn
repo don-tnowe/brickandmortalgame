@@ -8,7 +8,7 @@
 [ext_resource path="res://Scenes/Backgrounds/Area0.tscn" type="PackedScene" id=6]
 
 [node name="Room" instance=ExtResource( 1 )]
-LightColor = Color( 0.713726, 0.713726, 0.713726, 1 )
+LightColor = Color( 0.509804, 0.509804, 0.509804, 1 )
 _mapMods = PoolIntArray( 8, 0, 0, 0 )
 
 [node name="BG" parent="." index="0" instance=ExtResource( 6 )]
@@ -62,8 +62,5 @@ scale = Vector2( 1, 615.605 )
 [node name="ScrollBottomRight" parent="." index="7"]
 position = Vector2( 448, 512 )
 
-[connection signal="UnblockBottomExits" from="." to="PersistentObjects/Pedestal" method="UnlockItem"]
-[connection signal="TransitionActivated" from="Doors/Door0" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door1" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door3" to="." method="TransitionActivated"]
-[connection signal="TransitionActivated" from="Doors/Door2" to="." method="TransitionActivated"]
+[connection signal="AllEnemiesDefeated" from="." to="PersistentObjects/Pedestal" method="UnlockItem"]
+[connection signal="UnblockBottomExits" from="." to="Doors/Door2/UpwardsExit" method="queue_free"]

@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Backgrounds/Area0.tscn" type="PackedScene" id=7]
 
 [node name="Room" instance=ExtResource( 1 )]
+LightColor = Color( 0.768627, 0.768627, 0.768627, 1 )
 _mapMods = PoolIntArray( 8, 16, 0, 0 )
 
 [node name="BG" parent="." index="0" instance=ExtResource( 7 )]

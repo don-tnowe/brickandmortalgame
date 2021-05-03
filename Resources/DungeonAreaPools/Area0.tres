@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 _roomLoadFolder = "res://Scenes/Rooms/Area0"
-_roomCount = 8
+_roomCount = 10
 _itemStats = PoolIntArray( 20, 20, 30 )
 _itemEnch = PoolIntArray( 0, 1, 2, 3, 4, 5 )
 _itemEnchValues = PoolIntArray( 15, 15, 15, 8, 8, 8 )

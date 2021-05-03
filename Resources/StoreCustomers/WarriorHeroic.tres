@@ -3,24 +3,26 @@
 [ext_resource path="res://Scripts/StoreFeatures/CustomerData.cs" type="Script" id=1]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 3.05406, 0, 1, Vector2( 0.152228, 0.464912 ), 0.0, 0.0, 0, 0, Vector2( 0.498762, 0.336257 ), -1.24691, 2.52008, 0, 0, Vector2( 1, 1 ), 1.32421, 0.0, 1, 0 ]
 
 [resource]
 script = ExtResource( 1 )
 ImageFilename = "WarriorHeroic"
-_needsTypes = PoolIntArray( 1, 2, 60 )
-_needsEnchants = PoolIntArray( 0, 1, 2 )
+_needsTypes = PoolIntArray( 1, 60 )
+_needsEnchants = PoolIntArray( 0, 2 )
 _needsMin = 0
 _needsMax = 1
-_minPriceMultiplier = 0.6
+_minPriceMultiplier = 1.2
 _denyPriceMultiplier = 2.0
 _priceIncrementMultiplier = 0.2
 _denyChanceInit = -1.0
-_denyChanceIncrement = 0.2
+_denyChanceIncrement = 0.15
 _opinionCurve = SubResource( 1 )
-_multiplierPower = 1.0
-_multiplierShine = 4.0
+_multiplierPower = 0.0
+_multiplierShine = 5.0
 _multiplierMagic = 0.0
 _multipliersEnchants = {
-4: 4.0
+0: 2.0,
+2: 2.0,
+3: 2.0
 }

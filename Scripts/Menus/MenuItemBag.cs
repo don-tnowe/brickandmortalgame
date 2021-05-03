@@ -8,12 +8,13 @@ namespace BrickAndMortal.Scripts.Menus
 		[Export]
 		private PackedScene _sceneItem;
 
+		public bool[] RestrictedItems;
+		
 		protected GridContainer _nodeItemGrid;
 		private ItemStatDisplay _nodeItemStatDisplay;
 		protected Tween _nodeTween;
 
 		protected Item[] _itemArray;
-		protected bool[] _restrictedItems;
 
 		public override void _Ready()
 		{
@@ -44,17 +45,6 @@ namespace BrickAndMortal.Scripts.Menus
 
 		protected virtual void ItemSelected(TextureButton node, int idx) { }
 
-		public void OpenMenu(bool[] restrictedItems)
-		{
-			_restrictedItems = restrictedItems;
-			OpenMenu();
-			GetTree().Paused = true;
-			GetNode<Label>("Money").Text = SaveData.Money.ToString();
-
-			for (int i = 0; i < _itemArray.Length; i++)
-				_nodeItemGrid.GetChild<TextureButton>(i).Disabled = restrictedItems[i];
-		}
-
 		public override void OpenMenu()
 		{
 			base.OpenMenu();
@@ -84,6 +74,7 @@ namespace BrickAndMortal.Scripts.Menus
 					newItem.Connect("mouse_entered", this, nameof(ItemFocused), new Godot.Collections.Array() { newItem, i });
 					newItem.Connect("pressed", this, nameof(ItemSelected), new Godot.Collections.Array() { newItem, i });
 				}
+				
 				else
 					newItem = _nodeItemGrid.GetChild<TextureButton>(i);
 
@@ -130,10 +121,15 @@ namespace BrickAndMortal.Scripts.Menus
 					0.25f, Tween.TransitionType.Quad, Tween.EaseType.Out, 0.2f + i * 0.05f
 					);
 			}
+			
 			for (int i = _itemArray.Length; i < _nodeItemGrid.GetChildCount(); i++)
 			{
 				_nodeItemGrid.GetChild(i).QueueFree();
 			}
+			
+			if (RestrictedItems != null)
+				for (int i = 0; i < _itemArray.Length; i++)
+					_nodeItemGrid.GetChild<TextureButton>(i).Disabled = RestrictedItems[i];
 
 			ItemFocused(_nodeItemGrid.GetChild<Control>(_itemArray.Length - 1), _itemArray.Length - 1);
 

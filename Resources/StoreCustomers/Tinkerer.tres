@@ -8,19 +8,18 @@ _data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
 [resource]
 script = ExtResource( 1 )
 ImageFilename = "Tinkerer"
-_needsTypes = PoolIntArray( 1, 2, 60 )
-_needsEnchants = PoolIntArray( 0, 1, 2 )
+_needsTypes = PoolIntArray( 3, 60 )
+_needsEnchants = PoolIntArray(  )
 _needsMin = 0
-_needsMax = 1
-_minPriceMultiplier = 0.6
-_denyPriceMultiplier = 2.0
+_needsMax = 0
+_minPriceMultiplier = 1.0
+_denyPriceMultiplier = 2.5
 _priceIncrementMultiplier = 0.2
-_denyChanceInit = -1.0
-_denyChanceIncrement = 0.2
+_denyChanceInit = -1.5
+_denyChanceIncrement = 0.15
 _opinionCurve = SubResource( 1 )
 _multiplierPower = 1.0
-_multiplierShine = 4.0
-_multiplierMagic = 0.0
+_multiplierShine = 2.0
+_multiplierMagic = 6.0
 _multipliersEnchants = {
-4: 4.0
 }

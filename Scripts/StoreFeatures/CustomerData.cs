@@ -7,7 +7,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 	class CustomerData : Resource
 	{
 		[Export]
-		public string ImageFilename;
+		private int id;
 		[Export]
 		private EquipFlags[] _needsTypes = new EquipFlags[] { EquipFlags.Weapon, EquipFlags.Spell, EquipFlags.AllArmor };
 		[Export]
@@ -49,11 +49,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		private int _lastOrderDenyPrice;
 
 		private System.Random _random = new System.Random();
-
-		public CustomerData()
-		{
-			NewOrder();
-		}
 
 		public void NewOrder()
 		{

@@ -1463,7 +1463,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -1594,6 +1594,7 @@ light_mask = 0
 z_index = 40
 collision_mask = 2147483650
 script = ExtResource( 2 )
+AnimationAllowed = false
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 light_mask = 0
@@ -1610,7 +1611,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 hframes = 8
 vframes = 8
-frame = 50
+frame = 26
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
 light_mask = 0
@@ -1684,6 +1685,7 @@ collision_mask = 0
 script = ExtResource( 5 )
 Defense = {
 }
+_health = 30
 
 [node name="Shape" type="CollisionShape2D" parent="CombatCollision"]
 light_mask = -2147483648
@@ -1695,6 +1697,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="TransitionBlackout" type="Sprite" parent="."]
+visible = false
 self_modulate = Color( 0, 0, 0, 1 )
 show_behind_parent = true
 light_mask = 0

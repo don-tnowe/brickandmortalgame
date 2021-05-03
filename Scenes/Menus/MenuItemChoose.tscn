@@ -37,17 +37,31 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 41.0
-margin_top = -38.0
-margin_right = -43.0
-margin_bottom = -20.6651
+margin_left = 6.0
+margin_top = -39.0
+margin_right = -9.0
+margin_bottom = -21.6651
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="CenterContainer" index="0"]
-margin_left = 5.0
-margin_right = 89.1947
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" index="0"]
+margin_right = 165.0
+margin_bottom = 17.0
+
+[node name="ButtonClear" type="Button" parent="CenterContainer/HBoxContainer" index="0"]
+margin_right = 77.1947
+margin_bottom = 17.3349
+grow_horizontal = 2
+theme = ExtResource( 3 )
+text = "ButtonClear"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonCancel" type="Button" parent="CenterContainer/HBoxContainer" index="1"]
+margin_left = 81.0
+margin_right = 165.195
 margin_bottom = 17.3349
 grow_horizontal = 2
 theme = ExtResource( 3 )
@@ -56,4 +70,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="CenterContainer/Button" to="." method="ItemClear"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/ButtonClear" to="." method="ItemClear"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/ButtonCancel" to="." method="CloseMenu"]

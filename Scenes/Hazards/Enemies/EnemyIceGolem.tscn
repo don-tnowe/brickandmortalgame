@@ -53,10 +53,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.752664, 0.802664 ),
+"times": PoolRealArray( 0, 0.75, 0.8 ),
 "transitions": PoolRealArray( 0.25, 1, 0.25 ),
 "update": 0,
-"values": [ Vector2( -1, -7 ), Vector2( -1, -12 ), Vector2( -1, -7 ) ]
+"values": [ Vector2( -1, -5 ), Vector2( -1, -10 ), Vector2( -1, -5 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Legs:scale")
@@ -147,10 +147,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.55, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 4, 0.5, 0.5, 4 ),
 "update": 0,
-"values": [ Vector2( -1, -7 ), Vector2( -1, -7 ), Vector2( -1, -10 ), Vector2( -1, -7 ), Vector2( -1, -7 ), Vector2( -1, -10 ) ]
+"values": [ Vector2( -1, -5 ), Vector2( -1, -5 ), Vector2( -1, -8 ), Vector2( -1, -5 ), Vector2( -1, -5 ), Vector2( -1, -8 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Legs:scale")
@@ -182,17 +182,18 @@ z_index = 2
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
-PhysVelocityX = 16.5485
+PhysVelocityX = 5.45548
 PhysicsEnabled = true
 _sceneDefeated = ExtResource( 2 )
 _sceneHit = ExtResource( 4 )
 _sceneAtk = ExtResource( 7 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1 )
+position = Vector2( 0, 4 )
 shape = SubResource( 1 )
 
 [node name="CombatCollision" type="Area2D" parent="."]
+position = Vector2( 0, 3 )
 collision_layer = 8192
 collision_mask = 0
 script = ExtResource( 6 )
@@ -214,6 +215,7 @@ Damage = {
 Attacker = NodePath("../..")
 
 [node name="HeroProximityAttack" type="Area2D" parent="."]
+position = Vector2( 0, 3 )
 scale = Vector2( 0.75, 1 )
 collision_layer = 0
 
@@ -222,6 +224,7 @@ position = Vector2( 28, -19 )
 shape = SubResource( 2 )
 
 [node name="HeroProximityBehind" type="Area2D" parent="."]
+position = Vector2( 0, 3 )
 collision_layer = 0
 
 [node name="Shape" type="CollisionShape2D" parent="HeroProximityBehind"]
@@ -229,7 +232,7 @@ position = Vector2( -47, -11 )
 shape = SubResource( 3 )
 
 [node name="RayGround" type="RayCast2D" parent="."]
-position = Vector2( 15, 28 )
+position = Vector2( 15, 31 )
 enabled = true
 exclude_parent = false
 cast_to = Vector2( 0, 16 )
@@ -237,7 +240,7 @@ collision_mask = 2
 
 [node name="Legs" type="Sprite" parent="."]
 material = ExtResource( 3 )
-position = Vector2( 0, 29 )
+position = Vector2( 0, 32 )
 texture = ExtResource( 8 )
 offset = Vector2( 0, -32 )
 hframes = 4
@@ -246,7 +249,7 @@ vframes = 4
 [node name="Sprite" type="Sprite" parent="."]
 show_behind_parent = true
 material = ExtResource( 3 )
-position = Vector2( -1, -7 )
+position = Vector2( -1, -5 )
 texture = ExtResource( 8 )
 offset = Vector2( 0, -6 )
 hframes = 4
@@ -282,9 +285,9 @@ anims/Move = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
 [connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
-[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
 [connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="body_entered" from="HeroProximityAttack" to="." method="HeroProximity"]
 [connection signal="body_entered" from="HeroProximityBehind" to="." method="HeroProximityBehind"]

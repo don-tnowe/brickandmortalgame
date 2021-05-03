@@ -20,13 +20,13 @@ namespace BrickAndMortal.Scripts
 		{
 			SaveData.LoadGame();
 			
-			if (SaveData.Screen == 0) 
+			if (SaveData.Screen == 0) // Quit the game after town
 				GetTree().ChangeScene("res://Scenes/Screens/Dungeon.tscn");
 			
 		//	else if (SaveData.Screen == 1) Not adding dungeon saves now. TODO
 		//		GetTree().ChangeScene("res://Scenes/Screens/Dungeon.tscn");
 			
-			else  
+			else  // Quit the game in the shop or in town
 				GetTree().ChangeScene("res://Scenes/Screens/Town.tscn");
 		}
 	}

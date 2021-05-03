@@ -27,7 +27,7 @@ namespace BrickAndMortal.Scripts.Menus
 			if (idx >= 0)
 				item = _itemArray[idx];
 			base.ItemSelected(node, idx);
-			EventReturnItem?.Invoke(item, idx, _restrictedItems);
+			EventReturnItem?.Invoke(item, idx, RestrictedItems);
 			EventReturnItem = null;
 			node?.ReleaseFocus();
 			CloseMenu();
@@ -54,6 +54,9 @@ namespace BrickAndMortal.Scripts.Menus
 		}
 	}
 }
+
+
+
 
 
 

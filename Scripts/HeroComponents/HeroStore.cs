@@ -12,10 +12,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		{
 			base._Ready();
 			SaveData.Screen = 2;
-			SwitchState(States.Immobile);
 			NodeAnim.Play("StoreEnter");
-			//NodeCam.LimitLeft = -10000000;
-			//NodeCam.LimitRight = -10000000;
 			GetNode<Sprite>("FlipH/Sprite").Texture = _loadTexture;
 			_inStore = true;
 		}

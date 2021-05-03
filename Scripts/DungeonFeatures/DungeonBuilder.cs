@@ -8,9 +8,9 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		public Dictionary<int, RoomData> Rooms = new Dictionary<int,RoomData>();
 		public Room CurRoom;
 
-		private const int _mapWidth = 64;
+		private const int _mapWidth = 256;
 		
-		private int _mapPos = 4128;
+		private int _mapPos = 128 + _mapWidth * 64; // place the player at (128, 64)
 
 		private DungeonAreaPool _curPool;
 
@@ -80,7 +80,7 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 		
 		public string ToJSON()
 		{
-			return "{}"; //TODO
+			return "{}"; //TODO, saving inside the dungeon
 		}
 		
 		public void DeserializeFrom(string json)
