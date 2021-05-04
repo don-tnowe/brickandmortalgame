@@ -1704,7 +1704,7 @@ self_modulate = Color( 0, 0, 0, 1 )
 show_behind_parent = true
 light_mask = 0
 scale = Vector2( 1e-05, 1e-05 )
-z_index = 42
+z_index = 60
 texture = ExtResource( 6 )
 
 [node name="Cam" type="Camera2D" parent="."]
@@ -1761,8 +1761,8 @@ one_shot = true
 
 [connection signal="area_entered" from="Weapon" to="." method="HitEnemy"]
 [connection signal="Defeated" from="CombatCollision" to="." method="Defeated"]
-[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
 [connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]
 [connection signal="timeout" from="TimerAttack" to="." method="AttackReady"]

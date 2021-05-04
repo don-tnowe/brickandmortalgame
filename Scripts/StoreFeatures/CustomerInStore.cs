@@ -5,8 +5,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 {
 	class CustomerInStore : PathFollow2D
 	{
-		public int NegotiationItemUid;
-
 		public CustomerData Customer
 		{
 			set

@@ -8,7 +8,7 @@ namespace BrickAndMortal.Scripts.HUDs
 		[Export]
 		private PackedScene _sceneHeartSmall;
 		
-		private const int _heartsPerRow = 10;
+		private const int _heartsPerRow = 12;
 		private const int _pointsPerHeart = 10;
 
 		private TextureProgress _heartBig;

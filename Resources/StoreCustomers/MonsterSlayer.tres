@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/StoreFeatures/CustomerData.cs" type="Script" id=1]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0 ), 0.0, 0.722222, 0, 1, Vector2( 1, 0.722222 ), -0.293487, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 0.722222, 0, 1, Vector2( 1, 0.722222 ), -0.615109, 0.0, 0, 0 ]
 
 [resource]
 script = ExtResource( 1 )

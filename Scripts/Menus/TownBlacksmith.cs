@@ -25,6 +25,7 @@ namespace BrickAndMortal.Scripts.Menus
 			_nodeTween = GetNode<Tween>("/root/Node/UI/Tween");
 
 			var nodeUpgrades = GetNode("AnchorL/Upgrades");
+			
 			for (int i = 0; i < nodeUpgrades.GetChildCount(); i++)
 			{
 				var node = nodeUpgrades.GetChild<Button>(i);
@@ -60,14 +61,14 @@ namespace BrickAndMortal.Scripts.Menus
 
 			var upgradeIdx = node.GetPositionInParent();
 			var upgradeLvl = SaveData.Upgrades[upgradeIdx];
-
+						
 			switch (upgradeIdx)
 			{
 				case 0:
-					_curUpgradePrice = 200 + upgradeLvl * upgradeLvl * 150;
+					_curUpgradePrice = 200 + upgradeLvl * 550;
 					break;
 				case 1:
-					_curUpgradePrice = 500 + upgradeLvl * 750;
+					_curUpgradePrice = 500 + upgradeLvl * upgradeLvl * 750;
 					break;
 				case 2:
 					_curUpgradePrice = 1300 + upgradeLvl * upgradeLvl * upgradeLvl * 123;
@@ -76,8 +77,17 @@ namespace BrickAndMortal.Scripts.Menus
 
 			_nodeCurName.Text = "UpgradeName" + upgradeIdx;
 			_nodeCurDesc.Text = Tr("UpgradeDesc" + upgradeIdx).CUnescape();
-			_nodeUpgradePrice.Text = _curUpgradePrice.ToString();
 			_nodeUpgradeLevel.Text = Tr("TownLevel") + " " + upgradeLvl;
+			
+			if (upgradeLvl < 21)
+			{
+				_nodeUpgradePrice.Text = _curUpgradePrice.ToString();
+			}
+			else
+			{
+				node.Disabled = true;
+				_nodeUpgradePrice.Text = "MsgMax";
+			}
 		}
 
 		public void UpgradeClicked(Button node)

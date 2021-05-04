@@ -33,7 +33,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_nodeAnim.Play("Open");
 			UpdateInfo();
 			_nodeOpinionOsc.GetNode<Sprite>("Sprite").Frame = 0;
-			_nodeOpinionLabel.Text = "StoreDialogueRequest" + opinionText + _nodeStoreManager.GetOpinionPersonality();
+			_nodeOpinionLabel.Text = "StoreDialogueRequest" + _nodeStoreManager.GetOpinionPersonality();
 		}
 
 		private void ButtonFocused(int idx)

@@ -20,6 +20,7 @@ ButtonSaveExit;		Save and exit.
  ;
 MsgBagEmpty;	Your bag's empty. Get lootin'!
 MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!
+MsgMax;			MAX
  ;
  ;
 MapLegend;			Legend

@@ -60,7 +60,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 			while (n < count)
 			{
-				var idx = random.Next(from.Length - forbiddenEnchants.Count);
+				var idx = random.Next(from.Length - forbiddenEnchants.Count + 1);
 				for (int i = 0; i < forbiddenEnchants.Count; i++)
 					if (idx >= forbiddenEnchants[i])
 						idx++;

@@ -131,17 +131,18 @@ Damage = {
 }
 
 [node name="Particles2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( 17.9314, -51.0605 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 40, 22 )
 
 [node name="Circle" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0.752941 )
-position = Vector2( 31, 19 )
+position = Vector2( 35, -8 )
 rotation = 2.8798
-scale = Vector2( 2, 0.100001 )
+scale = Vector2( 1e-05, 2 )
 texture = ExtResource( 2 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2( 21, -39 )
+position = Vector2( 21, 3 )
 rotation = -0.523598
 scale = Vector2( 0.6, 1 )
 shape = SubResource( 1 )

@@ -191,7 +191,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			SaveData.LastDaySold++;
 			SaveData.Money += _currentPrice;
 			SaveData.LastDayEarned += _currentPrice;
-			SaveData.ItemBag.RemoveItem(_currentCustomerNode.NegotiationItemUid);
+			SaveData.ItemBag.RemoveItem(_nodeNegotiatedShelf.HeldItem.Uid);
 
 			_currentCustomerNode.PlayAnimation("ItemReceived");
 			_nodeNegotiatedShelf.NodeAnim.Play("NoItem");
@@ -222,6 +222,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		private void Deny()
 		{
 			_nodeNegotiatedShelf?.ReturnToShelf();
+			_nodeNegotiatedShelf = null;
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
 			NextCustomer();
 		}
@@ -267,21 +268,6 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 					this, nameof(CustomerAnimationFinished), new Godot.Collections.Array() { _currentCustomerNode, false });
 		}
 
-		public int GetNegotiationPrice()
-		{
-			return _currentPrice;
-		}
-
-		public int GetPriceOpinion()
-		{
-			return _currentCustomer.GetPriceOpinion(_currentPrice, _currentDeny);
-		}
-
-		public int GetOpinionPersonality()
-		{
-			return _currentCustomer.GetOpinionPersonality();
-		}
-		
 		private void CustomerAnimationFinished(string name, Node customer, bool skip)
 		{
 			customer.GetNode("Anim").Disconnect("animation_finished", this, nameof(CustomerAnimationFinished));
@@ -308,6 +294,21 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			GetNode<InteractableProps.InteractableArea>("Interactables/QuickDeny").Interactable = true;
 
 			HighlightSellableItems(_currentCustomer);
+		}
+		
+		public int GetNegotiationPrice()
+		{
+			return _currentPrice;
+		}
+
+		public int GetPriceOpinion()
+		{
+			return _currentCustomer.GetPriceOpinion(_currentPrice, _currentDeny);
+		}
+
+		public int GetOpinionPersonality()
+		{
+			return _currentCustomer.GetOpinionPersonality();
 		}
 	}
 }

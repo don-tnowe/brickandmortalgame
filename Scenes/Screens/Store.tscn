@@ -128,6 +128,7 @@ Message = "StorePromptAutoShelf"
 position = Vector2( 144, 302 )
 Message = "StorePromptDeny"
 _interactable = false
+_closesOnInteract = true
 
 [node name="ZAbove" type="Node2D" parent="."]
 position = Vector2( 124, 292 )
