@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/Menus/MenuItemBag.cs" type="Script" id=3]
 [ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=4]
 [ext_resource path="res://Graphics/UI/MoneyDisplay.png" type="Texture" id=5]
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Resources/Themes/FontUIBorders.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Resources/Themes/FontMoney.tres" type="DynamicFont" id=7]
 
 [node name="ItemBag" type="Control"]
@@ -85,7 +85,7 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -8.0
+margin_left = -14.0
 margin_top = -14.0
 margin_right = 13.0
 margin_bottom = -5.0
@@ -99,6 +99,6 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="Money"]
 show_behind_parent = true
-position = Vector2( 5.99998, 3.99998 )
+position = Vector2( 12, 4 )
 scale = Vector2( 0.999997, 0.999997 )
 texture = ExtResource( 5 )

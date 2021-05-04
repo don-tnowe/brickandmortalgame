@@ -1,13 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Graphics/UI/ItemDisplay/ItemDisplay.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/ItemOperations/ItemStatDisplay.cs" type="Script" id=2]
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Resources/Themes/FontUIBorders.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scenes/HUDs/ItemStatsEnchantment.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
 [ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=7]
-
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -165,7 +165,7 @@ margin_right = 20.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_outline_modulate = Color( 1, 0.572549, 0.196078, 1 )
 text = "12"
 align = 1
@@ -203,7 +203,7 @@ margin_right = 20.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_outline_modulate = Color( 0, 0.898039, 0.733333, 1 )
 text = "12"
 align = 1
@@ -241,7 +241,7 @@ margin_right = 20.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_outline_modulate = Color( 0.67451, 0.486275, 1, 1 )
 text = "12"
 align = 1
@@ -363,7 +363,7 @@ margin_left = -3.0
 margin_top = -0.999996
 margin_right = 5.0
 margin_bottom = 12.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 text = "E"

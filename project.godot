@@ -152,7 +152,11 @@ debug={
 
 [locale]
 
-translations=PoolStringArray( "res://Resources/Translations/translations.en.translation" )
+translations=PoolStringArray( "res://Resources/Translations/translations.en.translation", "res://Resources/Translations/translations.ru.translation" )
+translation_remaps={
+"res://Resources/Themes/FontUI.tres": PoolStringArray( "res://Resources/Themes/FontUIRu.tres:ru" ),
+"res://Resources/Themes/FontUIBorders.tres": PoolStringArray( "res://Resources/Themes/FontUIBordersRu.tres:ru" )
+}
 
 [rendering]
 

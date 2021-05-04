@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Graphics/Environment/Backgrounds/DayOver.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menus/TownDayResults.cs" type="Script" id=2]
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Resources/Themes/FontUIBorders.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=4]
 
 [node name="Results" type="Control"]
 anchor_right = 1.0
@@ -125,7 +126,7 @@ margin_left = 13.0
 margin_top = 58.0
 margin_right = 98.0
 margin_bottom = 72.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
 text = "0"
@@ -141,7 +142,7 @@ margin_right = 159.0
 margin_bottom = 100.073
 rect_rotation = -7.61127
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
 text = "0"
@@ -157,7 +158,7 @@ margin_right = 191.235
 margin_bottom = 88.0
 rect_rotation = 10.1636
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
 text = "0"
@@ -172,7 +173,7 @@ margin_top = 102.0
 margin_right = 248.0
 margin_bottom = 116.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.356863, 0.184314, 0.145098, 1 )
 text = "0"

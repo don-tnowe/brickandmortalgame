@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Resources/Themes/FontUIBorders.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Menus/TownDayResults.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Menus/TownBlacksmith.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Resources/Themes/FontMoney.tres" type="DynamicFont" id=4]
@@ -166,7 +166,7 @@ texture = ExtResource( 7 )
 [node name="Label" type="Label" parent="UI/OverlayMenus/Top/Labels/ColorRect/Money/Sprite"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = -6.0
+margin_left = -10.0
 margin_top = -18.0
 margin_right = 15.0
 margin_bottom = -9.0

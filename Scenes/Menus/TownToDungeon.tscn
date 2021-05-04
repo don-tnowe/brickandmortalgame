@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Menus/TownToDungeon.cs" type="Script" id=1]
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Resources/Themes/FontUIBorders.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Graphics/Characters/Hero.png" type="Texture" id=3]
 [ext_resource path="res://Graphics/Characters/HeroStore.png" type="Texture" id=4]
 [ext_resource path="res://Resources/Themes/UI.tres" type="Theme" id=5]
@@ -244,7 +244,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-Title = "Descend"
+Title = "TownDescend"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0

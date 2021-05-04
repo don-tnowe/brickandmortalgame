@@ -1,84 +1,84 @@
-	;en
-GameName;	Brick And Mortal: Pit's Treasures
-LangName;	English
-AnyButtonPrompt;	Press any button
- ;
- ;
-MenuBag;		Item Bag
-MenuMap;		Map
-MenuSettings;	Settings
-MenuChooseItem;	Choose an item!
- ;
- ;
-ButtonCancel;		Cancel
-ButtonClear;		Clear
-ButtonBuy;			Buy!
-ButtonBuyPrompt;	Press to buy!
-ButtonBuyNoMoney;	Too pricey...
-ButtonSaveExit;		Save and exit.
- ;
- ;
-MsgBagEmpty;	Your bag's empty. Get lootin'!
-MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!
-MsgMax;			MAX
- ;
- ;
-MapLegend;			Legend
-MapLegendYou;		It's You!
-MapLegendCleared;	Cleared
-MapLegendTreasure;	Treasure
-MapLegendTraps;		Trap room
- ;
- ;
-ItemType0;	Weapon
-ItemType1;	Spell
-ItemType2;	Body Armor
- ;
- ;
-StorePromptOpen;		Open the store!
-StorePromptShelf;		Place an item!
-StorePromptSell;		Sell this!
-StorePromptAutoShelf;	Auto-fill all shelves
-StorePromptDeny;		Get out!
- ;
-StoreBtnAccept;		Sold!
-StoreBtnHigher;		Higher.
-StoreBtnHigher2;	HIGHER!!!
-StoreBtnDeny;		Nah...
- ; 
-StoreDialogueRequest1;			I'll buy this, for the price of:
-StoreDialogueRequestHigh1;		Great! Then the better price is:
-StoreDialogueRequestAngry1;		Oof! This better be amazing if it costs:
-StoreDialogueRequestWorried1;	Oh no! I'm almost out of money if it costs:
- ;
- ;
-UpgradeName0;Stronger Armor
-UpgradeDesc0;Get some better armor, improve your durability.\n\nWith each upgrade, get an extra heart.
- ;
-UpgradeName1;Sharper Sword
-UpgradeDesc1;Your toothpick too weak? A blade must be sharp to truly cut.\n\nBuy to get +1 to attack damage.
- ;
-UpgradeName2;Thermal Guard
-UpgradeDesc2;Heat and cold can be nasty when extreme. Suit up!\n\nThis upgrade buffs some elemental resists by 25%.
- ;
- ;
-TownDayResults;		Day Results
-TownBlacksmith;		Blacksmith
-TownDescend;		Descend
- ;
-DayResults0;	Profit
-DayResults1;	Customers
-DayResults2;	Items sold
-DayResults3;	Most profitable day 
- ;
-TownButtonDescend;	Into The Depths
- ;
-TownDay;	Day
-TownLevel;	Level
-TownCost;	Cost
- ;
- ;
- ;
- ;
-TextGottaHaveItShort; Lorem ipsum dolor sit amet...
-TextGottaHaveIt; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	;en;ru
+GameName;	Brick And Mortal: Pit's Treasures;	Brick & Mortal: Сокровища ямы
+LangName;	English;	Русский
+AnyButtonPrompt;	Press any button;	Нажмите любую кнопку
+ ;;
+ ;;
+MenuBag;		Item Bag;	Сумка Вещей
+MenuMap;		Map;	Карта
+MenuSettings;	Settings;	Настройки
+MenuChooseItem;	Choose an item!;	Выбери предмет!
+ ;;
+ ;;
+ButtonCancel;		Cancel;			Отмена
+ButtonClear;		Clear;			Очистить
+ButtonBuy;			Buy!;			Купить!
+ButtonBuyPrompt;	Press to buy!;	Нажми, чтобы купить!
+ButtonBuyNoMoney;	Too pricey...;	Дороговато...
+ButtonSaveExit;		Save and exit.;	Сохранить и выйти
+ ;;
+ ;;
+MsgBagEmpty;	Your bag's empty. Get lootin'!;Сумка пуста. И кому бы её наполнить?
+MsgMapInStore;	Hey, this place is confusing by design but come on, you can't get lost in your own store!; Эй, тут, конечно, всё запутано и так надо, но нельзя же заблудиться в своём же магазине!
+MsgMax;			MAX; МАКС
+ ;;
+ ;;
+MapLegend;			Legend;		Легенда
+MapLegendYou;		It's You!;	Это же Ты!
+MapLegendCleared;	Cleared;	Чисто
+MapLegendTreasure;	Treasure;	Сокровище
+MapLegendTraps;		Trap room;	Комната ловушек
+ ;;
+ ;;
+ItemType0;	Weapon;		Оружие
+ItemType1;	Spell;		Заклинание
+ItemType2;	Body Armor;	Кираса
+ ;;
+ ;;
+StorePromptOpen;		Open the store!;		Открыть магазин!
+StorePromptShelf;		Place an item!;			Поставить вещь!
+StorePromptSell;		Sell this!;				Продать это!
+StorePromptAutoShelf;	Auto-fill all shelves;	Автозаполнение полок
+StorePromptDeny;		Get out!;				Пошёл ты отсюда!
+ ;;
+StoreBtnAccept;		Sold!;		Продано!
+StoreBtnHigher;		Higher.;	Больше.
+StoreBtnHigher2;	HIGHER!!!;	БОЛЬШЕ!!!
+StoreBtnDeny;		Nah...;		Не-е-е...
+ ;; 
+StoreDialogueRequest1;			I'll buy this, for the price of:;				Я куплю это, за скромную цену в:
+StoreDialogueRequestHigh1;		Great! Then the better price is:;				Отлично! Тогда лучше подойдёт цена:
+StoreDialogueRequestAngry1;		Oof! This better be amazing if it costs:;		Лучше бы оно было потрясным, раз оно стоит:
+StoreDialogueRequestWorried1;	Oh no! I'm almost out of money if it costs:;	Ой-ой! Я же разорюсь, раз оно стоит:
+ ;;
+ ;;
+UpgradeName0;Stronger Armor;	Броня Сильнее
+UpgradeDesc0;Get some better armor, improve your durability.\n\nWith each upgrade, get an extra heart.;Улучши броню, повысь свою выносливость.\n\nКаждое улучшение даёт дополнительное сердце.
+ ;;
+UpgradeName1;Sharper Sword;		Меч Острее
+UpgradeDesc1;That toothpick of yours too weak? A blade must be sharp to truly cut.\n\nBuy to get +1 to attack damage.;Эта твоя зубочиста слабовата? Клинок должен быть острым, дабы по-настоящему резать.\n\nКупи, чтобы повысить урон атаки на 1.
+ ;;
+UpgradeName2;Thermal Guard;		Термозащита
+UpgradeDesc2;Heat and cold can be nasty when extreme. Suit up!\n\nThis upgrade buffs some elemental resists by 25%.;Жар и холод неприятны, когда сильны. Одевайся теплее!\n\nЭто учучшение увеличивает некоторые стихийные сопротивления на 25%.
+ ;;
+ ;;
+TownDayResults;		Day Results;	Итоги дня
+TownBlacksmith;		Blacksmith;		Кузнец
+TownDescend;		Descend;		Спуск
+ ;;
+DayResults0;	Profit;				Прибыль
+DayResults1;	Customers;			Покупатели
+DayResults2;	Items sold;			Продано предметов
+DayResults3;	Most profitable day;Самый прибыльный день
+ ;;
+TownButtonDescend;	Into The Depths;Вниз, в глубины
+ ;;
+TownDay;	Day;	День
+TownLevel;	Level;	Уровень
+TownCost;	Cost;	Стоимость
+ ;;
+ ;;
+ ;;
+ ;;
+TextGottaHaveItShort; Lorem ipsum dolor sit amet...;
+TextGottaHaveIt; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.;

@@ -7,7 +7,7 @@
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 48.0
+radius = 64.0
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.497976 )
@@ -174,13 +174,12 @@ Damage = {
 }
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 disabled = true
 
 [node name="Explosion" type="Node2D" parent="."]
 material = ExtResource( 5 )
-scale = Vector2( 1.5, 1.5 )
+scale = Vector2( 2, 2 )
 
 [node name="C" type="Sprite" parent="Explosion"]
 self_modulate = Color( 1, 0.415686, 0, 0 )
@@ -226,9 +225,8 @@ autoplay = "Init"
 anims/Init = SubResource( 7 )
 
 [node name="Spitfly" type="Sprite" parent="."]
-visible = false
 material = ExtResource( 4 )
-position = Vector2( 8, 4 )
+position = Vector2( -3, 4 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -6 )
 hframes = 4

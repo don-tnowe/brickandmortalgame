@@ -6,7 +6,8 @@
 [ext_resource path="res://Graphics/UI/Button.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/UI/NavigationIcons.png" type="Texture" id=5]
 [ext_resource path="res://Graphics/UI/Dungeon/MapIcons.png" type="Texture" id=6]
-[ext_resource path="res://Resources/Themes/FontDamage.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Resources/Themes/FontUIBorders.tres" type="DynamicFont" id=7]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
