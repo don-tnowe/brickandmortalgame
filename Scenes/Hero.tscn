@@ -1626,13 +1626,13 @@ collision_mask = 2
 [node name="RayLedgeGrab" type="RayCast2D" parent="FlipH"]
 light_mask = 0
 position = Vector2( -6, -13.5 )
-cast_to = Vector2( 12, -1 )
+cast_to = Vector2( 12, 0 )
 collision_mask = 2
 
 [node name="RayLedgeGrabHigher" type="RayCast2D" parent="FlipH"]
 light_mask = 0
 position = Vector2( -6, -25.5 )
-cast_to = Vector2( 12, -1 )
+cast_to = Vector2( 12, 0 )
 collision_mask = 2
 
 [node name="RayLedgeGrabV" type="RayCast2D" parent="FlipH"]
@@ -1761,8 +1761,8 @@ one_shot = true
 
 [connection signal="area_entered" from="Weapon" to="." method="HitEnemy"]
 [connection signal="Defeated" from="CombatCollision" to="." method="Defeated"]
-[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]
 [connection signal="timeout" from="TimerAttack" to="." method="AttackReady"]

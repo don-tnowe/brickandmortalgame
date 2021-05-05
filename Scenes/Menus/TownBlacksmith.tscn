@@ -39,7 +39,7 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-Title = "TownBlacksmith"
+Title = "TownMenuBlacksmith"
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -81,7 +81,7 @@ margin_bottom = 4.0
 rect_min_size = Vector2( 140, 0 )
 rect_scale = Vector2( 0.75, 0.75 )
 theme = ExtResource( 1 )
-text = "UpgradeName0"
+text = "Upgrade0Name"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -108,7 +108,7 @@ margin_right = 88.0
 margin_bottom = 104.0
 rect_scale = Vector2( 0.5, 0.5 )
 theme = ExtResource( 1 )
-text = "UpgradeDesc0"
+text = "Upgrade0Desc"
 autowrap = true
 clip_text = true
 __meta__ = {
@@ -211,7 +211,7 @@ anchor_right = 1.0
 margin_left = 28.0
 margin_bottom = 20.0
 theme = ExtResource( 1 )
-text = "UpgradeName0"
+text = "Upgrade0Name"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -272,7 +272,7 @@ anchor_right = 1.0
 margin_left = 28.0
 margin_bottom = 20.0
 theme = ExtResource( 1 )
-text = "UpgradeName1"
+text = "Upgrade1Name"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -333,7 +333,7 @@ anchor_right = 1.0
 margin_left = 28.0
 margin_bottom = 20.0
 theme = ExtResource( 1 )
-text = "UpgradeName2"
+text = "Upgrade2Name"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false

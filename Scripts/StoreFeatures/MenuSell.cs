@@ -89,9 +89,9 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				opinionText = "Angry";
 				
 			else if (opinion >= 4)
-				opinionText = "High";
+				opinionText = "Concerned";
 			
-			_nodeOpinionLabel.Text = "StoreDialogueRequest" + opinionText + _nodeStoreManager.GetOpinionPersonality();
+			_nodeOpinionLabel.Text = "StoreDialogueRequest" + _nodeStoreManager.GetOpinionPersonality() + opinionText;
 		}
 	}
 }

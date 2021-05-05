@@ -1,0 +1,273 @@
+{
+"code":[
+	"en",
+	"ru"
+	],
+
+"GameName":[
+	"Brick And Mortal: Pit's Treasures",
+	"Brick & Mortal: Сокровища ямы"
+	],
+
+"LangName":[
+	"English",
+	"Русский"
+	],
+
+"AnyButtonPrompt":[
+	"Press any button",
+	"Нажмите любую кнопку"
+	],
+
+"Menu":{
+	"Bag":[
+		"Item Bag",
+		"Сумка Вещей"
+		],
+	"Map":[
+		"Map",
+		"Карта"
+		],
+	"Settings":[
+		"Settings",
+		"Настройки"
+		],
+	"ChooseItem":[
+		"Choose an item!",
+		"Выбери предмет!"
+		]
+},
+
+"Button":{
+	"Cancel": [
+		"Cancel",
+		"Отмена"
+		],
+	"Clear":[
+		"Clear",
+		"Очистить"
+		],
+	"Buy":[
+		"Buy!",
+		"Купить!"
+		],
+	"BuyPrompt":[
+		"Press to buy!",
+		"Нажми, чтобы купить!"
+		],
+	"BuyNoMoney":[
+		"Too pricey...",
+		"Дороговато..."
+		],
+	"SaveExit":[
+		"Save and exit.",
+		"Сохранить и выйти"
+		]
+},	
+
+"Msg":{
+	"BagEmpty":[
+		"Your bag's empty. Get lootin'!",
+		"Сумка пуста. И кому бы её наполнить?"
+			],
+	"MapInStore":[
+		"Hey, this place is confusing by design but come on, you can't get lost in your own store!",
+		"Эй, тут, конечно, всё запутано и так надо, но нельзя же заблудиться в своём же магазине!"
+		],
+	"Max":[
+		"MAX",
+		"МАКС"
+		]
+},
+
+"Map":{
+	"Legend":{
+		"":[
+			"Legend",
+			"Легенда"
+			],
+		"You":[
+			"It's You!",
+			"Это же Ты!"
+			],
+		"Cleared":[
+			"Cleared",
+			"Чисто"
+			],
+		"Treasure":[
+			"Treasure",
+			"Сокровище"
+			],
+		"Traps":[
+			"Trap room",
+			"Комната ловушек"
+			]
+	}
+},
+
+"Item":{
+	"Type":{
+		"0":[
+			"Weapon",
+			"Оружие"
+			],
+		"1":[
+			"Spell",
+			"Заклинание"
+			],
+		"2":[
+			"Body Armor",
+			"Кираса"
+			]
+	}
+},
+
+"Store":{
+	"Prompt":{
+		"Open":[
+			"Open the store!",
+			"Открыть магазин!"
+			],
+		"Shelf":[
+			"Place an item!",
+			"Поставить вещь!"
+			],
+		"Sell":[
+			"Sell this!",
+			"Продать это!"
+			],
+		"AutoShelf":[
+			"Auto-fill all shelves",
+			"Автозаполнение полок"
+			],
+		"Deny":[
+			"Get out!",
+			"Пошёл ты отсюда!"
+			]
+	},
+	"Btn":{
+		"Higher":[
+			"Higher.",
+			"Больше."
+			],
+		"Higher2":[
+			"HIGHER!!!",
+			"БОЛЬШЕ!!!"
+			],
+		"Deny":[
+			"Nah...",
+			"Не-е-е..."
+			],
+		"Accept":[
+			"Sold!",
+			"Продано!"
+			]
+	},
+	"Dialogue":{
+		"Request":{
+			"1":{
+				"":[
+					"I'll buy this, for the price of:",
+					"Я куплю это, за скромную цену в:"
+					],
+				"Concerned":[
+					"Great! Then the better price is:",
+					"Отлично! Тогда лучше подойдёт цена:"
+					],
+				"Angry":[
+					"Oof! This better be amazing if it costs:",
+					"Ух! Лучше бы оно было потрясным, раз оно стоит:"
+					],
+				"Worried":[
+					"Oh no! I'm almost out of money if it costs:",
+					"Ой-ой! Я же разорюсь, раз оно стоит:"
+				]
+			}
+		}
+	}
+},
+"Upgrade":{
+	"0":{
+		"Name":[
+			"Stronger Armor",
+			"Броня Сильнее"
+			],
+		"Desc":[
+			"Get some better armor, improve your durability.\n\nWith each upgrade, get an extra heart.",
+			"Улучши броню, повысь свою выносливость.\n\nКаждое улучшение даёт дополнительное сердце."
+			]
+	},
+	"1":{
+		"Name":[
+			"Sharper Sword",
+			"Меч Острее"
+			],
+		"Desc":[
+			"That toothpick of yours too weak? A blade must be sharp to truly cut.\n\nBuy to get +1 to attack damage.",
+			"Эта твоя зубочиста слабовата? Клинок должен быть острым, дабы по-настоящему резать.\n\nКупи, чтобы повысить урон атаки на 1."
+			]
+	},
+	"2":{
+		"Name":[
+			"Thermal Guard",
+			"Термозащита"
+			],
+		"Desc":[
+			"Heat and cold can be hurtful when extreme. Suit up!\n\nThis upgrade buffs some elemental resists by 25%.",
+			"Жар и холод ранят, когда сильны. Одевайся теплее!\n\nЭто улучшение увеличивает некоторые стихийные сопротивления на 25%."
+			]
+	}
+},
+"Town":{
+	"Day":[
+		"Day",
+		"День"
+		],
+	"Level":[
+		"Level",
+		"Уровень"
+		],
+	"Cost":[
+		"Cost",
+		"Стоимость"
+		],
+	"Menu":{
+		"DayResults":[
+			"Day Results",
+			"Итоги дня"
+			],
+		"Blacksmith":[
+			"Blacksmith",
+			"Кузнец"
+			],
+		"Descend":[
+			"Descend",
+			"Спуск"
+			]
+	},
+	"DayResults":{
+		"0":[
+			"Profit",
+			"Прибыль"
+			],
+		"1":[
+			"Customers",
+			"Покупатели"
+			],
+		"2":[
+			"Items sold",
+			"Продано предметов"
+			],
+		"3":[
+			"Most profitable day",
+			"Самый прибыльный день"
+			]
+	},
+	"Button":{
+		"Descend":[
+			"Into The Depths",
+			"Вниз, в глубины"
+			]
+	}
+}
+}

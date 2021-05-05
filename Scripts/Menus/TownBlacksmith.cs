@@ -75,8 +75,8 @@ namespace BrickAndMortal.Scripts.Menus
 					break;
 			}
 
-			_nodeCurName.Text = "UpgradeName" + upgradeIdx;
-			_nodeCurDesc.Text = Tr("UpgradeDesc" + upgradeIdx).CUnescape();
+			_nodeCurName.Text = "Upgrade" + upgradeIdx + "Name";
+			_nodeCurDesc.Text = Tr("Upgrade" + upgradeIdx + "Desc").CUnescape();
 			_nodeUpgradeLevel.Text = Tr("TownLevel") + " " + upgradeLvl;
 			
 			if (upgradeLvl < 21)

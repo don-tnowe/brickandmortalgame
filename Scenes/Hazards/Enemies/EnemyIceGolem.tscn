@@ -111,6 +111,18 @@ tracks/6/keys = {
 "method": "StartMoving"
 } ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("HeroProximityAttack/Shape:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 1.2

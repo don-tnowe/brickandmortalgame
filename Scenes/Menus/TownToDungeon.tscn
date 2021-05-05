@@ -244,7 +244,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-Title = "TownDescend"
+Title = "TownMenuDescend"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0

@@ -12,7 +12,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-Title = "TownDayResults"
+Title = "TownMenuDayResults"
 
 [node name="BG" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -43,7 +43,7 @@ margin_bottom = 60.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
-text = "DayResults0"
+text = "TownDayResults0"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -59,7 +59,7 @@ rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
-text = "DayResults1"
+text = "TownDayResults1"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -75,7 +75,7 @@ rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
-text = "DayResults2"
+text = "TownDayResults2"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -90,7 +90,7 @@ rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.356863, 0.184314, 0.145098, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
-text = "DayResults3"
+text = "TownDayResults3"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -104,7 +104,7 @@ margin_bottom = -65.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "DayResults4"
+text = "TownDayResults4"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -190,7 +190,7 @@ margin_bottom = -57.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "DayResults4"
+text = "TownDayResults4"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
