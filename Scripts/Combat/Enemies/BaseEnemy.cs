@@ -100,7 +100,7 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			return atk;
 		}
 
-		public void Hurt(CombatAttack byAttack)
+		public virtual void Hurt(CombatAttack byAttack)
 		{
 			LastHitDir = (GlobalPosition.x > byAttack.GlobalPosition.x) ? -1 : 1;
 			if (!AttackInvuln)

@@ -49,7 +49,7 @@ namespace BrickAndMortal.Scripts.HUDs
 					_heartRows[_displayedMax / _heartsPerRow].AddChild(newHeart);
 					_displayedMax++;
 				}
-			CallDeferred("AlignBigHeart");
+			CallDeferred("AlignBigHeart"); //Container alignment must update before this call.
 		}
 
 		public void UpdateHearts()
@@ -79,7 +79,7 @@ namespace BrickAndMortal.Scripts.HUDs
 			_displayedFilled = hearts;
 		}
 
-		public void AlignBigHeart()
+		private void AlignBigHeart()
 		{
 			_heartBig.RectGlobalPosition = _heartsSmall[_displayedFilled].RectGlobalPosition;
 		}

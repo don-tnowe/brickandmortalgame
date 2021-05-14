@@ -1,60 +1,66 @@
-using Godot;
-using System;
 using BrickAndMortal.Scripts.HeroComponents;
+using System;
+using Godot;
 
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
-	class HeroStateGround : HeroState
+	class HeroStateGround : HeroStateMoving
 	{
 		public HeroStateGround(Hero hero) : base(hero)
 		{
-			Hero.NodeTimerCoyote.Stop();
-			InputMove(Hero.InputMoveDirection);
-			if (OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < Hero.InputJumpStart)
-				Hero.CallDeferred("InputJump", true);
-			Hero.NodeAnim.Play("Land");
+			_hero.NodeTimerCoyote.Stop();
+			
+			if (_hero.InputMoveDirection != 0 && (_hero.VelocityX < 0) != (_hero.InputMoveDirection < 0))
+				InputMove(0);
+				
+			InputMove(_hero.InputMoveDirection);
+				
+			if (OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < _hero.InputJumpStart)
+				_hero.CallDeferred("InputJump", true);
+				
+			_hero.NodeAnim.Play("Land");
 		}
 
 		public override void MoveBody(float delta)
 		{
 			base.MoveBody(delta);
-			Hero.Position = new Vector2(Hero.Position.x, (float)Math.Ceiling(Hero.Position.y));
+			_hero.Position = new Vector2(_hero.Position.x, (float)Math.Ceiling(_hero.Position.y));
 
-			if (!Hero.IsOnFloor() && Hero.NodeTimerCoyote.TimeLeft == 0)
+			if (!_hero.IsOnFloor() && _hero.NodeTimerCoyote.TimeLeft == 0)
 			{
-				Hero.NodeTimerCoyote.Start();
-				Hero.InstaTurnStart = OS.GetTicksMsec();
-				Hero.NodeAnim.Play("Fall");
+				_hero.NodeTimerCoyote.Start();
+				_hero.InstaTurnStart = OS.GetTicksMsec();
+				_hero.NodeAnim.Play("Fall");
 			}
-			if (Hero.InputMoveDirection != 0 && Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
+			if (_hero.InputMoveDirection != 0 && _hero.VelocityX * _hero.InputMoveDirection < HeroParameters.MaxSpeed)
 			{
-				Hero.VelocityX += HeroParameters.AccelGround * Hero.InputMoveDirection * delta;
+				_hero.VelocityX += HeroParameters.AccelGround * _hero.InputMoveDirection * delta;
 			}
-			else if (Hero.NodeTimerCoyote.TimeLeft == 0)
+			else if (_hero.NodeTimerCoyote.TimeLeft == 0)
 			{
-				if (Hero.VelocityX > 0)
+				if (_hero.VelocityX > 0)
 				{
-					Hero.VelocityX -= HeroParameters.Brake * delta;
-					if (Hero.VelocityX < 0)
+					_hero.VelocityX -= HeroParameters.Brake * delta;
+					if (_hero.VelocityX < 0)
 						BrakeStop();
 				}
-				else if (Hero.VelocityX < 0)
+				else if (_hero.VelocityX < 0)
 				{
-					Hero.VelocityX += HeroParameters.Brake * delta;
-					if (Hero.VelocityX > 0)
+					_hero.VelocityX += HeroParameters.Brake * delta;
+					if (_hero.VelocityX > 0)
 						BrakeStop();
 				}
-				if (Hero.InputMoveDirection == 0 && !Hero.NodeRayGround.IsColliding())
+				if (_hero.InputMoveDirection == 0 && !_hero.NodeRayGround.IsColliding())
 					BrakeStop();
 			}
 		}
 
 		private void BrakeStop()
 		{
-			Hero.VelocityX = 0;
-			if (Hero.AnimationAllowed)
-				Hero.NodeAnim.Play("Idle");
+			_hero.VelocityX = 0;
+			if (_hero.AnimationAllowed)
+				_hero.NodeAnim.Play("Idle");
 		}
 
 		public override void InputMove(float direction)
@@ -62,24 +68,24 @@ namespace BrickAndMortal.Scripts.HeroStates
 			var directionSign = Math.Sign(direction);
 			if (direction != 0)
 			{
-				Hero.NodeFlipH.Scale = new Vector2(directionSign, 1);
-				if (Hero.InputMoveDirection == 0 && Hero.NodeAnim.CurrentAnimation != "Land")
-					if (Hero.VelocityXSign != directionSign)
+				_hero.NodeFlipH.Scale = new Vector2(directionSign, 1);
+				if (_hero.InputMoveDirection == 0 && _hero.NodeAnim.CurrentAnimation != "Land")
+					if (_hero.VelocityXSign != directionSign)
 					{
-						if (Hero.InstaTurnStart != 0 && Hero.InstaTurnStart > OS.GetTicksMsec() - HeroParameters.MsecInstaTurn)
-							Hero.VelocityX = directionSign * HeroParameters.InstaTurnSpeed;
-						Hero.InstaTurnStart = 0;
-						if (Hero.AnimationAllowed)
-							Hero.NodeAnim.Play("RunTurn");
+						if (_hero.InstaTurnStart != 0 && _hero.InstaTurnStart > OS.GetTicksMsec() - HeroParameters.MsecInstaTurn)
+							_hero.VelocityX = directionSign * HeroParameters.InstaTurnSpeed;
+						_hero.InstaTurnStart = 0;
+						if (_hero.AnimationAllowed)
+							_hero.NodeAnim.Play("RunTurn");
 					}
-					else if (Hero.AnimationAllowed)
-						Hero.NodeAnim.Play("RunStart");
+					else if (_hero.AnimationAllowed)
+						_hero.NodeAnim.Play("RunStart");
 			}
 			else
 			{
-				Hero.VelocityX *= HeroParameters.BrakeInstantMult;
-				if (Hero.AnimationAllowed)
-					Hero.NodeAnim.Play("RunStop");
+				_hero.VelocityX *= HeroParameters.BrakeInstantMult;
+				if (_hero.AnimationAllowed)
+					_hero.NodeAnim.Play("RunStop");
 			}
 		}
 
@@ -87,31 +93,31 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			if (pressed)
 			{
-				Hero.VelocityX += Hero.VelocityXSign;
-				Hero.VelocityY = HeroParameters.Jump;
-				Hero.SwitchState(Hero.States.Air);
+				_hero.VelocityX += _hero.VelocityXSign;
+				_hero.VelocityY = HeroParameters.Jump;
+				_hero.SwitchState(Hero.States.Air);
 
-				Hero.AnimationAllowed = true;
-				Hero.NodeAnim.Play("Jump");
+				_hero.AnimationAllowed = true;
+				_hero.NodeAnim.Play("Jump");
 			}
 		}
 
 		public override void InputAttack()
 		{
-			Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;
-			Hero.NodeAnim.Seek(0);
-			Hero.NodeAnim.Play("AttackGround");
+			_hero.NodeFlipH.Scale = _hero.NodeWeapon.Scale;
+			_hero.NodeAnim.Seek(0);
+			_hero.NodeAnim.Play("AttackGround");
 		}
 		
 		public override void AnimationAction(int action)
 		{
 			if (action == 0)
-				if (Hero.InputMoveDirection != 0)
-					Hero.NodeAnim.Play("RunStart");
-				else if (Hero.VelocityX != 0)
-					Hero.NodeAnim.Play("RunStop");
+				if (_hero.InputMoveDirection != 0)
+					_hero.NodeAnim.Play("RunStart");
+				else if (_hero.VelocityX != 0)
+					_hero.NodeAnim.Play("RunStop");
 				else
-					Hero.NodeAnim.Play("Idle");
+					_hero.NodeAnim.Play("Idle");
 		}
 	}
 }

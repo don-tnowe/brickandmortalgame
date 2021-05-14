@@ -14,7 +14,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			SaveData.Screen = 2;
 			NodeAnim.Play("StoreEnter");
 			GetNode<Sprite>("FlipH/Sprite").Texture = _loadTexture;
-			_inStore = true;
+			_hasWeapon = false;
 		}
 		
 		public void EndDay()

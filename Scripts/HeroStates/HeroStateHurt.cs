@@ -4,30 +4,30 @@ using System;
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
-	class HeroStateHurt : HeroState
+	class HeroStateHurt : HeroStateMoving
 	{
 		public HeroStateHurt(Hero hero) : base(hero) 
 		{
-			Hero.NodeTimerAttack.Stop();
-			Hero.NodeFlipH.Scale = new Vector2(-Math.Sign(Hero.VelocityX), 1);
-			Hero.NodeAnim.Play("Hurt");
+			_hero.NodeTimerAttack.Stop();
+			_hero.NodeFlipH.Scale = new Vector2(-Math.Sign(_hero.VelocityX), 1);
+			_hero.NodeAnim.Play("Hurt");
 		}
 
 		public override void MoveBody(float delta)
 		{
 			base.MoveBody(delta);
-			if (Hero.IsOnFloor())
-				if (Hero.VelocityX > 0)
+			if (_hero.IsOnFloor())
+				if (_hero.VelocityX > 0)
 				{
-					Hero.VelocityX -= HeroParameters.Brake * delta;
-					if (Hero.VelocityX < 0)
-						Hero.VelocityX = 0;
+					_hero.VelocityX -= HeroParameters.Brake * delta;
+					if (_hero.VelocityX < 0)
+						_hero.VelocityX = 0;
 				}
-				else if (Hero.VelocityX < 0)
+				else if (_hero.VelocityX < 0)
 				{
-					Hero.VelocityX += HeroParameters.Brake * delta;
-					if (Hero.VelocityX > 0)
-						Hero.VelocityX = 0;
+					_hero.VelocityX += HeroParameters.Brake * delta;
+					if (_hero.VelocityX > 0)
+						_hero.VelocityX = 0;
 				}
 		}
 	}

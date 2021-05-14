@@ -3,7 +3,7 @@ using BrickAndMortal.Scripts.HeroComponents;
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
-	class HeroStateAir : HeroState
+	class HeroStateAir : HeroStateMoving
 	{
 		public HeroStateAir(Hero hero) : base(hero) { }
 
@@ -11,34 +11,34 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			base.MoveBody(delta);
 
-			if (Hero.IsOnFloor())
-				Hero.SwitchState(Hero.States.Ground);
-			if (Hero.IsOnWall())
-				Hero.SwitchState(Hero.States.Wall);
-			if (Hero.InputMoveDirection != 0)
-				if (Hero.VelocityX * Hero.InputMoveDirection < HeroParameters.MaxSpeed)
-					Hero.VelocityX += HeroParameters.AccelAir * Hero.InputMoveDirection * delta;
-			if (Hero.VelocityY > 0)
+			if (_hero.IsOnFloor())
+				_hero.SwitchState(Hero.States.Ground);
+			if (_hero.IsOnWall())
+				_hero.SwitchState(Hero.States.Wall);
+			if (_hero.InputMoveDirection != 0)
+				if (_hero.VelocityX * _hero.InputMoveDirection < HeroParameters.MaxSpeed)
+					_hero.VelocityX += HeroParameters.AccelAir * _hero.InputMoveDirection * delta;
+			if (_hero.VelocityY > 0)
 			{
-				if (Hero.AnimationAllowed)
-					if (Hero.LastVelocity.y <= 0)
-						Hero.NodeAnim.Play("Fall");
-				if (Hero.VelocityY > HeroParameters.MaxFall)
-					Hero.VelocityY = HeroParameters.MaxFall;
+				if (_hero.AnimationAllowed)
+					if (_hero.LastVelocity.y <= 0)
+						_hero.NodeAnim.Play("Fall");
+				if (_hero.VelocityY > HeroParameters.MaxFall)
+					_hero.VelocityY = HeroParameters.MaxFall;
 			}
 		}
 
 		public override void InputJump(bool pressed)
 		{
-			if (!pressed && Hero.VelocityY < HeroParameters.JumpInterrupted)
-				Hero.VelocityY = HeroParameters.JumpInterrupted;
+			if (!pressed && _hero.VelocityY < HeroParameters.JumpInterrupted)
+				_hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
 
 		public override void InputAttack()
 		{
-			Hero.NodeFlipH.Scale = Hero.NodeWeapon.Scale;
-			Hero.NodeAnim.Seek(0);
-			Hero.NodeAnim.Play("AttackAir");
+			_hero.NodeFlipH.Scale = _hero.NodeWeapon.Scale;
+			_hero.NodeAnim.Seek(0);
+			_hero.NodeAnim.Play("AttackAir");
 		}
 	}
 }

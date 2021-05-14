@@ -4,28 +4,28 @@ using System;
 
 namespace BrickAndMortal.Scripts.HeroStates
 {
-	class HeroStateWall : HeroState
+	class HeroStateWall : HeroStateMoving
 	{
-		private int _wallDirection;
+		protected int _wallDirection;
 		private bool _jumpBuffered = false;
 
-		public HeroStateWall(HeroComponents.Hero hero) : base(hero)
+		public HeroStateWall(Hero hero) : base(hero)
 		{
-			_wallDirection = Hero.VelocityXSign;
-			Hero.NodeFlipH.Scale = new Vector2(_wallDirection, 1);
-			Hero.NodeRayLedgeGrab.Enabled = true;
-			Hero.NodeRayLedgeGrabHigher.Enabled = true;
+			_wallDirection = _hero.VelocityXSign;
+			_hero.NodeFlipH.Scale = new Vector2(_wallDirection, 1);
+			_hero.NodeRayLedgeGrab.Enabled = true;
+			_hero.NodeRayLedgeGrabHigher.Enabled = true;
 
-			if (Hero.VelocityY > 0)
-				Hero.VelocityY *= HeroParameters.WallFrictionInstantMult;
-			if (_wallDirection == -Math.Sign(Hero.InputMoveDirection))
-				Hero.CallDeferred("InputMove", -_wallDirection);
+			if (_hero.VelocityY > 0)
+				_hero.VelocityY *= HeroParameters.WallFrictionInstantMult;
+			if (_wallDirection == -Math.Sign(_hero.InputMoveDirection))
+				_hero.CallDeferred("InputMove", -_wallDirection);
 			if (
-					OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < Hero.InputJumpStart
-					&& Hero.VelocityY >= HeroParameters.JumpInterrupted
+					OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < _hero.InputJumpStart
+					&& _hero.VelocityY >= HeroParameters.JumpInterrupted
 				)
 				_jumpBuffered = true;
-			Hero.NodeAnim.Play("Wall");
+			_hero.NodeAnim.Play("Wall");
 		}
 
 
@@ -33,62 +33,62 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			base.MoveBody(delta);
 			
-			if (Hero.IsOnFloor())
+			if (_hero.IsOnFloor())
 			{
-				Hero.SwitchState(Hero.States.Ground);
+				_hero.SwitchState(Hero.States.Ground);
 				return;
 			}
-			if (Hero.NodeTimerCoyote.TimeLeft == 0)
+			if (_hero.NodeTimerCoyote.TimeLeft == 0)
 			{
-				if (Hero.VelocityY > HeroParameters.MaxFallWall)
-					Hero.VelocityY = HeroParameters.MaxFallWall;
-				if (!Hero.IsOnWall())
+				if (_hero.VelocityY > HeroParameters.MaxFallWall)
+					_hero.VelocityY = HeroParameters.MaxFallWall;
+				if (!_hero.IsOnWall())
 				{
-					Hero.MoveAndSlide(new Vector2(-Hero.VelocityX, Hero.VelocityY), Vector2.Up);
-					Hero.VelocityX = _wallDirection;
-					Hero.SwitchState(Hero.States.Air);
-					if (Hero.VelocityY < 0)
-						Hero.NodeAnim.Play("Jump");
+					_hero.MoveAndSlide(new Vector2(-_hero.VelocityX, _hero.VelocityY), Vector2.Up);
+					_hero.VelocityX = _wallDirection;
+					_hero.SwitchState(Hero.States.Air);
+					if (_hero.VelocityY < 0)
+						_hero.NodeAnim.Play("Jump");
 					else
-						Hero.NodeAnim.Play("Fall");
+						_hero.NodeAnim.Play("Fall");
 					return;
 				}
 				CheckGrabRaycast();
 			}
 			if (_jumpBuffered)
 			{
-				Hero.CallDeferred("InputJump", true);
+				_hero.CallDeferred("InputJump", true);
 				return;
 			}
 		}
 
 		protected virtual void CheckGrabRaycast()
 		{
-			if (!Hero.NodeRayLedgeGrab.IsColliding())
+			if (!_hero.NodeRayLedgeGrab.IsColliding())
 			{
-				Hero.VelocityXSign = _wallDirection;
-				Hero.SwitchState(Hero.States.LedgeGrab);
+				_hero.VelocityXSign = _wallDirection;
+				_hero.SwitchState(Hero.States.LedgeGrab);
 			}
 		}
 
 		public override void ExitState()
 		{
-			Hero.NodeRayLedgeGrab.Enabled = false;
-			Hero.NodeRayLedgeGrabV.Enabled = false;
-			Hero.NodeRayLedgeGrabHigher.Enabled = false;
+			_hero.NodeRayLedgeGrab.Enabled = false;
+			_hero.NodeRayLedgeGrabV.Enabled = false;
+			_hero.NodeRayLedgeGrabHigher.Enabled = false;
 		}
 
 		public override void InputMove(float direction)
 		{
 			if (_wallDirection == -Math.Sign(direction))
 			{
-				Hero.VelocityX = -HeroParameters.JumpWallHorizontalWeak * _wallDirection;
-				Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
-				Hero.NodeTimerCoyote.Start();
-				if (Hero.VelocityY < 0)
-					Hero.NodeAnim.Play("Jump");
+				_hero.VelocityX = -HeroParameters.JumpWallHorizontalWeak * _wallDirection;
+				_hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
+				_hero.NodeTimerCoyote.Start();
+				if (_hero.VelocityY < 0)
+					_hero.NodeAnim.Play("Jump");
 				else
-					Hero.NodeAnim.Play("Fall");
+					_hero.NodeAnim.Play("Fall");
 			}
 		}
 
@@ -96,28 +96,28 @@ namespace BrickAndMortal.Scripts.HeroStates
 		{
 			_jumpBuffered = false;
 			if (pressed)
-				if (Hero.InputMoveDirection == -_wallDirection || Hero.NodeRayLedgeGrabHigher.IsColliding())
+				if (_hero.InputMoveDirection != _wallDirection || _hero.NodeRayLedgeGrabHigher.IsColliding())
 				{
-					Hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
-					Hero.NodeTimerCoyote.Stop();
-					Hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
-					Hero.VelocityY = HeroParameters.JumpWall;
-					Hero.SwitchState(Hero.States.Air);
-					Hero.NodeAnim.Play("Jump");
+					_hero.NodeFlipH.Scale = new Vector2(-_wallDirection, 1);
+					_hero.NodeTimerCoyote.Stop();
+					_hero.VelocityX = -HeroParameters.JumpWallHorizontal * _wallDirection;
+					_hero.VelocityY = HeroParameters.JumpWall;
+					_hero.SwitchState(Hero.States.Air);
+					_hero.NodeAnim.Play("Jump");
 				}
 				else
 				{
-					Hero.VelocityY = HeroParameters.JumpWall;
-					Hero.NodeAnim.Play("LedgeGrabPre");
+					_hero.VelocityY = HeroParameters.JumpWall;
+					_hero.NodeAnim.Play("LedgeGrabPre");
 				}
-			else if (Hero.VelocityY < HeroParameters.JumpInterrupted)
-				Hero.VelocityY = HeroParameters.JumpInterrupted;
+			else if (_hero.VelocityY < HeroParameters.JumpInterrupted)
+				_hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
 		public override void InputAttack()
 		{
-			Hero.NodeWeapon.Scale = new Vector2(-Hero.NodeFlipH.Scale.x, 1);
-			Hero.NodeAnim.Seek(0);
-			Hero.NodeAnim.Play("AttackWall");
+			_hero.NodeWeapon.Scale = new Vector2(-_hero.NodeFlipH.Scale.x, 1);
+			_hero.NodeAnim.Seek(0);
+			_hero.NodeAnim.Play("AttackWall");
 		}
 	}
 }

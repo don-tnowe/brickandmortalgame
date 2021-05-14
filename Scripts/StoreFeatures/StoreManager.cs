@@ -121,6 +121,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			HighlightSellableItems();
 			NextCustomer();
 
+			GetNode<MenuItemBag>("/root/Node/UI/OverlayMenus/Menus/ItemBag").RestrictedItems = null;
+			//TODO: Change how restricted items display in the bag: removing an item causes a crash.
 			GetNode<AnimationPlayer>("Hero/Anim").Play("StoreDayStart");
 		}
 
@@ -242,7 +244,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			{
 				_currentCustomerNode = _nodeCustomers.GetChild<CustomerInStore>(_customersLeft);
 				_currentCustomer = _dayCustomers[_customersLeft];
-				_currentCustomer.NewOrder();
+				_currentCustomer.Initialize(_random);
 				_currentCustomerNode.PlayAnimation("Step0");
 			}
 

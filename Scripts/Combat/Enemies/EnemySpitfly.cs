@@ -12,13 +12,15 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 		private const float _proximityDistanceSquared = 32 * 32;
 
 		private RayCast2D _nodeRayGround;
-		private RayCastFollow2D _nodeRayLOS;
-
+		private RayCastLOS2D _nodeRayLOS;
+		private Node2D _nodeTarget;
+		
 		public override void _Ready()
 		{
 			base._Ready();
 			_nodeRayGround = GetNode<RayCast2D>("RayGround");
-			_nodeRayLOS = GetNode<RayCastFollow2D>("LOS");
+			_nodeRayLOS = GetNode<RayCastLOS2D>("LOS");
+			_nodeTarget = (Node2D)GetNode("/root/Node/Hero");
 		}
 
 		public override void PhysMoveBody(float delta)
@@ -35,7 +37,7 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 
 		public void StartMoving()
 		{
-			if (!_nodeRayLOS.IsColliding())
+			if (!_nodeRayLOS.HasLOS(_nodeTarget))
 			{
 				SetXFlipped(_nodeRayLOS.CastTo.x < 0);
 
@@ -101,6 +103,14 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 		public void Attack()
 		{
 			SpawnAtk(_sceneAtk, true, _nodeRayLOS.CastTo);
+		}
+		
+		public override void Hurt(CombatAttack byAttack)
+		{
+			base.Hurt(byAttack);
+			
+			if (byAttack.HasNode(byAttack.Attacker))
+				_nodeTarget = (Node2D)byAttack.GetNode(byAttack.Attacker);
 		}
 	}
 }

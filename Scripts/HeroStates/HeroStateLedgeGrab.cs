@@ -6,14 +6,12 @@ namespace BrickAndMortal.Scripts.HeroStates
 {
 	class HeroStateLedgeGrab : HeroStateWall
 	{
-		private int _wallDirection;
 		private bool _grabbed = false;
 
 		public HeroStateLedgeGrab(Hero hero) : base(hero)
 		{
-			_wallDirection = Hero.VelocityXSign;
-			Hero.NodeRayLedgeGrabV.Enabled = true;
-			Hero.NodeAnim.Play("LedgeGrabPre");
+			_hero.NodeRayLedgeGrabV.Enabled = true;
+			_hero.NodeAnim.Play("LedgeGrabPre");
 		}
 
 		public override void MoveBody(float delta)
@@ -24,11 +22,11 @@ namespace BrickAndMortal.Scripts.HeroStates
 
 		protected override void CheckGrabRaycast()
 		{
-			if (Hero.NodeRayLedgeGrab.IsColliding())
+			if (_hero.NodeRayLedgeGrab.IsColliding())
 			{
-				Hero.GlobalPosition = new Vector2(Hero.Position.x, Hero.NodeRayLedgeGrabV.GetCollisionPoint().y + 9);
+				_hero.GlobalPosition = new Vector2(_hero.Position.x, _hero.NodeRayLedgeGrabV.GetCollisionPoint().y + 9);
 				_grabbed = true;
-				Hero.NodeAnim.Play("LedgeGrab");
+				_hero.NodeAnim.Play("LedgeGrab");
 			}
 		}
 
@@ -44,28 +42,28 @@ namespace BrickAndMortal.Scripts.HeroStates
 		public override void InputJump(bool pressed)
 		{
 			if (pressed)
-				if (Hero.InputMoveDirection == -_wallDirection)
+				if (_hero.InputMoveDirection == -_wallDirection)
 					base.InputJump(true);
 				else
 				{
-					Hero.VelocityY = HeroParameters.JumpWall;
+					_hero.VelocityY = HeroParameters.JumpWall;
 					_grabbed = false;
-					Hero.NodeAnim.Play("LedgeGrabPre");
+					_hero.NodeAnim.Play("LedgeGrabPre");
 				}
-			else if (Hero.VelocityY < HeroParameters.JumpInterrupted)
-				Hero.VelocityY = HeroParameters.JumpInterrupted;
+			else if (_hero.VelocityY < HeroParameters.JumpInterrupted)
+				_hero.VelocityY = HeroParameters.JumpInterrupted;
 		}
 
 		public override void InputAttack()
 		{
-			Hero.NodeAnim.Seek(0);
+			_hero.NodeAnim.Seek(0);
 			if (_grabbed)
 			{
-				Hero.NodeWeapon.Scale = new Vector2(-Hero.NodeFlipH.Scale.x, 1);
-				Hero.NodeAnim.Play("AttackLedge");
+				_hero.NodeWeapon.Scale = new Vector2(-_hero.NodeFlipH.Scale.x, 1);
+				_hero.NodeAnim.Play("AttackLedge");
 			}
 			else 
-				Hero.NodeAnim.Play("AttackAir");
+				_hero.NodeAnim.Play("AttackAir");
 		}
 	}
 }

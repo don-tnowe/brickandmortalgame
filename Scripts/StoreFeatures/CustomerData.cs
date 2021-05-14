@@ -50,12 +50,13 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		private int _lastOrderStartPrice;
 		private int _lastOrderDenyPrice;
 
-		private System.Random _random = new System.Random();
+		private System.Random _random;
 
-		public void NewOrder()
+		public void Initialize(System.Random randomizer)
 		{
+			_random = randomizer;
 			_lastOrderEquipFlags = _needsTypes[_random.Next(_needsTypes.Length)];
-			_lastOrderEnchants = ItemData.GetRandomEnchants(_needsEnchants, _needsMin + _random.Next(_needsMax - _needsMin + 1), _lastOrderEquipFlags, _random);
+			_lastOrderEnchants = ItemEnchantment.GetRandomEnchants(_needsEnchants, _needsMin + _random.Next(_needsMax - _needsMin + 1), _lastOrderEquipFlags, _random);
 		}
 
 		public bool WillBuyItem(Item item)
@@ -92,7 +93,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				var idx = item.HeldEnchantments[0][i];
 				var value = item.HeldEnchantments[1][i];
 				if (_multipliersEnchants.ContainsKey(idx))
-					price += value * ItemData.AllEnchantments[idx].BaseValue * _multipliersEnchants[idx];
+					price += value * ItemEnchantment.AllEnchantments[idx].BaseValue * _multipliersEnchants[idx];
 			}
 
 			if (price < 1)

@@ -18,7 +18,8 @@ namespace BrickAndMortal.Scripts.InteractableProps
 		[Signal]
 		public delegate void Interacted(InteractableArea with);
 
-		public bool Interactable {
+		public bool Interactable 
+		{
 			set 
 			{
 				_interactable = value;
@@ -32,7 +33,7 @@ namespace BrickAndMortal.Scripts.InteractableProps
 		
 		public override void _Ready() 
 		{
-			Interactable = _interactable;
+			Interactable = _interactable; //Call the property's setter - it's not called if value changes through editor
 		}
 		
 		public void HeroEntered(HeroComponents.Hero hero)

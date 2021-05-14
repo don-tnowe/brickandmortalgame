@@ -29,10 +29,10 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public float InputMoveDirection = 0;
 		public uint InputJumpStart = 0;
 		public uint InputAttackStart = 0;
-		protected bool _inStore = false;
+		protected bool _hasWeapon = true;
 		private bool _canAttack = true;
 
-		private HeroState _controller;
+		private HeroStateBase _controller;
 
 		public InteractableProps.InteractableArea NodeInteractableArea;
 
@@ -129,14 +129,14 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			}
 		}
 
-		public HeroState SwitchState(States state)
+		public HeroStateBase SwitchState(States state)
 		{
 			_controller?.ExitState();
 			CurState = state;
 			switch (state)
 			{
 				case States.Immobile:
-					_controller = new HeroStateImmobile(this);
+					_controller = new HeroStateBase(this);
 					break;
 				case States.Ground:
 					_controller = new HeroStateGround(this);
@@ -151,6 +151,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 					_controller = new HeroStateLedgeGrab(this);
 					break;
 			}
+			NodeTimerCoyote.Stop();
 			return _controller;
 		}
 
@@ -191,7 +192,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 				return;
 			}
 
-			if (_inStore || !_canAttack)
+			if (!_hasWeapon || !_canAttack)
 				return;
 
 			_canAttack = false;
@@ -236,7 +237,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 				InputAttack(true);
 		}
 
-		private void HitEnemy(object area)
+		private void HitEnemy(Area2D area)
 		{
 			VelocityX *= 0.5f;
 		}
