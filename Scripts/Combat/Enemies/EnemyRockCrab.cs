@@ -5,9 +5,6 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 {
 	class EnemyRockCrab : BaseEnemy
 	{
-		[Export]
-		private PackedScene _sceneAtk;
-
 		private RayCast2D _nodeRayGround;
 
 		public override void _Ready()
@@ -39,16 +36,14 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			PlayAnim("Move");
 		}
 
-		private void HeroProximity(object area)
+		private void HeroProximity(Area2D area)
 		{
 			CurState = 2; // Attack
 			PlayAnim("Attack");
 		}
-
-
-		private void Attack()
-		{
-			SpawnAtk(_sceneAtk);
-		}
 	}
 }
+
+
+
+

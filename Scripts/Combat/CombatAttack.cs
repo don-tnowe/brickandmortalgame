@@ -21,6 +21,17 @@ namespace BrickAndMortal.Scripts.Combat
 		public Dictionary<Elements, float> Damage;
 		[Export]
 		public NodePath Attacker;
+		[Export]
+		public bool AttackerBackfire = false;
+
+		public CombatActor GetAttacker() 
+		{
+			if (Attacker == null || !HasNode(Attacker) || !(GetNode(Attacker) is CombatActor))
+				return null; 
+				
+			else 
+				return GetNode<CombatActor>(Attacker);
+		}
 
 		public virtual void HitTarget(CombatActor target) { }
 

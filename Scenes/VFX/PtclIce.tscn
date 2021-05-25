@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=1]
-[ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/VFX/CircleSoft.png" type="Texture" id=2]
 
 [sub_resource type="Curve" id=1]
 min_value = -11.08
@@ -48,7 +48,7 @@ width = 2
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 8.0
+initial_velocity = 24.0
 initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
@@ -58,7 +58,7 @@ color_ramp = SubResource( 7 )
 
 [node name="Particles2D" type="Particles2D"]
 material = ExtResource( 1 )
-amount = 60
+amount = 120
 lifetime = 0.75
 local_coords = false
 draw_order = 1
@@ -72,7 +72,7 @@ self_modulate = Color( 0.788235, 0.843137, 0.847059, 1 )
 show_behind_parent = true
 material = ExtResource( 1 )
 z_index = -1
-amount = 30
+amount = 120
 local_coords = false
 process_material = SubResource( 8 )
 texture = ExtResource( 2 )

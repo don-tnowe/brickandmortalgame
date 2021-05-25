@@ -12,6 +12,8 @@ namespace BrickAndMortal.Scripts.Combat
 		private int _health = 20;
 
 		[Signal]
+		private delegate void Hit(CombatAttack byAttack);
+		[Signal]
 		private delegate void HealthSet(int value);
 		[Signal]
 		private delegate void HealthSetMax(int value);
@@ -57,6 +59,10 @@ namespace BrickAndMortal.Scripts.Combat
 
 		public virtual void Hurt(CombatAttack byAttack)
 		{
+			if (!byAttack.AttackerBackfire && byAttack.GetAttacker() == (CombatActor)this)
+				return;
+			
+			EmitSignal(nameof(Hit), byAttack);
 			byAttack.HitTarget(this);
 			var damage = 0;
 			var multi = 1f;

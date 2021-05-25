@@ -9,7 +9,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		[Godot.Signal]
 		public delegate void AddedItem(string itemJSON);
 
-		private List<string> _items = new List<string>();
+		private List<Item> _items = new List<Item>();
 
 
 		public void CollectItem(Item item)
@@ -17,41 +17,37 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			item.Uid = ItemsCollected;
 			ItemsCollected++;
 
-			AddItem(item.ToJSON());
-			EmitSignal(nameof(AddedItem), item.ToJSON());
+			AddItem(item);
+			EmitSignal(nameof(AddedItem), item);
 
 			SaveData.SaveGame();
 		}
 
-		public void AddItem(string item)
+		public void AddItem(Item item)
 		{
 			_items.Add(item);
 		}
 
 		public void RemoveItem(int uid)
 		{
-			var uidStr = uid.ToString();
 			for (int i = 0; i < _items.Count; i++)
-				if (_items[i].StartsWith("{\"Id\":" + uidStr))
+				if (_items[i].Uid == uid)
 				{
 					_items.RemoveAt(i);
 					break;
 				}
+
 			SaveData.SaveGame();
 		}
 
 		public Item[] GetItemArray()
 		{
-			var returnValue = new Item[_items.Count];
-			for (int i = 0; i < returnValue.Length; i++)
-				returnValue[i] = new Item(_items[i]);
-			return returnValue;
+			return _items.ToArray();
 		}
 
 		public void Clear()
 		{
-			_items = new List<string>();
-
+			_items = new List<Item>();
 		}
 
 		public int GetItemCount()
@@ -66,7 +62,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 			{
 				if (i > 0)
 					returnValue += ", ";
-				returnValue += "\"" + _items[i].Replace("\"", "\\\"") + "\"";
+				returnValue += "\"" + _items[i].ToJSON().Replace("\"", "\\\"") + "\"";
 			}
 			returnValue += "]";
 

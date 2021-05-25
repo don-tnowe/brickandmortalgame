@@ -147,8 +147,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			
 			var item = shelf.HeldItem;
 
-			_currentPrice = _currentCustomer.GetItemStartingPrice(item);
-			_currentDeny = _currentCustomer.GetStartingDeny();
+			_currentCustomer.StartNegotiation(item);
 			_nodeMenuSell.OpenMenu(item);
 			HighlightSellableItems();
 
@@ -168,31 +167,31 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 		public void RaisePrice()
 		{
-			if (_currentDeny > _random.NextDouble() * 0.5)
+			if (_currentCustomer.CurrentDeny > _random.NextDouble() * 0.5)
 			{ 
 				DenyByCustomer();
 				return;
 			}
-			_currentPrice = _currentCustomer.GetIncrementedPrice(_currentPrice);
-			_currentDeny = _currentCustomer.GetIncrementedDeny(_currentPrice, _currentDeny);
+			_currentCustomer.IncrementPrice();
+			_currentCustomer.IncrementDeny();
 		}
 
 		public void SuperRaisePrice()
 		{
-			if (_currentDeny > _random.NextDouble())
+			if (_currentCustomer.CurrentDeny > _random.NextDouble())
 			{
 				DenyByCustomer();
 				return;
 			}
-			_currentPrice = _currentCustomer.GetSuperIncrementedPrice(_currentPrice);
-			_currentDeny = _currentCustomer.GetIncrementedDeny(_currentPrice, _currentDeny);
+			_currentCustomer.SuperIncrementPrice();
+			_currentCustomer.IncrementDeny();
 		}
 
 		public void AcceptSale()
 		{
 			SaveData.LastDaySold++;
-			SaveData.Money += _currentPrice;
-			SaveData.LastDayEarned += _currentPrice;
+			SaveData.Money += _currentCustomer.CurrentPrice;
+			SaveData.LastDayEarned += _currentCustomer.CurrentPrice;
 			SaveData.ItemBag.RemoveItem(_nodeNegotiatedShelf.HeldItem.Uid);
 
 			_currentCustomerNode.PlayAnimation("ItemReceived");
@@ -300,12 +299,12 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 		
 		public int GetNegotiationPrice()
 		{
-			return _currentPrice;
+			return _currentCustomer.CurrentPrice;
 		}
 
 		public int GetPriceOpinion()
 		{
-			return _currentCustomer.GetPriceOpinion(_currentPrice, _currentDeny);
+			return _currentCustomer.GetPriceOpinion();
 		}
 
 		public int GetOpinionPersonality()

@@ -27,7 +27,7 @@ StorePromptOpen;Open the store!;Открыть магазин!
 StorePromptShelf;Place an item!;Поставить вещь!
 StorePromptSell;Sell this!;Продать это!
 StorePromptAutoShelf;Auto-fill all shelves;Автозаполнение полок
-StorePromptDeny;Get out!;Пошёл ты отсюда!
+StorePromptDeny;Get out!;Иди отсюда!
 StoreBtnHigher;Higher.;Больше.
 StoreBtnHigher2;HIGHER!!!;БОЛЬШЕ!!!
 StoreBtnDeny;Nah...;Не-е-е...

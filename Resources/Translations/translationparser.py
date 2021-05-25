@@ -20,4 +20,5 @@ def recursive_parse(v, name):
 recursive_parse(values, "")
 
 a = input("JSON Converted to CSV. Press ENTER to save.")
-        
+
+# TODO: Add code for exporting only English, Comment and a language of choice into JSON.

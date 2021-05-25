@@ -5,9 +5,6 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 {
 	class EnemyIceGolem : BaseEnemy
 	{
-		[Export]
-		private PackedScene _sceneAtk;
-
 		private RayCast2D _nodeRayGround;
 
 		public override void _Ready()
@@ -40,13 +37,13 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			PlayAnim("Move");
 		}
 
-		private void HeroProximity(object area)
+		private void HeroProximity(Area2D area)
 		{
 			CurState = 2; // Attack
 			PlayAnim("Attack");
 		}
 
-		private void HeroProximityBehind(object area)
+		private void HeroProximityBehind(Area2D area)
 		{
 			if (CurState == 0)
 			{
@@ -54,12 +51,11 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 				SetXFlipped(PhysVelocityXFlip < 0);
 			}
 		}
-
-		private void Attack()
-		{
-			SpawnAtk(_sceneAtk);
-		}
 	}
 }
+
+
+
+
 
 

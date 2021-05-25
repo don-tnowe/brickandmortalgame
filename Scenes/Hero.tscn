@@ -1609,12 +1609,14 @@ light_mask = 0
 position = Vector2( 0, 2.5 )
 
 [node name="Sprite" type="Sprite" parent="FlipH"]
-position = Vector2( 0, 9.5 )
+position = Vector2( 0, 21.5 )
+rotation = 0.174533
+scale = Vector2( 0.5, 1.8 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -12 )
 hframes = 8
 vframes = 8
-frame = 18
+frame = 56
 
 [node name="RayGround" type="RayCast2D" parent="FlipH"]
 light_mask = 0
@@ -1761,7 +1763,7 @@ one_shot = true
 
 [connection signal="area_entered" from="Weapon" to="." method="HitEnemy"]
 [connection signal="Defeated" from="CombatCollision" to="." method="Defeated"]
-[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="Hit" from="CombatCollision" to="." method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
 [connection signal="timeout" from="CombatCollision/TimerInvuln" to="CombatCollision" method="InvulnEnd"]
 [connection signal="timeout" from="TimerCoyote" to="." method="CoyoteFall"]

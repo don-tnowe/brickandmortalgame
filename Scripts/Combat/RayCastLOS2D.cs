@@ -10,7 +10,7 @@ namespace BrickAndMortal.Scripts.Combat
 			CastTo = (to.GlobalPosition - GlobalPosition);
 			GlobalScale = Vector2.One;
 			ForceRaycastUpdate();
-			return base.IsColliding();
+			return !base.IsColliding();
 		}
 	}
 }

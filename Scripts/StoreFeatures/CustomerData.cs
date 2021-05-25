@@ -44,9 +44,12 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			{3, 1},
 			{4, 1}
 		};
-
+		
+		public int CurrentPrice;
+		public float CurrentDeny;
+		
 		private EquipFlags _lastOrderEquipFlags;
-		private int[] _lastOrderEnchants;
+		private ItemEnchantment[] _lastOrderEnchants;
 		private int _lastOrderStartPrice;
 		private int _lastOrderDenyPrice;
 
@@ -57,6 +60,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			_random = randomizer;
 			_lastOrderEquipFlags = _needsTypes[_random.Next(_needsTypes.Length)];
 			_lastOrderEnchants = ItemEnchantment.GetRandomEnchants(_needsEnchants, _needsMin + _random.Next(_needsMax - _needsMin + 1), _lastOrderEquipFlags, _random);
+			CurrentDeny = _denyChanceInit;
 		}
 
 		public bool WillBuyItem(Item item)
@@ -70,8 +74,8 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			for (int i = 0; i < _lastOrderEnchants.Length; i++)
 			{
 				var found = false;
-				for (int j = 0; j < item.HeldEnchantments[0].Length; j++)
-					if (item.HeldEnchantments[1][j] > 0 && item.HeldEnchantments[0][j] == _lastOrderEnchants[i])
+				for (int j = 0; j < item.HeldEnchantments.Length; j++)
+					if (item.HeldEnchantmentValues[j] > 0 && item.HeldEnchantments[j] == _lastOrderEnchants[i])
 						found = true;
 
 				if (!found)
@@ -80,7 +84,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 			return true;
 		}
 
-		public int GetItemStartingPrice(Item item)
+		public void StartNegotiation(Item item)
 		{
 			float price = 
 				item.Power * _multiplierPower
@@ -88,12 +92,13 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				+ item.Magic * _multiplierMagic
 				;
 
-			for (int i = 0; i < item.HeldEnchantments[0].Length; i++)
+			for (int i = 0; i < item.HeldEnchantments.Length; i++)
 			{
-				var idx = item.HeldEnchantments[0][i];
-				var value = item.HeldEnchantments[1][i];
-				if (_multipliersEnchants.ContainsKey(idx))
-					price += value * ItemEnchantment.AllEnchantments[idx].BaseValue * _multipliersEnchants[idx];
+				var ench = item.HeldEnchantments[i];
+				var value = item.HeldEnchantmentValues[i];
+
+				if (ench != null && _multipliersEnchants.ContainsKey(ench.Id))
+					price += value * ench.BaseValue * _multipliersEnchants[ench.Id];
 			}
 
 			if (price < 1)
@@ -101,43 +106,41 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			_lastOrderDenyPrice = (int)(price * _denyPriceMultiplier);
 			_lastOrderStartPrice = (int)price;
-			return (int)(price * (_random.NextDouble() * 0.5 + 0.5) * _minPriceMultiplier);
+			
+			CurrentPrice = (int)(price * (_random.NextDouble() * 0.5 + 0.5) * _minPriceMultiplier);
 		}
 
-		public float GetStartingDeny()
+		public void IncrementDeny()
 		{
-			return _denyChanceInit;
+			if (CurrentPrice > _lastOrderDenyPrice)
+				CurrentDeny += _denyChanceIncrement;
 		}
 
-		public float GetIncrementedDeny(int currentPrice, float currentDeny)
+		public void IncrementPrice()
 		{
-			if (currentPrice > _lastOrderDenyPrice)
-				return currentDeny + _denyChanceIncrement;
-			else
-				return currentDeny;
+			var halfIncrement = (int)(_priceIncrementMultiplier * 0.5f * CurrentPrice);
+			CurrentPrice += (_random.Next(halfIncrement) + halfIncrement);
 		}
 
-		public int GetIncrementedPrice(int currentPrice)
+		public void SuperIncrementPrice()
 		{
-			var halfIncrement = (int)(_priceIncrementMultiplier * _lastOrderStartPrice / 2);
-			return currentPrice + _random.Next(halfIncrement) + halfIncrement;
+			var halfIncrement = (int)(_priceIncrementMultiplier * CurrentPrice);
+			CurrentPrice += _random.Next(halfIncrement) + halfIncrement;
 		}
 
-		public int GetSuperIncrementedPrice(int currentPrice)
-		{
-			var halfIncrement = (int)(_priceIncrementMultiplier * _lastOrderStartPrice * 4);
-			return currentPrice + _random.Next(halfIncrement) + halfIncrement;
-		}
-
-		public int GetPriceOpinion(int currentPrice, float currentDeny)
+		public int GetPriceOpinion()
 		{
 			float opinion;
-			if (currentPrice < _lastOrderDenyPrice)
-				opinion = (float)currentPrice / _lastOrderDenyPrice * 2;
-			else if (currentDeny + _denyChanceInit <= 0)
-				opinion = 2 - currentDeny / _denyChanceInit;
+			
+			if (CurrentPrice < _lastOrderDenyPrice)
+				opinion = (float)CurrentPrice / _lastOrderDenyPrice * 2;
+				
+			else if (CurrentDeny + _denyChanceInit <= 0)
+				opinion = 2 - CurrentDeny / _denyChanceInit;
+				
 			else
-				opinion = 3 + (currentDeny + _denyChanceInit);
+				opinion = 3 + (CurrentDeny + _denyChanceInit);
+				
 			return (int)(_opinionCurve.Interpolate(opinion / 4) * 16);
 		}
 		
@@ -201,7 +204,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 				else
 				{
 					box.GetChild<CanvasItem>(i).Visible = true;
-					box.GetChild(i).GetChild<Sprite>(0).Frame = _lastOrderEnchants[i - 1];
+					box.GetChild(i).GetChild<Sprite>(0).Frame = _lastOrderEnchants[i - 1].Id;
 				}
 			box.RectSize = new Vector2(0, box.RectSize.y);
 		}

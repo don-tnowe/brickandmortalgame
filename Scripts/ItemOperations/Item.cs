@@ -3,7 +3,7 @@ using Godot;
 
 namespace BrickAndMortal.Scripts.ItemOperations
 {
-	public class Item
+	public class Item : Reference //Inherit
 	{
 		public int Uid;
 		public string Pool;
@@ -12,7 +12,8 @@ namespace BrickAndMortal.Scripts.ItemOperations
 		public int Power;
 		public int Shine;
 		public int Magic;
-		public int[][] HeldEnchantments = new int[][] { new int[4], new int[4]};
+		public ItemEnchantment[] HeldEnchantments = new ItemEnchantment[4];
+		public int[] HeldEnchantmentValues = new int[4];
 
 		public int Frame;
 		public int CrawlNumber;
@@ -35,14 +36,14 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 			for (int i = 0; i < enchants.GetArrayLength(); ++i)
 			{
-				HeldEnchantments[0][i] = enchants[i].GetInt32();
+				HeldEnchantments[i] = ItemEnchantment.GetEnchant(enchants[i].GetInt32());
 			}
 
 			enchants = parsed["EnchantValues"];
 
 			for (int i = 0; i < enchants.GetArrayLength(); ++i)
 			{
-				HeldEnchantments[1][i] = enchants[i].GetInt32();
+				HeldEnchantmentValues[i] = enchants[i].GetInt32();
 			}
 
 			Frame = parsed["Frame"].GetInt32();
@@ -51,7 +52,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 
 		public string ToJSON()
 		{
-			// Seed MUST be the first value.
+			// UID MUST be the first value.
 			var returnValue = "{"
 				+ "\"Id\":" + Uid
 				+ ", \"Pool\":\"" + Pool + "\""
@@ -60,19 +61,23 @@ namespace BrickAndMortal.Scripts.ItemOperations
 				+ ", \"Shine\":" + Shine
 				+ ", \"Magic\":" + Magic + ", \"Enchants\":["
 				;
-			for (int i = 0; i < HeldEnchantments[0].Length; ++i)
+			for (int i = 0; i < HeldEnchantments.Length; ++i)
 			{
+				if (HeldEnchantments[i] == null)
+					break;
+					
 				if (i != 0)
 					returnValue += ", ";
-				returnValue += HeldEnchantments[0][i];
+					
+				returnValue += HeldEnchantments[i].Id;
 			}
 			returnValue += "], \"EnchantValues\":[";
 
-			for (int i = 0; i < HeldEnchantments[1].Length; ++i)
+			for (int i = 0; i < HeldEnchantmentValues.Length; ++i)
 			{
 				if (i != 0)
 					returnValue += ", ";
-				returnValue += HeldEnchantments[1][i];
+				returnValue += HeldEnchantmentValues[i];
 			}
 
 			returnValue += "], \"Frame\":" + Frame;

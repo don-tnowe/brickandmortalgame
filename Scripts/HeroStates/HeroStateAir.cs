@@ -6,7 +6,16 @@ namespace BrickAndMortal.Scripts.HeroStates
 	class HeroStateAir : HeroStateMoving
 	{
 		public HeroStateAir(Hero hero) : base(hero) { }
-
+		
+		public override void EnterState()
+		{
+			if (_hero.VelocityY > 0)
+				_hero.NodeAnim.Play("Fall");
+				
+			else
+				_hero.NodeAnim.Play("Jump");
+		}
+		
 		public override void MoveBody(float delta)
 		{
 			base.MoveBody(delta);

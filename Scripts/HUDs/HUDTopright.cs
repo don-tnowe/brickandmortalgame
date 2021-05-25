@@ -28,10 +28,8 @@ namespace BrickAndMortal.Scripts.HUDs
 			CallDeferred(nameof(UpdateItemCount));
 		}
 		
-		private void ItemCollect(string itemJson)
+		private void ItemCollect(Item item)
 		{
-			var item = new Item(itemJson);
-
 			_nodeFlyingItem.GetChild<Sprite>(0).Frame = item.ItemType * 8 + item.Frame;
 			_nodeFlyingItem.Position = _nodeHero.GlobalPosition - _nodeHero.NodeCam.GetCameraScreenCenter();
 

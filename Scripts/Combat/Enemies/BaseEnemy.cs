@@ -15,6 +15,8 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 		[Export]
 		public float PhysGravity = HeroParameters.GravityJump;
 		[Export]
+		private NodePath _pathCombatActor = "CombatCollision";
+		[Export]
 		private PackedScene _sceneDefeated;
 		[Export]
 		private PackedScene _sceneHit;
@@ -87,14 +89,15 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			{
 				GetParent().GetParent().AddChild(atk);
 				atk.GlobalPosition = GlobalPosition;
-				atk.Attacker = atk.GetPathTo(this);
 			}
 			else
 			{
 				AddChild(atk);
-				atk.Attacker = "..";
 			}
 
+			if (HasNode(_pathCombatActor))
+				atk.Attacker = atk.GetPathTo(GetNode(_pathCombatActor));
+			
 			atk.Launch(dir);
 
 			return atk;

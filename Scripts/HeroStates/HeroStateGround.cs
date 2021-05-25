@@ -7,7 +7,9 @@ namespace BrickAndMortal.Scripts.HeroStates
 {
 	class HeroStateGround : HeroStateMoving
 	{
-		public HeroStateGround(Hero hero) : base(hero)
+		public HeroStateGround(Hero hero) : base(hero) { }
+		
+		public override void EnterState() 
 		{
 			_hero.NodeTimerCoyote.Stop();
 			
@@ -31,7 +33,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 			{
 				_hero.NodeTimerCoyote.Start();
 				_hero.InstaTurnStart = OS.GetTicksMsec();
-				_hero.NodeAnim.Play("Fall");
 			}
 			if (_hero.InputMoveDirection != 0 && _hero.VelocityX * _hero.InputMoveDirection < HeroParameters.MaxSpeed)
 			{
@@ -98,7 +99,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 				_hero.SwitchState(Hero.States.Air);
 
 				_hero.AnimationAllowed = true;
-				_hero.NodeAnim.Play("Jump");
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 		
 		public override void AnimationAction(int action)
 		{
-			if (action == 0)
+			if (action == 0) 
 				if (_hero.InputMoveDirection != 0)
 					_hero.NodeAnim.Play("RunStart");
 				else if (_hero.VelocityX != 0)

@@ -5,13 +5,13 @@ namespace BrickAndMortal.Scripts.ItemOperations
 {
 	public class ItemEnchantment
 	{
-		public int Id = 0;
-		public string Name = "Undefined";
-		public int MagicCost = 6;
-		public int BaseValue = 10;
-		public EquipFlags ApplicableTo = EquipFlags.All;
+		public int Id;
+		public string Name;
+		public int MagicCost;
+		public int BaseValue;
+		public EquipFlags ApplicableTo;
 		
-		public static ItemEnchantment[] AllEnchantments =
+		private static ItemEnchantment[] _allEnchantments =
 		{
 			 new ItemEnchantment() {
 					Id = 0, Name = "Sharpness",
@@ -20,7 +20,7 @@ namespace BrickAndMortal.Scripts.ItemOperations
 				},
 			 new ItemEnchantment() {
 					Id = 1, Name = "Spellpower",
-					MagicCost = 3, BaseValue = 0,
+					MagicCost = 3, BaseValue = 3,
 					ApplicableTo = EquipFlags.Spell
 				},
 			 new ItemEnchantment() {
@@ -55,33 +55,41 @@ namespace BrickAndMortal.Scripts.ItemOperations
 				}
 		};
 
-		public static int[] GetRandomEnchants(int[] from, int count, EquipFlags equipFlags, Random random = null)
+		public static ItemEnchantment GetEnchant(int idx)
+		{
+			return _allEnchantments[idx];
+		}
+
+		public static ItemEnchantment[] GetRandomEnchants(int[] enchPool, int count, EquipFlags equipFlags, Random random = null)
 		{
 			if (random == null)
 				random = new Random();
 
-			var appliedEnchants = new List<int>();
-			var forbiddenEnchants = new List<int> { int.MaxValue };
+			var forbiddenEnchants = new List<int>();
+			var appliedEnchants = new ItemEnchantment[count];
 			int n = 0;
 
 			while (n < count)
 			{
-				var idx = random.Next(from.Length - forbiddenEnchants.Count + 1);
-				for (int i = 0; i < forbiddenEnchants.Count; i++)
-					if (idx >= forbiddenEnchants[i])
-						idx++;
-					else
-					{
-						forbiddenEnchants.Insert(i, idx);
-						break;
-					}
-				if ((AllEnchantments[from[idx]].ApplicableTo & equipFlags) != 0)
+				var idxInPool = random.Next(enchPool.Length - forbiddenEnchants.Count);
+				
+				var insertIdx = 0;
+				while (insertIdx < forbiddenEnchants.Count && idxInPool >= forbiddenEnchants[insertIdx])
 				{
-					appliedEnchants.Add(from[idx]);
+					idxInPool++;
+					insertIdx++;
+				}
+				forbiddenEnchants.Insert(insertIdx, idxInPool);
+
+				var ench = _allEnchantments[enchPool[idxInPool]];
+				
+				if ((ench.ApplicableTo & equipFlags) != 0)
+				{
+					appliedEnchants[n] = ench;
 					++n;
 				}
 			}
-			return appliedEnchants.ToArray();
+			return appliedEnchants;
 		}
 	}
 	[Flags]

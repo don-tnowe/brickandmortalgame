@@ -20,7 +20,6 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 			base._Ready();
 			_nodeRayGround = GetNode<RayCast2D>("RayGround");
 			_nodeRayLOS = GetNode<RayCastLOS2D>("LOS");
-			_nodeTarget = (Node2D)GetNode("/root/Node/Hero");
 		}
 
 		public override void PhysMoveBody(float delta)
@@ -37,7 +36,10 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 
 		public void StartMoving()
 		{
-			if (!_nodeRayLOS.HasLOS(_nodeTarget))
+			if (!Godot.Object.IsInstanceValid(_nodeTarget))
+				_nodeTarget = (Node2D)GetNode("/root/Node/Hero");
+				
+			if (_nodeRayLOS.HasLOS(_nodeTarget))
 			{
 				SetXFlipped(_nodeRayLOS.CastTo.x < 0);
 
@@ -114,6 +116,8 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 		}
 	}
 }
+
+
 
 
 

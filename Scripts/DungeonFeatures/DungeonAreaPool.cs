@@ -43,10 +43,17 @@ namespace BrickAndMortal.Scripts.DungeonFeatures
 			var enchCount = _random.Next(5);
 			item.Magic = Math.Max(item.Magic - enchCount * 10, 0);
 
-			item.HeldEnchantments[0] = ItemEnchantment.GetRandomEnchants(_itemEnch, enchCount, (EquipFlags)(1 << item.ItemType), _random);
-			for (int i = 0; i < item.HeldEnchantments[0].Length; i++)
+			item.HeldEnchantments = ItemEnchantment.GetRandomEnchants(_itemEnch, enchCount, (EquipFlags)(1 << item.ItemType), _random);
+			
+			for (int i = 0; i < item.HeldEnchantments.Length; i++)
 			{
-				item.HeldEnchantments[1][i] = (int)(_itemEnchValues[item.HeldEnchantments[0][i]] * (0.5 + _random.NextDouble()));
+				var id = item.HeldEnchantments[i].Id;
+				for (int j = 0; j < _itemEnch.Length; j++)
+					if (_itemEnch[j] == id)
+					{
+						item.HeldEnchantmentValues[i] = (int)(_itemEnchValues[j] * (0.5 + _random.NextDouble()));
+						break;
+					}
 			}
 
 			return item;

@@ -6,7 +6,9 @@ namespace BrickAndMortal.Scripts.HeroStates
 {
 	class HeroStateHurt : HeroStateMoving
 	{
-		public HeroStateHurt(Hero hero) : base(hero) 
+		public HeroStateHurt(Hero hero) : base(hero) { }
+		
+		public override void EnterState() 
 		{
 			_hero.NodeTimerAttack.Stop();
 			_hero.NodeFlipH.Scale = new Vector2(-Math.Sign(_hero.VelocityX), 1);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Combat/Enemies/EnemyIceGolem.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/VFX/EnemyDefeatedBig.tscn" type="PackedScene" id=2]
@@ -6,8 +6,11 @@
 [ext_resource path="res://Scenes/VFX/PtclHit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Hazards/HazardInvisible.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Combat/CombatActor.cs" type="Script" id=6]
-[ext_resource path="res://Scenes/Hazards/EnemyAttacks/IceGolemMelee.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Graphics/Characters/Enemies/EnemyIceGolem.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Combat/CombatAttack.cs" type="Script" id=9]
+[ext_resource path="res://Graphics/VFX/Circle.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/VFX/PtclIce.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Resources/Shaders/MaterialUnshaded.tres" type="Material" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18, 28 )
@@ -18,8 +21,10 @@ radius = 48.0
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 48, 40 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "Attack"
+[sub_resource type="CircleShape2D" id=8]
+radius = 34.5254
+
+[sub_resource type="Animation" id=6]
 length = 1.6
 step = 0.05
 tracks/0/type = "value"
@@ -101,12 +106,9 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "Attack"
-}, {
 "args": [  ],
 "method": "StartMoving"
 } ]
@@ -123,8 +125,112 @@ tracks/7/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Attack/Shape:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.75, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Attack/Circle:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.9, 1.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 0.1 ), Vector2( 0, 2 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Attack/Circle:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.9, 1.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 31, 19 ), Vector2( 35, -8 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Attack/Shape:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0.75, 0.9 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector2( 24, -40 ), Vector2( 32, 8 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Attack/Particles:emitting")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ true, false ]
+}
+tracks/13/type = "bezier"
+tracks/13/path = NodePath("Attack/Particles:position:x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"points": PoolRealArray( 30, -0.25, 0, 0.327721, -12.75, -1, -0.417614, 17.25, 0.170186, 22.25, 40, -0.0798144, -16.75, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75, 1.1 )
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Attack/Particles/FX:emitting")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ true, false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Attack/Particles:modulate:a")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.2, 1.5, 1.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/16/type = "bezier"
+tracks/16/path = NodePath("Attack/Particles:position:y")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"points": PoolRealArray( 29, -0.25, 0, 0, -99.75, -56, -0.21235, 0.25, 0.240162, 0.25, 22, 0, -5.75, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.75, 1.1 )
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 length = 1.2
 loop = true
 step = 0.05
@@ -195,13 +301,14 @@ collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
 PhysicsEnabled = true
+PhysGravity = 0.0
 _sceneDefeated = ExtResource( 2 )
 _sceneHit = ExtResource( 4 )
-_sceneAtk = ExtResource( 7 )
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 4 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="CombatCollision" type="Area2D" parent="."]
 position = Vector2( 0, 3 )
@@ -217,18 +324,11 @@ _health = 60
 position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
-[node name="ContactDmg" parent="CombatCollision" instance=ExtResource( 5 )]
-position = Vector2( -5.96046e-08, 1 )
-scale = Vector2( 1.15, 1.75 )
-Damage = {
-0: 10.0
-}
-Attacker = NodePath("../..")
-
 [node name="HeroProximityAttack" type="Area2D" parent="."]
 position = Vector2( 0, 3 )
 scale = Vector2( 0.75, 1 )
 collision_layer = 0
+collision_mask = 1024
 
 [node name="Shape" type="CollisionShape2D" parent="HeroProximityAttack"]
 position = Vector2( 28, -19 )
@@ -237,6 +337,7 @@ shape = SubResource( 2 )
 [node name="HeroProximityBehind" type="Area2D" parent="."]
 position = Vector2( 0, 3 )
 collision_layer = 0
+collision_mask = 1024
 
 [node name="Shape" type="CollisionShape2D" parent="HeroProximityBehind"]
 position = Vector2( -47, -11 )
@@ -288,17 +389,60 @@ hframes = 4
 vframes = 4
 frame = 5
 
+[node name="ContactDmg" parent="." instance=ExtResource( 5 )]
+position = Vector2( -5.96046e-08, 4 )
+scale = Vector2( 1.15, 1.75 )
+Damage = {
+0: 10.0
+}
+Attacker = NodePath("../CombatCollision")
+
+[node name="Attack" type="Area2D" parent="."]
+show_behind_parent = true
+material = ExtResource( 12 )
+collision_layer = 0
+collision_mask = 9216
+script = ExtResource( 9 )
+Damage = {
+0: 0.0,
+6: 18
+}
+Attacker = NodePath("../CombatCollision")
+
+[node name="Particles" parent="Attack" instance=ExtResource( 11 )]
+position = Vector2( 40, 22 )
+emitting = false
+
+[node name="FX" parent="Attack/Particles" index="0"]
+emitting = false
+
+[node name="Circle" type="Sprite" parent="Attack"]
+self_modulate = Color( 1, 1, 1, 0.752941 )
+position = Vector2( 35, -8 )
+rotation = 2.8798
+scale = Vector2( 1e-05, 2 )
+texture = ExtResource( 10 )
+
+[node name="Shape" type="CollisionShape2D" parent="Attack"]
+position = Vector2( 32, 8 )
+rotation = -0.523598
+scale = Vector2( 0.6, 1 )
+shape = SubResource( 8 )
+disabled = true
+
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Move"
 playback_process_mode = 0
-anims/Attack = SubResource( 4 )
-anims/Move = SubResource( 5 )
+anims/Attack = SubResource( 6 )
+anims/Move = SubResource( 7 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
 [connection signal="Defeated" from="CombatCollision" to="CombatCollision" method="queue_free"]
-[connection signal="area_entered" from="CombatCollision" to="." method="Hurt"]
+[connection signal="Defeated" from="CombatCollision" to="." method="Vanquished"]
+[connection signal="Hit" from="CombatCollision" to="." method="Hurt"]
 [connection signal="area_entered" from="CombatCollision" to="CombatCollision" method="Hurt"]
-[connection signal="body_entered" from="HeroProximityAttack" to="." method="HeroProximity"]
-[connection signal="body_entered" from="HeroProximityBehind" to="." method="HeroProximityBehind"]
+[connection signal="area_entered" from="HeroProximityAttack" to="." method="HeroProximity"]
+[connection signal="area_entered" from="HeroProximityBehind" to="." method="HeroProximityBehind"]
+
+[editable path="Attack/Particles"]

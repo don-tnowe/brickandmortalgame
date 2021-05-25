@@ -7,11 +7,18 @@ namespace BrickAndMortal.Scripts.HeroStates
 	class HeroStateWall : HeroStateMoving
 	{
 		protected int _wallDirection;
-		private bool _jumpBuffered = false;
+		private bool _jumpBuffered;
 
-		public HeroStateWall(Hero hero) : base(hero)
+		public HeroStateWall(Hero hero) : base(hero) { }
+		
+		public override void EnterState() 
 		{
 			_wallDirection = _hero.VelocityXSign;
+			_jumpBuffered = (
+				OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < _hero.InputJumpStart
+				&& _hero.VelocityY >= HeroParameters.JumpInterrupted
+			);
+			
 			_hero.NodeFlipH.Scale = new Vector2(_wallDirection, 1);
 			_hero.NodeRayLedgeGrab.Enabled = true;
 			_hero.NodeRayLedgeGrabHigher.Enabled = true;
@@ -20,11 +27,7 @@ namespace BrickAndMortal.Scripts.HeroStates
 				_hero.VelocityY *= HeroParameters.WallFrictionInstantMult;
 			if (_wallDirection == -Math.Sign(_hero.InputMoveDirection))
 				_hero.CallDeferred("InputMove", -_wallDirection);
-			if (
-					OS.GetTicksMsec() - HeroParameters.MsecJumpBuffer < _hero.InputJumpStart
-					&& _hero.VelocityY >= HeroParameters.JumpInterrupted
-				)
-				_jumpBuffered = true;
+				
 			_hero.NodeAnim.Play("Wall");
 		}
 
@@ -47,10 +50,6 @@ namespace BrickAndMortal.Scripts.HeroStates
 					_hero.MoveAndSlide(new Vector2(-_hero.VelocityX, _hero.VelocityY), Vector2.Up);
 					_hero.VelocityX = _wallDirection;
 					_hero.SwitchState(Hero.States.Air);
-					if (_hero.VelocityY < 0)
-						_hero.NodeAnim.Play("Jump");
-					else
-						_hero.NodeAnim.Play("Fall");
 					return;
 				}
 				CheckGrabRaycast();

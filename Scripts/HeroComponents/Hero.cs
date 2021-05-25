@@ -33,6 +33,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		private bool _canAttack = true;
 
 		private HeroStateBase _controller;
+		private HeroStateBase[] _allStates;
 
 		public InteractableProps.InteractableArea NodeInteractableArea;
 
@@ -84,8 +85,18 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public override void _Ready()
 		{
 			InitializeNodeReferences();
+			
+			_allStates = new HeroStateBase[] {
+				new HeroStateBase(this),
+				new HeroStateGround(this),
+				new HeroStateAir(this),
+				new HeroStateWall(this),
+				new HeroStateLedgeGrab(this),
+				new HeroStateHurt(this)
+			};
 			SwitchState(States.Immobile);
-			SaveData.Screen = 1;
+			
+			SaveData.Screen = 1; 
 		}
 
 		public override void _PhysicsProcess(float delta)
@@ -132,25 +143,10 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		public HeroStateBase SwitchState(States state)
 		{
 			_controller?.ExitState();
+			_controller = _allStates[(int)state];
+			_controller.EnterState();
+			
 			CurState = state;
-			switch (state)
-			{
-				case States.Immobile:
-					_controller = new HeroStateBase(this);
-					break;
-				case States.Ground:
-					_controller = new HeroStateGround(this);
-					break;
-				case States.Air:
-					_controller = new HeroStateAir(this);
-					break;
-				case States.Wall:
-					_controller = new HeroStateWall(this);
-					break;
-				case States.LedgeGrab:
-					_controller = new HeroStateLedgeGrab(this);
-					break;
-			}
 			NodeTimerCoyote.Stop();
 			return _controller;
 		}
@@ -222,7 +218,7 @@ namespace BrickAndMortal.Scripts.HeroComponents
 			else
 				VelocityX = -newVelocity.x;
 			VelocityY = newVelocity.y;
-			_controller = new HeroStateHurt(this);
+			SwitchState(States.Hurt);
 		}
 
 		private void CoyoteFall()
@@ -264,6 +260,8 @@ namespace BrickAndMortal.Scripts.HeroComponents
 		}
 	}
 }
+
+
 
 
 

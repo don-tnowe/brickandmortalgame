@@ -10,6 +10,8 @@ namespace BrickAndMortal.Scripts.HeroStates
 			_hero = hero;
 		}
 
+		public virtual void EnterState() { }
+
 		public virtual void MoveBody(float delta) { }
 
 		public virtual void ExitState() { }

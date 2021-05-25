@@ -76,7 +76,7 @@ namespace BrickAndMortal.Scripts
 				var parsedDict = parsedValues["Items"];
 				ItemBag.Clear();
 				for (int i = 0; i < parsedDict.GetArrayLength(); ++i)
-					ItemBag.AddItem(parsedDict[i].GetString());
+					ItemBag.AddItem(new ItemOperations.Item(parsedDict[i].GetString()));
 
 				var parsedArr = parsedValues["PossibleCustomers"];
 

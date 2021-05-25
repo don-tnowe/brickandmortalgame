@@ -6,14 +6,18 @@ namespace BrickAndMortal.Scripts.HeroStates
 {
 	class HeroStateLedgeGrab : HeroStateWall
 	{
-		private bool _grabbed = false;
+		private bool _grabbed;
 
-		public HeroStateLedgeGrab(Hero hero) : base(hero)
+		public HeroStateLedgeGrab(Hero hero) : base(hero) { }
+		
+		public override void EnterState() 
 		{
+			base.EnterState();
+			_grabbed = false;
 			_hero.NodeRayLedgeGrabV.Enabled = true;
 			_hero.NodeAnim.Play("LedgeGrabPre");
 		}
-
+		
 		public override void MoveBody(float delta)
 		{
 			if (!_grabbed)
@@ -35,7 +39,12 @@ namespace BrickAndMortal.Scripts.HeroStates
 			if (_wallDirection == -Math.Sign(direction))
 			{
 				_grabbed = false;
-				base.InputMove(direction);
+				
+				if (_hero.VelocityY < 0)
+					base.InputJump(true);
+					
+				else
+					base.InputMove(direction);
 			}
 		}
 
