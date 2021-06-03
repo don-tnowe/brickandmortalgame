@@ -7,7 +7,7 @@ namespace BrickAndMortal.Scripts
 	{
 		public override void _Input(InputEvent @event)
 		{
-			if (@event is InputEventMouse)
+			if (@event is InputEventMouseMotion)
 				return;
 				
 			if (@event is InputEventJoypadMotion)

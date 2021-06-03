@@ -196,7 +196,7 @@ namespace BrickAndMortal.Scripts.StoreFeatures
 
 			_currentCustomerNode.PlayAnimation("ItemReceived");
 			_nodeNegotiatedShelf.NodeAnim.Play("NoItem");
-			_nodeNegotiatedShelf.HeldItem = null;
+			_nodeNegotiatedShelf.SetItem(null, -1, _itemsOnShelves);
 			_nodeHero.NodeAnim.PlaybackSpeed = 1;
 
 			NextCustomer();

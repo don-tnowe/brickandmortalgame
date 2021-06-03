@@ -253,6 +253,7 @@ bus = "BGM"
 [node name="Room" parent="." instance=ExtResource( 2 )]
 
 [node name="LightColor" type="CanvasModulate" parent="."]
+visible = false
 
 [connection signal="pressed" from="UI/OverlayMenus/Top/DirL" to="UI/OverlayMenus" method="SwitchMenu" binds= [ -1 ]]
 [connection signal="pressed" from="UI/OverlayMenus/Top/DirR" to="UI/OverlayMenus" method="SwitchMenu" binds= [ 1 ]]

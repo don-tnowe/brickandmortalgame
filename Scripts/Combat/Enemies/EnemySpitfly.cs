@@ -111,8 +111,8 @@ namespace BrickAndMortal.Scripts.Combat.Enemies
 		{
 			base.Hurt(byAttack);
 			
-			if (byAttack.HasNode(byAttack.Attacker))
-				_nodeTarget = (Node2D)byAttack.GetNode(byAttack.Attacker);
+			if (byAttack.HasAttacker())
+				_nodeTarget = byAttack.GetAttacker();
 		}
 	}
 }

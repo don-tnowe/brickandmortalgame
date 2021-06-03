@@ -23,10 +23,15 @@ namespace BrickAndMortal.Scripts.Combat
 		public NodePath Attacker;
 		[Export]
 		public bool AttackerBackfire = false;
-
+		
+		public bool HasAttacker() 
+		{
+			return Attacker != null && HasNode(Attacker) && GetNode(Attacker) is CombatActor;
+		}
+		
 		public CombatActor GetAttacker() 
 		{
-			if (Attacker == null || !HasNode(Attacker) || !(GetNode(Attacker) is CombatActor))
+			if (!HasAttacker())
 				return null; 
 				
 			else 

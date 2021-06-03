@@ -10,15 +10,14 @@ colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 gradient = SubResource( 1 )
 width = 128
 
-[node name="Sunlight0" type="Light2D"]
+[node name="Sunlight0" type="Sprite"]
+self_modulate = Color( 1, 1, 1, 0.121569 )
 material = ExtResource( 1 )
 rotation = -0.261799
 scale = Vector2( 1, 512 )
 z_index = 50
 texture = SubResource( 2 )
 offset = Vector2( 0, 0.5 )
-energy = 0.75
-range_layer_min = -1
 __meta__ = {
 "_edit_lock_": true
 }
